@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WrapperVariable" load_steps=2 format=3 uid="uid://ehpm8ws7uyrm"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Data/WrapperVariable.gd" id="1_gmohi"]
+[ext_resource type="Script" path="res://Assets/Scripts/Data/GD_WrapperVariable.gd" id="1_gmohi"]
 
 [resource]
 script = ExtResource("1_gmohi")
