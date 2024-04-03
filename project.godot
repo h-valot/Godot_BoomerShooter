@@ -12,7 +12,7 @@ config_version=5
 
 config/name="BoomerShooter"
 config/version="v0.1"
-run/main_scene="res://Assets/Prefabs/PF_Character.tscn"
+run/main_scene="res://Assets/Scenes/S_MovementTest.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=240
 config/icon="res://Assets/Graphics/Sprites/T_icon.svg"
