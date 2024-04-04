@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx7ii0hjkccxf"]
+
+[ext_resource type="PackedScene" uid="uid://d0tg7jm3r2gnt" path="res://Assets/Scenes/S_MovementTest.tscn" id="1_j4ihm"]
+
+[node name="SInteractableObjectsTest" type="Node3D"]
+
+[node name="SMovementTest" parent="." instance=ExtResource("1_j4ihm")]
