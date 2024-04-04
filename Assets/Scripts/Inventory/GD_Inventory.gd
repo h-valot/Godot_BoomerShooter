@@ -1,5 +1,7 @@
 extends Node
 
+class_name Inventory
+
 signal on_add_item(item: ItemConfig)
 signal on_remove_item(item: ItemConfig)
 signal on_set_item_quantity(item: ItemConfig)
