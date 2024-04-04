@@ -2,6 +2,7 @@ extends Node
 
 signal on_add_item(item: ItemConfig)
 signal on_remove_item(item: ItemConfig)
+signal on_set_item_quantity(item: ItemConfig)
 
 @export_category("Inventory")
 @export var item_type: ItemConfig;
@@ -45,6 +46,7 @@ func set_item_quantity(item: ItemConfig, quantity: int):
 		content[item] = quantity;
 	else:
 		content[item] = quantity;
+	emit_signal("on_set_item_quantity", item);
 
 func have_item(item: ItemConfig):
 	return content[item] != null && content[item] > 0;
