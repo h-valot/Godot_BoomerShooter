@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://7yoi0lr8mqxy"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Tools/Items/S_WidgetItems.gd" id="1_k63jg"]
+
+[node name="SSuperTool2000" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k63jg")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+offset_right = 1153.0
+offset_bottom = 647.0
+tab_alignment = 1
+
+[node name="Weapons" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Weapons"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -743.0
+offset_bottom = -31.0
+
+[node name="Panel" type="Panel" parent="TabContainer/Weapons"]
+layout_mode = 0
+offset_top = -31.0
+offset_bottom = -31.0
+
+[node name="Consumables" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Consumables"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="TabContainer/Consumables/ItemList"]
+visible = false
+layout_mode = 0
+offset_top = -31.0
+offset_bottom = -31.0
+
+[node name="Miscs" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="TabContainer/Miscs"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="TabContainer/Miscs/ItemList"]
+visible = false
+layout_mode = 2
+offset_top = -31.0
+offset_bottom = -31.0

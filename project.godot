@@ -22,6 +22,10 @@ config/icon="res://Assets/Graphics/Sprites/T_icon.svg"
 settings/stdout/print_fps=true
 settings/stdout/print_gpu_profile=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MyTool_Item/plugin.cfg")
+
 [input]
 
 Forward={
