@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://d2j0vtielarqr"]
+[gd_scene load_steps=3 format=3 uid="uid://d2j0vtielarqr"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="1_5g2s5"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="2_ltmlo"]
 
 [node name="SInventoryTest" type="Control"]
 layout_mode = 3
@@ -7,3 +10,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("1_5g2s5")
+item_type = ExtResource("2_ltmlo")
+content = {
+ExtResource("2_ltmlo"): 1
+}
