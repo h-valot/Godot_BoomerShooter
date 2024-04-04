@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=2 format=3 uid="uid://mh7u247v0q5j"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Items/GD_WeaponConfig.gd" id="1_8quct"]
+
+[resource]
+script = ExtResource("1_8quct")
+switch_speed = 0.5
+mag_size = 30.0
+starting_mag_amount = 10.0
+reload_time = 0.0
+recoil_strength = 10.0
+bullet_amount_per_shot = 10.0
+spread = 10.0
+fire_rate = 0.25
+hit_scan = true
+interrupts_npc_attack = false
+bullet_damage = 10.0
+bullet_start_speed = 30.0
+bullet_lifetime = 3.0
+bullet_gravity_scale = 0.0
+impact_size = 1.0
+name = "Rifle"
+quantity = 1.0
+max_stack = 1.0
+stackable = false
