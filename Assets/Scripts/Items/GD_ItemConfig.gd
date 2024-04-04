@@ -3,6 +3,7 @@ class_name ItemConfig
 
 @export var name : String = ""
 @export var item_mesh : PackedScene
+@export var icon: Texture
 
 @export_group("Stack")
 @export var quantity : float = 1

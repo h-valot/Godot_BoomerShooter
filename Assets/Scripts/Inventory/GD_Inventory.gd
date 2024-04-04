@@ -11,6 +11,7 @@ signal on_set_item_quantity(item: ItemConfig)
 @export var content: Dictionary; 
 
 func add_item(item: ItemConfig, addition: int = 1):
+	emit_signal("on_add_item", item)
 	if !item.stackable:
 		set_item_quantity(item, 1);
 		return 0;
@@ -23,8 +24,6 @@ func add_item(item: ItemConfig, addition: int = 1):
 		return diff;
 	else:
 		set_item_quantity(item, item_quantity + addition);
-	
-	emit_signal("on_add_item", item)
 	return 0;
 
 func remove_item(item: ItemConfig, substraction: int = 1):
@@ -48,7 +47,7 @@ func set_item_quantity(item: ItemConfig, quantity: int):
 		content[item] = quantity;
 	else:
 		content[item] = quantity;
-	emit_signal("on_set_item_quantity", item);
+	emit_signal("on_set_item_quantity", item)
 
 func have_item(item: ItemConfig):
 	return content[item] != null && content[item] > 0;
