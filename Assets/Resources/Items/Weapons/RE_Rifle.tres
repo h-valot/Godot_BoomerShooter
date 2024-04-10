@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponConfig" load_steps=2 format=3 uid="uid://mh7u247v0q5j"]
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=3 format=3 uid="uid://mh7u247v0q5j"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Items/GD_WeaponConfig.gd" id="1_8quct"]
+[ext_resource type="PackedScene" uid="uid://dencii50hkdmw" path="res://Assets/Prefabs/PF_SphereMesh.tscn" id="1_10eqy"]
 
 [resource]
 script = ExtResource("1_8quct")
@@ -12,7 +13,8 @@ recoil_strength = 10.0
 bullet_amount_per_shot = 10.0
 spread = 10.0
 fire_rate = 0.25
-hit_scan = true
+bullet_mesh = ExtResource("1_10eqy")
+hit_scan = false
 interrupts_npc_attack = false
 bullet_damage = 10.0
 bullet_start_speed = 30.0
