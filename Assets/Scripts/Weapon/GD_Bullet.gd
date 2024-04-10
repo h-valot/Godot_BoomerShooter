@@ -9,7 +9,6 @@ var _initialized : bool = false
 
 @onready var mesh_instance_3d = $MeshInstance3D
 @onready var collision_shape_3d = $CollisionShape3D
-@onready var pf_bullet = $".."
 
 signal collided(collider)
 
@@ -25,20 +24,19 @@ func _physics_process(delta):
 	
 	_move(delta)
 	_autodestruction(delta)
-	_check_for_collision()
 
 func _autodestruction(delta):
 	_lifetime -= delta
 	if (_lifetime < 0):
-		pf_bullet.queue_free()
+		self.queue_free()
 
 func _move(delta):
 	_velocity.y += -_weapon_config.bullet_gravity_scale * delta
 	look_at(transform.origin + _velocity.normalized(), Vector3.UP)
 	transform.origin += _velocity * delta
 
-func _check_for_collision():
-	for body in get_overlapping_bodies():
-		print("BULLET: object touched ", body.name)
-		if body.get_class() == "Enemy":
-			body.apply_damage(_weapon_config.bullet_damage)
+func _on_body_entered(body):
+	print("BULLET: object touched ", body.name)
+	if body.get_class() == "Enemy":
+		body.apply_damage(_weapon_config.bullet_damage)
+	self.queue_free()
