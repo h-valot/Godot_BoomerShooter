@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="WeaponConfig" load_steps=3 format=3 uid="uid://mh7u247v0q5j"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="1_8quct"]
 [ext_resource type="PackedScene" uid="uid://dencii50hkdmw" path="res://Assets/Prefabs/PF_SphereMesh.tscn" id="1_10eqy"]
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="2_dwpxe"]
 
 [resource]
-script = ExtResource("1_8quct")
+script = ExtResource("2_dwpxe")
 switch_speed = 0.5
 mag_size = 30.0
 starting_mag_amount = 10.0

@@ -6,7 +6,7 @@ class_name OpponentConfig
 
 @export_group("Movement")
 @export var move_speed : float = 5
-@export var acceleration : float = 1
+@export var acceleration : float = 10
 @export var jump_force : float = 4.5
 @export var fall_speed : float = 9.8
 @export_subgroup("Flying")

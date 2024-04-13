@@ -1,9 +1,5 @@
 extends Node
-class_name Fire
-
-@export_group("References")
-@export var _bullet_prefab : PackedScene
-@export var debug_weapon_config : WeaponConfig
+class_name PlayerFire
 
 var _fire_rate_delay : float = 0.0
 var _firing : bool = false
@@ -11,11 +7,21 @@ var _can_fire_delay : float = 0.0
 var _can_fire : bool = true
 var _space_query
 var _weapon_config : WeaponConfig
+var _bullet_prefab : PackedScene
+var _initialized : bool = false
 
 @onready var _muzzle = $"../Motor/Head/Camera3D/CSGBox3D/Muzzle"
 @onready var _camera_3d = $"../Motor/Head/Camera3D"
 
+func initialize(bullet_prefab : PackedScene, weapon_config : WeaponConfig):
+	_bullet_prefab = bullet_prefab
+	_weapon_config = weapon_config
+	_initialized = true
+
 func _physics_process(delta):
+	if (!_initialized):
+		return
+	
 	_space_query = get_viewport().world_3d.direct_space_state
 
 func _process(delta):
@@ -39,8 +45,8 @@ func _auto_fire(delta):
 		return
 		
 	_fire_rate_delay += delta
-	if (_fire_rate_delay > debug_weapon_config.fire_rate):
-		_fire_rate_delay -= debug_weapon_config.fire_rate
+	if (_fire_rate_delay > _weapon_config.fire_rate):
+		_fire_rate_delay -= _weapon_config.fire_rate
 		_fire()
 
 func _lock_fire(delta):
@@ -48,12 +54,12 @@ func _lock_fire(delta):
 		return
 		
 	_can_fire_delay += delta
-	if (_can_fire_delay > debug_weapon_config.fire_rate):
-		_can_fire_delay -= debug_weapon_config.fire_rate
+	if (_can_fire_delay > _weapon_config.fire_rate):
+		_can_fire_delay -= _weapon_config.fire_rate
 		_can_fire = true
 
 func _fire():
-	if (debug_weapon_config.hit_scan == true):
+	if (_weapon_config.hit_scan == true):
 		_fire_raycast()
 	else:
 		_fire_bullet()
@@ -69,4 +75,4 @@ func _fire_bullet():
 	owner.add_child(new_bullet)
 	new_bullet.transform = _muzzle.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(debug_weapon_config)
+	new_bullet.initialize(_weapon_config)

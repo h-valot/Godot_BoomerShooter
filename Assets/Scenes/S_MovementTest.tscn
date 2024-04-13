@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0tg7jm3r2gnt"]
 
-[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Character.tscn" id="1_iemg8"]
+[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Player.tscn" id="1_iemg8"]
 [ext_resource type="PackedScene" uid="uid://bpft763acmlc2" path="res://Assets/Prefabs/PF_Cube_1x1.tscn" id="2_lu8k6"]
 [ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/PF_Opponent.tscn" id="2_upqix"]
 
@@ -21,16 +21,24 @@ glow_enabled = true
 
 [node name="LevelDesign" type="Node3D" parent="."]
 
-[node name="PF_Character" parent="LevelDesign" instance=ExtResource("1_iemg8")]
+[node name="PF_Player" parent="LevelDesign" instance=ExtResource("1_iemg8")]
 
-[node name="PF_Opponent" parent="LevelDesign" instance=ExtResource("2_upqix")]
+[node name="PF_Opponent" parent="LevelDesign" node_paths=PackedStringArray("target") instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.27393, 1, -0.864389)
+target = NodePath("../PF_Player")
 
-[node name="PF_Opponent2" parent="LevelDesign" instance=ExtResource("2_upqix")]
+[node name="PF_Opponent2" parent="LevelDesign" node_paths=PackedStringArray("target") instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1, 1.8717)
+target = NodePath("../PF_Player")
 
 [node name="PF_Cube_1x1" parent="LevelDesign" instance=ExtResource("2_lu8k6")]
 transform = Transform3D(45.9084, 0, 0, 0, 1.02477, 0, 0, 0, 53.0596, 0, -0.5, 0)
+
+[node name="PF_Cube_1x2" parent="LevelDesign" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1.5)
+
+[node name="PF_Cube_1x3" parent="LevelDesign" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -1.5)
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -40,9 +48,3 @@ environment = SubResource("Environment_6yoed")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
-
-[node name="PF_Cube_1x1" parent="." instance=ExtResource("2_lu8k6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1.5)
-
-[node name="PF_Cube_1x2" parent="." instance=ExtResource("2_lu8k6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -1.5)

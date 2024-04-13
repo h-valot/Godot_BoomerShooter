@@ -35,7 +35,7 @@ func _move(delta):
 	look_at(transform.origin + _velocity.normalized(), Vector3.UP)
 	transform.origin += _velocity * delta
 
-func _on_body_entered(body):
-	if (body as Opponent):
-		body.health_component.update_current_health(-_weapon_config.bullet_damage)
+func _on_area_entered(area):
+	if (area as HitBoxComponent):
+		area.health_component.update_current_health(-_weapon_config.bullet_damage)
 	self.queue_free()
