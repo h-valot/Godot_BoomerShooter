@@ -1,17 +1,19 @@
 extends Node
-class_name PlayerFire
+class_name Weapon
 
-var _fire_rate_delay : float = 0.0
 var _firing : bool = false
-var _can_fire_delay : float = 0.0
+var _fire_rate_delay : float = 0.0
+
 var _can_fire : bool = true
+var _can_fire_delay : float = 0.0
+
 var _space_query
 var _weapon_config : WeaponConfig
 var _bullet_prefab : PackedScene
 var _initialized : bool = false
 
-@onready var _muzzle = $"../Motor/Head/Camera3D/CSGBox3D/Muzzle"
-@onready var _camera_3d = $"../Motor/Head/Camera3D"
+@onready var _muzzle = $"../Head/Camera3D/CSGBox3D/Muzzle"
+@onready var _camera_3d = $"../Head/Camera3D"
 
 func initialize(bullet_prefab : PackedScene, weapon_config : WeaponConfig):
 	_bullet_prefab = bullet_prefab
@@ -72,7 +74,11 @@ func _fire_raycast():
 
 func _fire_bullet():
 	var new_bullet = _bullet_prefab.instantiate()
-	owner.add_child(new_bullet)
+	
+	# Parent the bullet outside the player
+	# Otherwise, bullets moves with the player
+	owner.get_parent().add_child(new_bullet)
+	
 	new_bullet.transform = _muzzle.global_transform
 	new_bullet = new_bullet as Bullet
 	new_bullet.initialize(_weapon_config)

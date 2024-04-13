@@ -1,56 +1,50 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgpgbd57412ef"]
+[gd_scene load_steps=10 format=3 uid="uid://bgpgbd57412ef"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_PlayerMotor.gd" id="1_otssp"]
 [ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Player.gd" id="1_vwxq5"]
 [ext_resource type="Resource" uid="uid://pyndghcxqbg0" path="res://Assets/Resources/Player/RE_PlayerConfig.tres" id="2_6i1sl"]
 [ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="3_mf20g"]
 [ext_resource type="PackedScene" uid="uid://d23duj43qnji1" path="res://Assets/Prefabs/PF_Bullet.tscn" id="3_sdlfp"]
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="4_2am50"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="5_gw5uf"]
-[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_PlayerFire.gd" id="6_4cwoh"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uafqk"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Weapon.gd" id="7_ag12p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
 
-[node name="PF_Player" type="Node3D" node_paths=PackedStringArray("player_motor", "player_fire")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uafqk"]
+
+[node name="PF_Player" type="CharacterBody3D"]
 script = ExtResource("1_vwxq5")
 player_config = ExtResource("2_6i1sl")
-player_motor = NodePath("Motor")
-player_fire = NodePath("Fire")
 bullet_prefab = ExtResource("3_sdlfp")
 weapon_config = ExtResource("3_mf20g")
 
-[node name="Motor" type="CharacterBody3D" parent="."]
+[node name="CharacterBodyCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1_otssp")
-
-[node name="PF_HitBox" parent="Motor" node_paths=PackedStringArray("health_component") instance=ExtResource("5_gw5uf")]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
-health_component = NodePath("../../PF_Health")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Motor/PF_HitBox"]
-shape = SubResource("CapsuleShape3D_uafqk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Motor"]
 shape = SubResource("CapsuleShape3D_kxpnw")
 
-[node name="Head" type="Node3D" parent="Motor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Motor/Head"]
+[node name="Camera3D" type="Camera3D" parent="Head"]
 fov = 90.0
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Motor/Head/Camera3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1.00001, 1.56462e-07, 0, -1.56462e-07, 1.00001, 0.5, -0.292099, -0.556911)
 size = Vector3(0.05, 0.05, 1)
 
-[node name="Muzzle" type="Node3D" parent="Motor/Head/Camera3D/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 0.99999, -1.56459e-07, 0, 1.56459e-07, 0.99999, 0, -0.00790095, -0.49863)
+[node name="Muzzle" type="Node3D" parent="Head/Camera3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99999, -1.56459e-07, 0, 1.56459e-07, 0.99999, 0, 0, -0.5)
+
+[node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_gw5uf")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 1, 0)
+health_component = NodePath("../PF_Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PF_HitBox"]
+shape = SubResource("CapsuleShape3D_uafqk")
 
 [node name="PF_Health" parent="." instance=ExtResource("4_2am50")]
 
-[node name="Inventory" type="Node" parent="."]
+[node name="Inventory" type="Node3D" parent="."]
 
-[node name="Fire" type="Node" parent="."]
-script = ExtResource("6_4cwoh")
+[node name="Weapon" type="Node3D" parent="."]
+script = ExtResource("7_ag12p")

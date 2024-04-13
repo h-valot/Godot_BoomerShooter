@@ -37,5 +37,6 @@ func _move(delta):
 
 func _on_area_entered(area):
 	if (area as HitBoxComponent):
-		area.health_component.update_current_health(-_weapon_config.bullet_damage)
+		if (area.health_component):
+			area.health_component.update_current_health(-_weapon_config.bullet_damage)
 	self.queue_free()

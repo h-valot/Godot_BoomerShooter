@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://i6tjyky8orfu"]
+[gd_scene load_steps=8 format=3 uid="uid://i6tjyky8orfu"]
 
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="1_bdqby"]
 [ext_resource type="Resource" uid="uid://c40vi40gc5si2" path="res://Assets/Resources/Opponents/RE_BaseEnemy.tres" id="2_3yq35"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="2_moaqw"]
-[ext_resource type="Script" path="res://Assets/Scripts/Opponents/GD_OpponentMotor.gd" id="2_obkvg"]
 [ext_resource type="Script" path="res://Assets/Scripts/Opponents/GD_Opponent.gd" id="2_oxxun"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i6e67"]
@@ -12,28 +11,24 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iqglw"]
 
-[node name="PF_Opponent" type="Node3D" node_paths=PackedStringArray("health_component", "motor_component")]
+[node name="PF_Opponent" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("2_oxxun")
 opponent_config = ExtResource("2_3yq35")
-health_component = NodePath("PF_Health")
-motor_component = NodePath("Motor")
 
-[node name="Motor" type="CharacterBody3D" parent="."]
-script = ExtResource("2_obkvg")
-
-[node name="PF_HitBox" parent="Motor" node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
+[node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
-health_component = NodePath("../../PF_Health")
+health_component = NodePath("../PF_Health")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Motor/PF_HitBox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PF_HitBox"]
 shape = SubResource("CapsuleShape3D_i6e67")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Motor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_18p06")
-skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Motor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_iqglw")
 
 [node name="PF_Health" parent="." instance=ExtResource("1_bdqby")]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
