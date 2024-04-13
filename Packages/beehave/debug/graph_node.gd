@@ -2,7 +2,7 @@
 extends GraphNode
 
 
-const BeehaveUtils := preload("res://addons/beehave/utils/utils.gd")
+const BeehaveUtils := preload("res://Packages/beehave/utils/utils.gd")
 
 
 const DEFAULT_COLOR := Color("#dad4cb")

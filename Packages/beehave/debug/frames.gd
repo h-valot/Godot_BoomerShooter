@@ -2,7 +2,7 @@
 extends RefCounted
 
 
-const BeehaveUtils := preload("res://addons/beehave/utils/utils.gd")
+const BeehaveUtils := preload("res://Packages/beehave/utils/utils.gd")
 
 
 const SUCCESS_COLOR := Color("#009944c8")

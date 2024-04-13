@@ -136,7 +136,7 @@ func _get_icon(type: StringName) -> Texture2D:
 	var classes := ProjectSettings.get_global_class_list()
 	for c in classes:
 		if c["class"] == type:
-			var icon_path := c.get("icon", String())
+			var icon_path : Variant= c.get("icon", String())
 			if not icon_path.is_empty():
 				return load(icon_path)
 	return null
@@ -183,7 +183,7 @@ func process_end(instance_id: int) -> void:
 		return
 
 	for child in _get_child_nodes():
-		var status := child.get_meta("status", -1)
+		var status : Variant = child.get_meta("status", -1)
 		match status:
 			0:
 				active_nodes.erase(child.name)
