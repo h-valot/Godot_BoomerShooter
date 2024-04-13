@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://0cringntf7yj"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Components/GD_HitBox.gd" id="1_ttx5k"]
+
+[node name="PF_HitBox" type="Area3D"]
+script = ExtResource("1_ttx5k")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

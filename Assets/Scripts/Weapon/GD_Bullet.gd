@@ -36,7 +36,6 @@ func _move(delta):
 	transform.origin += _velocity * delta
 
 func _on_body_entered(body):
-	print("BULLET: object touched ", body.name)
-	if body.get_class() == "Enemy":
-		body.apply_damage(_weapon_config.bullet_damage)
+	if (body as Opponent):
+		body.health_component.update_current_health(-_weapon_config.bullet_damage)
 	self.queue_free()
