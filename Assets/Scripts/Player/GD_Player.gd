@@ -5,6 +5,7 @@ class_name Player
 @export var player_config : PlayerConfig
 @export var bullet_prefab : PackedScene
 @export var weapon_config : WeaponConfig
+@export var rso_player_position : WrapperVariable
 
 var _current_movement_speed : float
 var _direction = Vector3.ZERO
@@ -27,6 +28,7 @@ func _physics_process(delta):
 	_sprint()
 	_move(delta)
 	move_and_slide()
+	rso_player_position.value = global_transform.origin
 
 func _move(delta):
 	# Get the input direction and handle the movement/deceleration
