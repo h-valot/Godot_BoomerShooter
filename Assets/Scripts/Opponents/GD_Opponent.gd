@@ -14,7 +14,6 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 signal on_opponent_dies
 
 func _ready():
-	_navigation_agent_3d.target_position = null
 	_health_component.initialize(opponent_config.base_health, opponent_config.health_regeneration, opponent_config.base_armor)
 	_health_component.connect("on_health_reached_zero", _die)
 	rso_player_position.connect("on_changed", _update_target_position)
@@ -25,6 +24,11 @@ func _die():
 
 var debug_timer : float = 0
 func _physics_process(delta):
+	
+	if (debug_timer < 1):
+		debug_timer += delta
+		return
+	
 	_apply_gravity(delta)
 	_move(delta)
 	move_and_slide()
@@ -34,8 +38,6 @@ func _apply_gravity(delta):
 		velocity.y -= _gravity * delta
 
 func _move(delta):
-	if (_navigation_agent_3d.target_position == null):
-		return
 	_direction = (_navigation_agent_3d.get_next_path_position() - global_transform.origin).normalized() * opponent_config.move_speed
 	velocity = velocity.move_toward(_direction, 0.25)
 
