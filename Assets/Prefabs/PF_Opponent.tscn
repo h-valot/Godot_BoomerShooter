@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://i6tjyky8orfu"]
 
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="1_bdqby"]
-[ext_resource type="Resource" uid="uid://c40vi40gc5si2" path="res://Assets/Resources/Opponents/RE_BaseEnemy.tres" id="2_3yq35"]
+[ext_resource type="Resource" uid="uid://c40vi40gc5si2" path="res://Assets/Resources/Opponents/RE_OpponentRange.tres" id="2_3yq35"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="2_moaqw"]
 [ext_resource type="Script" path="res://Assets/Scripts/Opponents/GD_Opponent.gd" id="2_oxxun"]
 [ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="3_81be2"]
@@ -14,6 +14,8 @@
 
 [node name="PF_Opponent" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("2_oxxun")
 opponent_config = ExtResource("2_3yq35")
 rso_player_position = ExtResource("3_81be2")
@@ -34,3 +36,6 @@ shape = SubResource("CapsuleShape3D_iqglw")
 [node name="PF_Health" parent="." instance=ExtResource("1_bdqby")]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.227305, 0, 0, 0, 0.265188, 0, 0, 0, 1.0634, -0.0170318, 0.405434, -0.573797)

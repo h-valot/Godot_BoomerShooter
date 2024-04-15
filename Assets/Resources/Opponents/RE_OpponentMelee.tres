@@ -1,20 +1,20 @@
-[gd_resource type="Resource" script_class="OpponentConfig" load_steps=2 format=3 uid="uid://c40vi40gc5si2"]
+[gd_resource type="Resource" script_class="OpponentConfig" load_steps=2 format=3 uid="uid://b470foxtbuv0"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_OpponentConfig.gd" id="1_4x14m"]
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_OpponentConfig.gd" id="1_j31td"]
 
 [resource]
-script = ExtResource("1_4x14m")
+script = ExtResource("1_j31td")
 name = ""
 move_speed = 5.0
-acceleration = 1.0
+acceleration = 10.0
 jump_force = 4.5
 fall_speed = 9.8
 flight_height = 0.0
 base_health = 50.0
 health_regeneration = 0.0
 base_armor = 0.0
-attack_type = 1
-attack_range = Vector2(0, 1)
+attack_type = 0
+attack_range = Vector2(0, 4)
 attack_damage = 10.0
 attack_rate = 1.0
 spread = 0.0
