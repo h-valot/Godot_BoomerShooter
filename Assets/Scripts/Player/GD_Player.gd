@@ -32,8 +32,8 @@ func _physics_process(delta):
 
 func _move(delta):
 	# Get the input direction and handle the movement/deceleration
-	var _new_input = Input.get_vector("Left", "Right", "Forward", "Backward")
-	var _new_direction = (transform.basis * Vector3(_new_input.x, 0, _new_input.y)).normalized()
+	var _new_input: Vector2 = Input.get_vector("Left", "Right", "Forward", "Backward")
+	var _new_direction: Vector3 = (transform.basis * Vector3(_new_input.x, 0, _new_input.y)).normalized()
 	
 	# Handle air-control
 	if not is_on_floor():
