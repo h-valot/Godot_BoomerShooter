@@ -17,8 +17,9 @@ var _space_query : PhysicsDirectSpaceState3D
 var _result : Dictionary
 var _centered_player_position : Vector3
 var _sight_enabled : bool
-var _is_attacking : bool
 var _target_in_sight : bool
+var _is_seeking : bool
+var _is_attacking : bool
 
 var _custom_timer : float
 
@@ -31,6 +32,7 @@ signal on_opponent_dies
 
 
 func _ready():
+
 	_health_component.initialize(opponent_config.base_health, opponent_config.health_regeneration, opponent_config.base_armor)
 	_health_component.connect("on_health_reached_zero", _die)
 	rso_player_position.connect("on_changed", _update_target_position)
@@ -38,15 +40,18 @@ func _ready():
 
 
 func _physics_process(delta):
+
 	_process_movement(delta)
 	_space_query = get_viewport().world_3d.direct_space_state
 
 
 func _process(delta):
+
 	_process_ai_behaviour(delta)
 
 
 func _die():
+
 	emit_signal("on_opponent_dies")
 	self.queue_free()
 
@@ -54,34 +59,41 @@ func _die():
 #region MOVEMENT
 var debug_timer : float = 0
 func _process_movement(delta):
+
 	if (debug_timer < 1):
+
 		debug_timer += delta
 		return
 	
 	_apply_gravity(delta)
-	_move(delta)
-	_look_at(_navigation_agent_3d.target_position)
+	_move()
+	_look_at(_navigation_agent_3d.get_next_path_position())
 	move_and_slide()
 
 
 func _apply_gravity(delta):
+
 	if not is_on_floor():
+
 		velocity.y -= _gravity * delta
 
 
-func _move(delta):
+func _move():
+
 	if (!_move_funtion_enabled):
+
 		velocity = Vector3(0, 0, 0)
-		return
-	
+		return		
+
 	_direction = (_navigation_agent_3d.get_next_path_position() - global_position).normalized() * opponent_config.move_speed
 	velocity = velocity.move_toward(_direction, 0.25)
 
 
 func _look_at(target : Vector3):
+
 	if (!_look_funtion_enabled):
 		return
-	
+
 	if (global_transform.origin.is_equal_approx(target)):
 		return
 	
@@ -89,7 +101,9 @@ func _look_at(target : Vector3):
 
 
 func _jump():
+
 	if is_on_floor():
+
 		velocity.y = opponent_config.jump_force
 #endregion
 
@@ -107,6 +121,8 @@ func _process_ai_behaviour(delta):
 	# Get distance from opponent to target
 	_distance_from_target = (_navigation_agent_3d.target_position - global_transform.origin).length()
 	
+
+
 	_handle_sight()
 	_handle_aggro()
 
@@ -164,7 +180,6 @@ func _check_target_out_of_sight():
 		_seeking_target()
 		
 
-var _is_seeking : bool
 func _seeking_target():
 
 	if (_is_seeking):
