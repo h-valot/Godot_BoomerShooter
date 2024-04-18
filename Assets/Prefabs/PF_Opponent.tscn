@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://i6tjyky8orfu"]
+[gd_scene load_steps=10 format=3 uid="uid://i6tjyky8orfu"]
 
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="1_bdqby"]
 [ext_resource type="Resource" uid="uid://c40vi40gc5si2" path="res://Assets/Resources/Opponents/RE_OpponentRange.tres" id="2_3yq35"]
@@ -11,6 +11,8 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_18p06"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iqglw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nwa1i"]
 
 [node name="PF_Opponent" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -27,15 +29,24 @@ health_component = NodePath("../PF_Health")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PF_HitBox"]
 shape = SubResource("CapsuleShape3D_i6e67")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="CapsuleMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_18p06")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CapsuleCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_iqglw")
 
 [node name="PF_Health" parent="." instance=ExtResource("1_bdqby")]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="[DEBUG]Head" type="CSGBox3D" parent="."]
 transform = Transform3D(0.227305, 0, 0, 0, 0.265188, 0, 0, 0, 1.0634, -0.0170318, 0.405434, -0.573797)
+
+[node name="AISight" type="Area3D" parent="."]
+transform = Transform3D(7.07107, 0, 7.07107, 0, 3, 0, -7.07107, 0, 7.07107, 0, 0, -7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AISight"]
+shape = SubResource("BoxShape3D_nwa1i")
+
+[connection signal="area_entered" from="AISight" to="." method="_on_ai_sight_area_entered"]
+[connection signal="area_exited" from="AISight" to="." method="_on_ai_sight_area_exited"]

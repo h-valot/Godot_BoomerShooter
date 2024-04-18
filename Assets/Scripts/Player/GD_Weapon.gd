@@ -69,7 +69,7 @@ func _fire():
 func _fire_raycast():
 	var query = PhysicsRayQueryParameters3D.create(_camera_3d.global_position, _camera_3d.global_position - _camera_3d.global_transform.basis.z * 100)
 	var result  = _space_query.intersect_ray(query)
-	if result:
+	if (result):
 		print("WEAPON: raycast touched: ", result.collider.name)
 
 func _fire_bullet():

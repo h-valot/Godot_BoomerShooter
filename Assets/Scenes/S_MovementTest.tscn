@@ -27,11 +27,8 @@ glow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0709593, 0, 14.3208)
 
 [node name="PF_OpponentMelee" parent="Entities" instance=ExtResource("2_upqix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.72378, 1, 2.02464)
-opponent_config = ExtResource("3_il6ey")
-
-[node name="PF_OpponentRange" parent="Entities" instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1, 1.8717)
+opponent_config = ExtResource("3_il6ey")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = ExtResource("4_qsb15")
@@ -40,10 +37,10 @@ navigation_mesh = ExtResource("4_qsb15")
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, -25, 0)
 
 [node name="PF_Cube_1x1" parent="NavigationRegion3D" instance=ExtResource("2_lu8k6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1.5)
+transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, -0.156007, -1.5)
 
 [node name="PF_Cube_1x2" parent="NavigationRegion3D" instance=ExtResource("2_lu8k6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -1.5)
+transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, 2.15601, -1.5)
 
 [node name="Environment" type="Node3D" parent="."]
 
