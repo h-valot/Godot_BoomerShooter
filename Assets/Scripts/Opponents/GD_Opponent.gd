@@ -157,34 +157,49 @@ func _check_target_out_of_sight():
 		
 		else:
 			
-			_target_in_sight = false
+			_seeking_target()
 
 	
-	if (_distance_from_target >= opponent_config.aggro_loss_range
-		|| !_target_in_sight):
+	if (_distance_from_target >= opponent_config.aggro_loss_range):
+		_seeking_target()
 		
-		print("OPPONENT: Target out of sight")
-		_target_in_sight = false
 
-		# Move to the last player position
-		_navigation_agent_3d.target_position = _centered_player_position
+var _is_seeking : bool
+func _seeking_target():
 
-		# Wait for a possible attack to land
-		# Or to be near the last player position
-		while (_is_attacking 
-			|| (_centered_player_position - _navigation_agent_3d.target_position).length() >= 0.5):
-			
-			await get_tree().create_timer(0.1).timeout
-				
-		await _wait_for(3)
+	if (_is_seeking):
+		return
+	_is_seeking = true;
 
-		if (_target_in_sight):
+	print("OPPONENT: Target out of sight. Seeking for the target")
+	_target_in_sight = false
+
+	# Move to the last player position
+	_navigation_agent_3d.target_position = _centered_player_position
+
+	# Wait for a possible attack to land
+	# Or to be near the last player position
+	while (_is_attacking 
+		|| (_centered_player_position - _navigation_agent_3d.target_position).length() >= 0.5):
+		
+		await get_tree().create_timer(0.1).timeout
+		print(".")
 			
-			print("OPPONENT: Target lost")
-			_sight_enabled = false
-			
-			# Getting back to the idle position
-			_navigation_agent_3d.target_position = _idle_position
+	await _wait_for(3)
+
+	if (!_target_in_sight):
+		
+		print("OPPONENT: Target lost. Getting back to the idle position")
+		_sight_enabled = false
+
+		# Getting back to the idle position
+		_navigation_agent_3d.target_position = _idle_position
+	
+	else:
+
+		print("OPPONENT: Target still in sight")
+	
+	_is_seeking = false
 
 
 func _handle_aggro():
@@ -224,6 +239,10 @@ func _on_ai_sight_area_entered(area):
 
 	if (area.get_parent() as Player):
 
+		if (_sight_enabled):
+			return
+		
+		print("OPPONENT: Sight functions (re)activated")
 		_sight_enabled = true
 
 
