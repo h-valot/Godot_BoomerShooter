@@ -7,7 +7,6 @@ class_name Opponent
 @export var rso_player_position : WrapperVariable
 
 var _direction = Vector3.ZERO
-var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _idle_position : Vector3
 var _move_funtion_enabled : bool = true
 var _look_funtion_enabled : bool = true
@@ -17,11 +16,11 @@ var _space_query : PhysicsDirectSpaceState3D
 var _result : Dictionary
 var _centered_player_position : Vector3
 var _sight_enabled : bool
-var _target_in_sight : bool
-var _is_seeking : bool
+var _is_aggroed : bool
 var _is_attacking : bool
 
 var _custom_timer : float
+var _is_alive : bool = true
 
 @onready var _health_component : HealthComponent = $PF_Health
 @onready var _navigation_agent_3d = $NavigationAgent3D
@@ -36,7 +35,10 @@ func _ready():
 	_health_component.initialize(opponent_config.base_health, opponent_config.health_regeneration, opponent_config.base_armor)
 	_health_component.connect("on_health_reached_zero", _die)
 	rso_player_position.connect("on_changed", _update_target_position)
+	_health_component.connect("on_health_changed", _start_aggro)
+	_health_component.connect("on_armor_changed", _start_aggro)
 	_idle_position = global_transform.origin
+	#global_position = Vector3(global_position.x, global_position.y + opponent_config.flight_height, global_position.z) 
 
 
 func _physics_process(delta):
@@ -52,6 +54,7 @@ func _process(delta):
 
 func _die():
 
+	_is_alive = false
 	emit_signal("on_opponent_dies")
 	self.queue_free()
 
@@ -73,9 +76,14 @@ func _process_movement(delta):
 
 func _apply_gravity(delta):
 
-	if not is_on_floor():
+	if is_on_floor():
+		return
 
-		velocity.y -= _gravity * delta
+	if (opponent_config.flight_height > 0
+		&& _is_alive):
+		return
+
+	velocity.y -= opponent_config.gravity * delta
 
 
 func _move():
@@ -121,8 +129,6 @@ func _process_ai_behaviour(delta):
 	# Get distance from opponent to target
 	_distance_from_target = (_navigation_agent_3d.target_position - global_transform.origin).length()
 	
-
-
 	_handle_sight()
 	_handle_aggro()
 
@@ -138,7 +144,7 @@ func _handle_sight():
 
 func _check_target_in_sight():
 
-	if (_target_in_sight):
+	if (_is_aggroed):
 		return
 
 	if (_distance_from_target > opponent_config.aggro_range):
@@ -152,76 +158,38 @@ func _check_target_in_sight():
 		
 		if (_result.collider as Player):
 			
-			print("OPPONENT: Target in sight")
-			_target_in_sight = true
+			_start_aggro()
 	
 
 func _check_target_out_of_sight():
 
-	if (!_target_in_sight):
+	if (!_is_aggroed):
 		return
 	
-	_centered_player_position =  Vector3(rso_player_position.value.x, rso_player_position.value.y + 1.5, rso_player_position.value.z)
+	if (_distance_from_target >= opponent_config.loss_distance_from_idle):
 
-	# Cast a ray3D toward the player position to verify if there is any obstacles
-	_result = _space_query.intersect_ray(PhysicsRayQueryParameters3D.create(_debug_head.global_position, _centered_player_position))
-	if (_result):
-		
-		if (_result.collider as Player):
-			
-			pass
-		
-		else:
-			
-			_seeking_target()
-
-	
-	if (_distance_from_target >= opponent_config.aggro_loss_range):
-		_seeking_target()
-		
-
-func _seeking_target():
-
-	if (_is_seeking):
-		return
-	_is_seeking = true;
-
-	print("OPPONENT: Target out of sight. Seeking for the target")
-	_target_in_sight = false
-
-	# Move to the last player position
-	_navigation_agent_3d.target_position = _centered_player_position
-
-	# Wait for a possible attack to land
-	# Or to be near the last player position
-	while (_is_attacking 
-		|| (_centered_player_position - _navigation_agent_3d.target_position).length() >= 0.5):
-		
-		await get_tree().create_timer(0.1).timeout
-		print(".")
-			
-	await _wait_for(3)
-
-	if (!_target_in_sight):
-		
-		print("OPPONENT: Target lost. Getting back to the idle position")
+		_is_aggroed = false
 		_sight_enabled = false
 
 		# Getting back to the idle position
+		print("OPPONENT: Target lelf the max aggro distance. Getting back to idle position.")
 		_navigation_agent_3d.target_position = _idle_position
-	
-	else:
 
-		print("OPPONENT: Target still in sight")
-	
-	_is_seeking = false
+
+func _start_aggro():
+
+	if (_is_aggroed):
+		return
+
+	print("OPPONENT: Target aggroed")
+	_is_aggroed = true
 
 
 func _handle_aggro():
 
 	# Exit, if the opponent is already attacking
 	if (_is_attacking
-		|| !_target_in_sight):
+		|| !_is_aggroed):
 		return
 		
 	# Exit, if the opponent is out of attack range
@@ -271,7 +239,7 @@ func _on_ai_sight_area_exited(area):
 
 func _update_target_position():
 
-	if (!_target_in_sight):
+	if (!_is_aggroed):
 		return
 	
 	_navigation_agent_3d.target_position = rso_player_position.value

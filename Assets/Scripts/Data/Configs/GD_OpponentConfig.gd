@@ -8,21 +8,23 @@ class_name OpponentConfig
 @export var move_speed : float = 5
 @export var acceleration : float = 10
 @export var jump_force : float = 4.5
-@export var fall_speed : float = 9.8
+@export var gravity : float = 9.8
 
 @export_subgroup("Flying")
 ## Offset the y position of the opponent. If set to 0, it stays on ground.
+## NOT IMPLEMENTED YET - We can not just offset the position of a node. 
+## Even though, offsetted opponent moves on the same navigation mesh as the landed one. 
+## So, if a land opponent avoid a wall, flying one will do so.
 @export var flight_height : float = 0
-
 
 
 @export_group("Health")
 ## Set the current health of the opponent to this base health on game launches.
 @export var base_health : float = 50
-## Increament current health by health regeneration every seconds.
+## Increament 'current_health' by 'health_regeneration' every seconds.
 @export var health_regeneration : float = 1
+## TODO - Extra life that can not be regenerate
 @export var base_armor : float = 0
-
 
 
 @export_group("Attack")
@@ -34,42 +36,42 @@ class_name OpponentConfig
 @export var attack_damage : float = 10
 
 @export_subgroup("Projectile")
-## Shot fired in one second.
-@export var attack_rate : float = 1
-## Angle of bullets spread in degree.
-@export var spread : float = 0
-## Number of projectile throw per shot
-@export var projectile_per_attack : int = 1
 ## Speed of projectiles
 @export var projectile_speed : float = 5
+## Number of projectile throw per shot
+@export var projectile_per_shot : int = 1
+## Angle of bullets spread in degree.
+@export var spread : float = 0
 
 @export_subgroup("Charge")
+## Delay while the opponent continue moving towards the target before attacking
 @export var first_charge_time : float = 1
+## Delay while the opponent stops moving right before attacking
 @export var final_charge_time : float = 1
-@export var lock_time : float = 1
 
 @export_subgroup("Zone")
+## TODO - Size of a collider area created at the impact position of a projectile
 @export var zone_size : float = 1
-@export var zone_duration : float = 1
+## TODO - Lifetime of the impact area
+@export var zone_lifetime : float = 1
 
 @export_subgroup("Recovery")
+## Delay while the opponent stops moving right after landing an attack
 @export var attack_recovery_time : float = 1
+## TODO - Delay while the opponent stops moving after being interrupted
 @export var interrupt_revorery_time : float = 1
 
 
-
 @export_group("Behaviour")
-@export_enum("RANGE", "REACTION", "TRIGGER") var aggro_type : int = 1
-## If the distance between the opponent and the character is below this threshold, the opponent aggro the character
+@export var custom_aggro_triggers : Array = []
+## If the distance between the idle position of the opponent and the character is below this threshold, the opponent aggro the character
 @export var aggro_range : float = 10
-## If the distance between the opponent and the character is above this threshold, the opponent loses the aggro
-@export var aggro_loss_range : float = 15
-@export var reaction_time : float = 1
+## If the distance between the idle position of the opponent and the character is above this threshold, the opponent loses the aggro
+@export var loss_distance_from_idle : float = 100
 ## If the weapon used by the weapon interrupts and this opponent can be interrupt, the attack of the opponent will be interrupted 
 @export var can_be_interrupted : bool = false
 
 
-
 @export_group("Death")
-## Event called on opponent death
+## TODO - Event called on opponent death
 @export var event_on_death : float = -1
