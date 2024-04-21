@@ -1,6 +1,9 @@
 extends Node
 class_name Weapon
 
+@export_category("References")
+@export var health_component : HealthComponent
+
 var _firing : bool = false
 var _fire_rate_delay : float = 0.0
 
@@ -119,4 +122,4 @@ func _fire_bullet():
 	
 	new_bullet.transform = _muzzle.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(_weapon_config)
+	new_bullet.initialize(_weapon_config, health_component.receiver_type)

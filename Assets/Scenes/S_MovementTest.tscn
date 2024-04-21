@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0tg7jm3r2gnt"]
+[gd_scene load_steps=8 format=3 uid="uid://d0tg7jm3r2gnt"]
 
 [ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Player.tscn" id="1_iemg8"]
 [ext_resource type="PackedScene" uid="uid://bpft763acmlc2" path="res://Assets/Prefabs/PF_Cube_1x1.tscn" id="2_lu8k6"]
 [ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/PF_Opponent.tscn" id="2_upqix"]
-[ext_resource type="Resource" uid="uid://b470foxtbuv0" path="res://Assets/Resources/Opponents/RE_OpponentMelee.tres" id="3_il6ey"]
 [ext_resource type="NavigationMesh" uid="uid://cfix7url5y7n2" path="res://Assets/Resources/NM_MovementTest.tres" id="4_qsb15"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8ulj"]
@@ -26,9 +25,8 @@ glow_enabled = true
 [node name="PF_Player" parent="Entities" instance=ExtResource("1_iemg8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0709593, 0, 14.3208)
 
-[node name="PF_OpponentMelee" parent="Entities" instance=ExtResource("2_upqix")]
+[node name="PF_Opponent" parent="Entities" instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1.25303, 1.8717)
-opponent_config = ExtResource("3_il6ey")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = ExtResource("4_qsb15")

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="OpponentConfig" load_steps=2 format=3 uid="uid://c40vi40gc5si2"]
+[gd_resource type="Resource" script_class="OpponentConfig" load_steps=3 format=3 uid="uid://c40vi40gc5si2"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_OpponentConfig.gd" id="1_ypm8p"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="2_d1fok"]
 
 [resource]
 script = ExtResource("1_ypm8p")
@@ -16,9 +17,7 @@ base_armor = 0.0
 attack_type = 1
 attack_range = Vector2(0, 10)
 attack_damage = 10.0
-projectile_speed = 5.0
-projectile_per_shot = 1
-spread = 0.0
+weapon_used = ExtResource("2_d1fok")
 first_charge_time = 1.0
 final_charge_time = 1.0
 zone_size = 1.0

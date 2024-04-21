@@ -45,8 +45,10 @@ health_component = NodePath("../PF_Health")
 shape = SubResource("CapsuleShape3D_uafqk")
 
 [node name="PF_Health" parent="." instance=ExtResource("4_2am50")]
+receiver_type = 1
 
 [node name="Inventory" type="Node3D" parent="."]
 
-[node name="Weapon" type="Node3D" parent="."]
+[node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("7_ag12p")
+health_component = NodePath("../PF_Health")

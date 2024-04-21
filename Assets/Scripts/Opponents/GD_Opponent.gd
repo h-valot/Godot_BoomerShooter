@@ -5,6 +5,7 @@ class_name Opponent
 @export_category("References")
 @export var opponent_config : OpponentConfig
 @export var rso_player_position : WrapperVariable
+@export var _bullet_prefab : PackedScene
 
 var _direction = Vector3.ZERO
 var _idle_position : Vector3
@@ -328,8 +329,22 @@ func _lock_and_finish_charge():
 func _shoot():
 
 	# TODO - Fire a bullet toward the opponent "looking at" diretion
+	_fire_bullet()
 	
 	# Wait for the recovery time
 	await _wait_for(opponent_config.attack_recovery_time)
+
+
+func _fire_bullet():
+	
+	var new_bullet = _bullet_prefab.instantiate()
+	
+	# Parent the bullet outside the player
+	# Otherwise, bullets moves with the player
+	owner.get_parent().add_child(new_bullet)
+	
+	new_bullet.transform = _debug_head.global_transform
+	new_bullet = new_bullet as Bullet
+	new_bullet.initialize(opponent_config.weapon_used, _health_component.receiver_type)
 #endregion
 #endregion

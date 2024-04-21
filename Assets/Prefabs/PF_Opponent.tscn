@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://i6tjyky8orfu"]
+[gd_scene load_steps=11 format=3 uid="uid://i6tjyky8orfu"]
 
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="1_bdqby"]
 [ext_resource type="Resource" uid="uid://c40vi40gc5si2" path="res://Assets/Resources/Opponents/RE_OpponentRange.tres" id="2_3yq35"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="2_moaqw"]
 [ext_resource type="Script" path="res://Assets/Scripts/Opponents/GD_Opponent.gd" id="2_oxxun"]
 [ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="3_81be2"]
+[ext_resource type="PackedScene" uid="uid://d23duj43qnji1" path="res://Assets/Prefabs/PF_Bullet.tscn" id="4_sug0f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i6e67"]
 
@@ -21,6 +22,7 @@ axis_lock_angular_z = true
 script = ExtResource("2_oxxun")
 opponent_config = ExtResource("2_3yq35")
 rso_player_position = ExtResource("3_81be2")
+_bullet_prefab = ExtResource("4_sug0f")
 
 [node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
@@ -36,6 +38,7 @@ mesh = SubResource("CapsuleMesh_18p06")
 shape = SubResource("CapsuleShape3D_iqglw")
 
 [node name="PF_Health" parent="." instance=ExtResource("1_bdqby")]
+receiver_type = 2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

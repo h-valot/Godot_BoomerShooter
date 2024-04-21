@@ -36,12 +36,8 @@ class_name OpponentConfig
 @export var attack_damage : float = 10
 
 @export_subgroup("Projectile")
-## Speed of projectiles
-@export var projectile_speed : float = 5
-## Number of projectile throw per shot
-@export var projectile_per_shot : int = 1
-## Angle of bullets spread in degree.
-@export var spread : float = 0
+## Weapon used to shot projectiles
+@export var weapon_used : WeaponConfig
 
 @export_subgroup("Charge")
 ## Delay while the opponent continue moving towards the target before attacking

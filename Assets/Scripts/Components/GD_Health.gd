@@ -1,6 +1,12 @@
 extends Node
 class_name HealthComponent
 
+@export_category("Tweakable values")
+## NEUTRAL can be damaged by every source of damage including itself. 
+## PLAYER can be damaged by NEUTRAL and OPPONENT but not by itself.  
+## OPPONENT can be damaged by PLAYER and NEUTRAL but not by itself.
+@export_enum("NEUTRAL", "PLAYER", "OPPONENT") var receiver_type : int = 0 
+
 var _base_health : float
 var _current_health : float
 var _health_regeneration : float
@@ -33,7 +39,12 @@ func _process(delta):
 		update_current_health(_health_regeneration)
 
 
-func update_current_health(amount : float):
+func update_current_health(amount : float, causer_type : int = 0):
+
+	# Check causer and receiver receiver_type
+	if (causer_type != 0
+		&& receiver_type == causer_type):
+		return
 
 	# Clamp heal to the max '_base_health'
 	if (_current_health + amount >= _base_health):
@@ -59,6 +70,7 @@ func update_current_health(amount : float):
 
 	# Handle health
 	_current_health += amount
+	print("HEALTH: Health changed by ", amount)
 	emit_signal("on_health_changed")
 
 	if (_current_health <= 0):
