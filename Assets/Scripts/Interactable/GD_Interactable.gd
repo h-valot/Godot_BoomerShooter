@@ -24,18 +24,13 @@ func _ready():
 		trigger_box.on_overlap.connect(on_overlap)
 		OnGetInteraction.connect(on_get_interaction)
 
-func _process(_delta):
-	interact()
-
 ## Called when receive an interaction
 func on_get_interaction(other: Interactable):
-	print("get interaction")
 	# Skip if any condition failed
 	for condition in other.condition_array:
 		if (!condition.compare(other, self)):
 			return
 	OnInteract.emit(other)
-	print("Interaction successful")
 
 func on_overlap(other: Node):
 	var other_interactible = other.get_parent() as Interactable
@@ -43,9 +38,7 @@ func on_overlap(other: Node):
 		current_other_interactable = other_interactible
 
 func interact():
-	print("interact")
 	if (current_other_interactable != null):
-		print("have other interactable")
 		current_other_interactable.OnGetInteraction.emit(self)
 
 func _enter_tree():
