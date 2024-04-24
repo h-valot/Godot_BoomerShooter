@@ -22,7 +22,7 @@ tab_alignment = 1
 [node name="Weapons" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 
-[node name="ItemList" type="ItemList" parent="TabContainer/Weapons"]
+[node name="WeaponList" type="ItemList" parent="TabContainer/Weapons"]
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,13 +31,310 @@ offset_top = 3.0
 offset_right = -782.0
 offset_bottom = -5.0
 
-[node name="Button" type="Button" parent="TabContainer/Weapons"]
+[node name="B_AddWeapon" type="Button" parent="TabContainer/Weapons/WeaponList"]
 layout_mode = 0
-offset_left = 336.0
-offset_top = 3.0
-offset_right = 370.0
-offset_bottom = 34.0
+offset_left = 331.0
+offset_right = 365.0
+offset_bottom = 31.0
 text = "+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Weapons/WeaponList"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 47.0
+offset_right = 356.0
+offset_bottom = 598.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Weapons/WeaponList/ScrollContainer"]
+custom_minimum_size = Vector2(330, 50)
+layout_mode = 2
+
+[node name="B_ShowDetailsWeapon" type="Button" parent="TabContainer/Weapons/WeaponList/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(17.77, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="L_NameWeapon" type="Label" parent="TabContainer/Weapons/WeaponList/ScrollContainer/HBoxContainer/B_ShowDetailsWeapon"]
+layout_mode = 2
+offset_left = 12.0
+offset_top = 13.0
+offset_right = 302.0
+offset_bottom = 36.0
+text = "Weapon Text"
+
+[node name="B_DeleteWeapon" type="Button" parent="TabContainer/Weapons/WeaponList/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="WeaponDetailsList" type="ItemList" parent="TabContainer/Weapons"]
+layout_mode = 0
+offset_left = 378.0
+offset_top = 3.0
+offset_right = 1148.0
+offset_bottom = 611.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Weapons/WeaponDetailsList"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 767.0
+offset_bottom = 602.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer_Name" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Name" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name"]
+layout_mode = 2
+text = "Name :"
+vertical_alignment = 1
+
+[node name="TextEdit_Name" type="TextEdit" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name"]
+custom_minimum_size = Vector2(500, 35)
+layout_mode = 2
+theme_override_colors/background_color = Color(0.305882, 0.305882, 0.305882, 1)
+placeholder_text = "Weapon Name"
+
+[node name="HBoxContainer_SelectItem" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_SelectItem" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
+layout_mode = 2
+text = "Select Item :"
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_IconWeapon" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_IconWeapon" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+layout_mode = 2
+text = "Icon Weapon :"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_Quantity" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Quantity" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Quantity"]
+layout_mode = 2
+text = "Quantity :
+"
+vertical_alignment = 1
+
+[node name="SpinBox_Quantity" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Quantity"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_MaxStack" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_MaxStack" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MaxStack"]
+layout_mode = 2
+text = "Max Stack :"
+vertical_alignment = 1
+
+[node name="SpinBox_MaxStack" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MaxStack"]
+custom_minimum_size = Vector2(470, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_Stackable" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Stackacble" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Stackable"]
+layout_mode = 2
+text = "Stackable :"
+vertical_alignment = 1
+
+[node name="CheckBox_Stackable" type="CheckBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Stackable"]
+layout_mode = 2
+
+[node name="HBoxContainer_SwitchSpeed" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_SwitchSpeed" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SwitchSpeed"]
+layout_mode = 2
+text = "Switch Speed :"
+vertical_alignment = 1
+
+[node name="SpinBox_SwitchSpeed" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SwitchSpeed"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_MagSize" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_MagSize" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MagSize"]
+layout_mode = 2
+text = "Mag Size :"
+vertical_alignment = 1
+
+[node name="SpinBox_MagSize" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MagSize"]
+custom_minimum_size = Vector2(485, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_StartingMagAmount" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_StartingMagAmount" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_StartingMagAmount"]
+layout_mode = 2
+text = "Starting Mag Amount :
+"
+vertical_alignment = 1
+
+[node name="SpinBox_StartingMagAmount" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_StartingMagAmount"]
+custom_minimum_size = Vector2(485, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_ReloadTime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_ReloadTime" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ReloadTime"]
+layout_mode = 2
+text = "Reload Time :"
+vertical_alignment = 1
+
+[node name="SpinBox_ReloadTime" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ReloadTime"]
+custom_minimum_size = Vector2(485, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_RecoilStrength" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_RecoilStrength" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilStrength"]
+layout_mode = 2
+text = "Recoil Strength :"
+vertical_alignment = 1
+
+[node name="SpinBox_RecoilStrength" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilStrength"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_Bullet_Amount_Per_Shot" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Bullet_Amount_Per_Shot" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Amount_Per_Shot"]
+layout_mode = 2
+text = "Bullet Amount Per Shot :"
+vertical_alignment = 1
+
+[node name="SpinBox_Bullet_Amount_Per_Shot" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Amount_Per_Shot"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_Spread" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Spread" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Spread"]
+layout_mode = 2
+text = "Spread :"
+vertical_alignment = 1
+
+[node name="SpinBox_Spread" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Spread"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_FireRate" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_FireRate" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_FireRate"]
+layout_mode = 2
+text = "Fire Rate :"
+vertical_alignment = 1
+
+[node name="SpinBox_FireRate" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_FireRate"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_BulletMesh" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_BulletMesh" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletMesh"]
+layout_mode = 2
+text = "Bullet Mesh :"
+vertical_alignment = 1
+
+[node name="OptionButton_BulletMesh" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletMesh"]
+layout_mode = 2
+
+[node name="HBoxContainer_HitScan" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_HitScan" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_HitScan"]
+layout_mode = 2
+text = "Hit Scan :"
+vertical_alignment = 1
+
+[node name="CheckBox_HitScan" type="CheckBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_HitScan"]
+layout_mode = 2
+
+[node name="HBoxContainer_InterruptsNpcAttacks" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_InterruptsNpcAttacks" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_InterruptsNpcAttacks"]
+layout_mode = 2
+text = "Interrupts NPC Attacks
+"
+vertical_alignment = 1
+
+[node name="CheckBox_InterruptsNpcAttacks" type="CheckBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_InterruptsNpcAttacks"]
+layout_mode = 2
+
+[node name="HBoxContainer_BulletDamage" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_BulletDamage" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletDamage"]
+layout_mode = 2
+text = "Bullet Damage :"
+vertical_alignment = 1
+
+[node name="SpinBox_BulletDamage" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletDamage"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_BulletLifetime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_BulletLifetime" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletLifetime"]
+layout_mode = 2
+text = "Bullet Lifetime :"
+vertical_alignment = 1
+
+[node name="SpinBox_BulletLifetime" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletLifetime"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_BulletGravityScale" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_BulletGravityScale" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletGravityScale"]
+layout_mode = 2
+text = "Bullet Gravity Scale :"
+vertical_alignment = 1
+
+[node name="SpinBox_BulletGravityScale" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletGravityScale"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HBoxContainer_ImpactSize" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_ImpactSize" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ImpactSize"]
+layout_mode = 2
+text = "Impact Size :"
+vertical_alignment = 1
+
+[node name="SpinBox_ImpactSize" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ImpactSize"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
 
 [node name="Consumables" type="TabBar" parent="TabContainer"]
 visible = false
