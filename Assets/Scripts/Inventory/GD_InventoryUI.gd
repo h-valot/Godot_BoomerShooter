@@ -14,13 +14,11 @@ func _ready():
 	inventory.on_set_item_quantity.connect(_on_changed);
 
 func _on_changed(_item: ItemConfig):
-	print("Size: " + str(inventory.content.size()))
 	for child in $Container.get_children():
 		$Container.remove_child(child);
 		child.queue_free();
 		
 	for inventory_item in inventory.content:
-		print("Item: " + inventory_item.name)
 		var item_config = inventory_item as ItemConfig;
 		if item_config != null:
 			var textureRect = TextureRect.new();
