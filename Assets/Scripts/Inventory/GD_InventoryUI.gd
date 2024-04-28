@@ -7,17 +7,20 @@ extends Node2D
 @export var hide_quantity_when_one: bool;
 
 func _ready():
+	assert(inventory != null, "Missing inventory")
+
 	_on_changed(null);
 	
 	inventory.on_set_item_quantity.connect(_on_changed);
-	inventory.add_item(load("res://Assets/Resources/Items/Weapons/RE_Rifle.tres"), 10);
 
-func _on_changed(item: ItemConfig):
+func _on_changed(_item: ItemConfig):
+	print("Size: " + str(inventory.content.size()))
 	for child in $Container.get_children():
 		$Container.remove_child(child);
 		child.queue_free();
 		
 	for inventory_item in inventory.content:
+		print("Item: " + inventory_item.name)
 		var item_config = inventory_item as ItemConfig;
 		if item_config != null:
 			var textureRect = TextureRect.new();
