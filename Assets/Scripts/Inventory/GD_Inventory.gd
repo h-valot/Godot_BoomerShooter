@@ -7,7 +7,6 @@ signal on_remove_item(item: ItemConfig)
 signal on_set_item_quantity(item: ItemConfig)
 
 @export_category("Inventory")
-@export var item_type: ItemConfig
 @export var content: Dictionary 
 
 func add_item(item: ItemConfig, addition: int = 1):

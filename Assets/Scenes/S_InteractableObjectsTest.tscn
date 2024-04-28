@@ -16,12 +16,13 @@
 
 [node name="SMovementTest" parent="." instance=ExtResource("1_j4ihm")]
 
-[node name="OtherInteractable" type="Node3D" parent="."]
+[node name="OtherInteractable" type="Node3D" parent="." node_paths=PackedStringArray("trigger_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.96639, 2)
 script = ExtResource("2_7ocmu")
 interactable_index = ExtResource("3_ro6ds")
 condition_array = [ExtResource("6_03e1f")]
 interactable_faction = ExtResource("4_2ncvy")
+trigger_box = NodePath("Area3D")
 
 [node name="Area3D" type="Area3D" parent="OtherInteractable"]
 collision_layer = 2
@@ -31,12 +32,13 @@ script = ExtResource("5_y6bwa")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OtherInteractable/Area3D"]
 shape = SubResource("SphereShape3D_owdmb")
 
-[node name="Intaractable Demo" type="Node3D" parent="."]
+[node name="Intaractable Demo" type="Node3D" parent="." node_paths=PackedStringArray("trigger_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16384, 0)
 script = ExtResource("2_7ocmu")
 interactable_index = ExtResource("3_ro6ds")
 condition_array = [ExtResource("6_03e1f")]
 interactable_faction = ExtResource("6_n1mxt")
+trigger_box = NodePath("Area3D")
 
 [node name="Area3D" type="Area3D" parent="Intaractable Demo"]
 collision_layer = 2

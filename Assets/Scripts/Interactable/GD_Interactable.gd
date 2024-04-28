@@ -3,43 +3,51 @@ extends Node
 ## Instance of an Intaractable object, require to have an area as child with  the script [InteractableTriggerBox]
 class_name Interactable
 
-signal OnGetInteraction(other: Node)
-signal OnInteract(other: Node)
+signal on_get_interaction(other: Node)
+signal on_interact(other: Interactable)
+signal on_get_interactable_overlap(other: Node)
 
+@export var inventory: Inventory;
 @export var interactable_index: InteractableIndex
 @export var require_condition: bool = false
 @export var condition_array: Array = []
 @export var interactable_faction: InteractableFaction
 
-@onready var trigger_box = get_child(0) as InteractableTriggerBox
+@export var trigger_box: InteractableTriggerBox
 
 var current_other_interactable: Interactable = null
 
 func _ready():
 	# If no InteractableTriggerBox, the interaction system cannot work
-	if (trigger_box == null):
-		printerr("Child 0 must be an InteractableTriggerBox")
-		self.queue_free()
-	else:
-		trigger_box.on_overlap.connect(on_overlap)
-		OnGetInteraction.connect(on_get_interaction)
+	assert(trigger_box != null, "Child 0 must be an InteractableTriggerBox");
+
+	trigger_box.on_overlap.connect(_on_overlap)
+	on_get_interaction.connect(_on_get_interaction)
 
 ## Called when receive an interaction
-func on_get_interaction(other: Interactable):
+func _on_get_interaction(other: Interactable):
+	assert(other != null, "Other is null when get interaction.")
+
 	# Skip if any condition failed
 	for condition in other.condition_array:
 		if (!condition.compare(other, self)):
 			return
-	OnInteract.emit(other)
+	on_interact.emit(other)
+	current_other_interactable = null
 
-func on_overlap(other: Node):
+func _on_overlap(other: Node):
 	var other_interactible = other.get_parent() as Interactable
-	if (other_interactible != null):
-		current_other_interactable = other_interactible
+
+	assert(other_interactible != null, "Failed to get parent as interactable.");
+
+	current_other_interactable = other_interactible
+	on_get_interactable_overlap.emit()
 
 func interact():
 	if (current_other_interactable != null):
-		current_other_interactable.OnGetInteraction.emit(self)
+		current_other_interactable.on_get_interaction.emit(self)
+	else:
+		print("current other is not valid")
 
 func _enter_tree():
 	interactable_index.nodes.append(self)
