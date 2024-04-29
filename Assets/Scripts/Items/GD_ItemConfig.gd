@@ -4,7 +4,7 @@ class_name ItemConfig
 @export var GUID : int
 @export var name : String = ""
 @export var item_mesh : PackedScene
-@export var icon: Texture
+@export var icon: Texture2D
 
 @export_group("Stack")
 @export var quantity : float = 1
