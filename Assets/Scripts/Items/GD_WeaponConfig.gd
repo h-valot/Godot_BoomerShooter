@@ -3,6 +3,7 @@ class_name WeaponConfig
 
 @export_group("Weapon")
 @export var switch_speed : float = 0.5
+@export var icon_2D: Texture
 @export_subgroup("Mag")
 @export var mag_size : float = 30
 @export var starting_mag_amount : float = 10

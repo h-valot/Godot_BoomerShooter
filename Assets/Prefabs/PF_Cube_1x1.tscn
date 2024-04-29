@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpft763acmlc2"]
+[gd_scene load_steps=4 format=3 uid="uid://bpft763acmlc2"]
 
 [ext_resource type="Material" uid="uid://rhhcmqw3swmi" path="res://Assets/Graphics/Materials/M_GridDark.tres" id="1_enuws"]
 
-[node name="PF_Cube_1x1" type="Node3D"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-use_collision = true
+[sub_resource type="BoxMesh" id="BoxMesh_ta3d2"]
 material = ExtResource("1_enuws")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kmmjp"]
+
+[node name="PF_Cube_1x1" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ta3d2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kmmjp")
