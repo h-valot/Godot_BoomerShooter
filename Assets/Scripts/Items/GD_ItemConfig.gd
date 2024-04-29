@@ -1,6 +1,7 @@
 extends Resource
 class_name ItemConfig
 
+@export var GUID : int
 @export var name : String = ""
 @export var item_mesh : PackedScene
 @export var icon: Texture

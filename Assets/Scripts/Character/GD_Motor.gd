@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Motor
 
 @export_group("Main properties")
 @export var max_health_points : float = 100
