@@ -35,7 +35,7 @@ texture = ExtResource("1_gmvc2")
 [node name="PF_AnimatedProgressBar" parent="." instance=ExtResource("3_ay7wr")]
 offset_left = 28.0
 offset_top = 593.0
-offset_right = 148.0
+offset_right = 128.0
 offset_bottom = 603.0
 _upper_color = Color(0.0313726, 0.576471, 1, 1)
 

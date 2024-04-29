@@ -1,10 +1,45 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm8ynpofewa7"]
+[gd_scene load_steps=5 format=3 uid="uid://dm8ynpofewa7"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Components/GD_AnimatedProgressBar.gd" id="1_ho5hw"]
-[ext_resource type="StyleBox" uid="uid://438uygymtkr2" path="res://Assets/Prefabs/UI/Animated progress bar/SBF_UnderBackground.tres" id="2_ql64u"]
-[ext_resource type="StyleBox" uid="uid://hhs7fjsds7v3" path="res://Assets/Prefabs/UI/Animated progress bar/SBF_UnderFill.tres" id="3_hpo0d"]
-[ext_resource type="StyleBox" uid="uid://bn5dvxrcr8e4b" path="res://Assets/Prefabs/UI/Animated progress bar/SBE_UpperBackground.tres" id="4_5g1ua"]
-[ext_resource type="StyleBox" uid="uid://ca0a7cse2bofh" path="res://Assets/Prefabs/UI/Animated progress bar/SBF_UpperFill.tres" id="5_ktibd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0o4vn"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1w1i3"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bl0x"]
+bg_color = Color(0.741176, 0.741176, 0.741176, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="PF_AnimatedProgressBar" type="Control" node_paths=PackedStringArray("_upper_progress_bar", "_under_progress_bar")]
 layout_mode = 3
@@ -13,12 +48,12 @@ offset_right = 200.0
 offset_bottom = 10.0
 size_flags_horizontal = 2
 script = ExtResource("1_ho5hw")
-_upper_progress_bar = NodePath("PGB_Upper")
-_under_progress_bar = NodePath("PGB_Under")
 _upper_color = Color(1, 0.247059, 0.188235, 1)
 _under_color = Color(1, 1, 1, 1)
-_border_color = Color(1, 1, 1, 1)
 _background_color = Color(0.329412, 0.329412, 0.329412, 1)
+_border_color = Color(1, 1, 1, 1)
+_upper_progress_bar = NodePath("PGB_Upper")
+_under_progress_bar = NodePath("PGB_Under")
 
 [node name="PGB_Under" type="ProgressBar" parent="."]
 layout_mode = 1
@@ -27,8 +62,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/background = ExtResource("2_ql64u")
-theme_override_styles/fill = ExtResource("3_hpo0d")
+theme_override_styles/background = SubResource("StyleBoxFlat_0o4vn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1w1i3")
 max_value = 1.0
 value = 1.0
 show_percentage = false
@@ -40,8 +75,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/background = ExtResource("4_5g1ua")
-theme_override_styles/fill = ExtResource("5_ktibd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3bl0x")
 max_value = 1.0
 value = 1.0
 show_percentage = false

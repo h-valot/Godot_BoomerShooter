@@ -80,4 +80,3 @@ func update_current_health(amount : float, causer_type : int = 0):
 		on_health_reached_zero.emit()
 
 	on_health_changed.emit(current_health)
-	print("HEALTH COMPONENT: Health updated = ", current_health, " - armor updated = ", current_armor)

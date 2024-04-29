@@ -90,7 +90,7 @@ func _jump():
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 
 		velocity.y = player_config.jump_force
-		_health_component.update_current_health(-5)
+		_health_component.update_current_health(-50)
 
 
 
