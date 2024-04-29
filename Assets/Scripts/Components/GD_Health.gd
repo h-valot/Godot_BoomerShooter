@@ -56,13 +56,14 @@ func update_current_health(amount : float, causer_type : int = 0):
 		&& _current_armor > 0):
 
 		_current_armor += amount
-		emit_signal("on_armor_changed")
+
+		on_armor_changed.emit()
 
 		if (_current_armor <= 0):
 
 			amount = abs(_current_armor)
 			_current_armor = 0
-			emit_signal("on_armor_reached_zero")
+			on_armor_reached_zero.emit()
 		
 		else:
 
@@ -70,10 +71,9 @@ func update_current_health(amount : float, causer_type : int = 0):
 
 	# Handle health
 	_current_health += amount
-	print("HEALTH: Health changed by ", amount)
-	emit_signal("on_health_changed")
+	on_health_changed.emit()
 
 	if (_current_health <= 0):
 
 		_current_health = 0
-		emit_signal("on_health_reached_zero")
+		on_health_reached_zero.emit()

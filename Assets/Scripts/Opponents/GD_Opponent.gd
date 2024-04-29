@@ -36,8 +36,8 @@ func _ready():
 	_health_component.initialize(opponent_config.base_health, opponent_config.health_regeneration, opponent_config.base_armor)
 	_health_component.connect("on_health_reached_zero", _die)
 	rso_player_position.connect("on_changed", _update_target_position)
-	_health_component.connect("on_health_changed", _start_aggro)
-	_health_component.connect("on_armor_changed", _start_aggro)
+	_health_component.connect("on_health_changed", _getting_touched)
+	_health_component.connect("on_armor_changed", _getting_touched)
 	_idle_position = global_transform.origin
 	#global_position = Vector3(global_position.x, global_position.y + opponent_config.flight_height, global_position.z) 
 
@@ -56,7 +56,7 @@ func _process(delta):
 func _die():
 
 	_is_alive = false
-	emit_signal("on_opponent_dies")
+	on_opponent_dies.emit()
 	self.queue_free()
 
 
@@ -159,7 +159,7 @@ func _check_target_in_sight():
 		
 		if (_result.collider as Player):
 			
-			_start_aggro()
+			_getting_touched()
 	
 
 func _check_target_out_of_sight():
@@ -177,13 +177,14 @@ func _check_target_out_of_sight():
 		_navigation_agent_3d.target_position = _idle_position
 
 
-func _start_aggro():
+func _getting_touched():
 
-	if (_is_aggroed):
-		return
+	if (!_is_aggroed):
 
-	print("OPPONENT: Target aggroed")
-	_is_aggroed = true
+		_is_aggroed = true
+		print("OPPONENT: Target aggroed")
+
+	_handle_interruption()
 
 
 func _handle_aggro():
@@ -213,6 +214,9 @@ func _start_attack():
 	if (opponent_config.attack_type == 1): # RANGE
 		await _range_attack()
 	
+	if (_interrupted):
+		return;
+
 	_is_attacking = false
 	_move_funtion_enabled = true
 	_look_funtion_enabled = true
@@ -246,25 +250,57 @@ func _update_target_position():
 	_navigation_agent_3d.target_position = rso_player_position.value
 
 
+func _handle_interruption():
+
+	if (!_interruptable):
+		return
+
+	if (_interrupted):
+		return
+
+	print("OPPONENT: Attack interrupted ")
+	_interrupted = true;
+	_move_funtion_enabled = false
+	_look_funtion_enabled = false
+	await _wait_for(opponent_config.interrupt_revorery_time)
+	_move_funtion_enabled = true
+	_look_funtion_enabled = true
+	_interrupted = false;
+
+
+var _interrupted : bool = false
+var _interruptable : bool = false
 func _wait_for(delay : float, with_interruption : bool = false):
 
 	_custom_timer = delay
 	while _custom_timer > 0:
 
+		if (with_interruption &&
+		opponent_config.can_be_interrupted):
+
+			_interruptable = true
+		
 		await get_tree().create_timer(0.1).timeout
 		_custom_timer -= 0.1
-		if (with_interruption):
-
-			# TODO - Handle interruption
-			pass
+	
+	_interruptable = false
 
 
 #region MELEE ATTACK
 func _melee_attack():
 
 	await _charge_and_pursue()
+
+	if (_interrupted):
+		return;
+
 	await _lock_position()
+
+	if (_interrupted):
+		return;
+
 	await _slach()
+
 
 
 func _charge_and_pursue():
@@ -273,7 +309,6 @@ func _charge_and_pursue():
 	
 	# Wait for first charge delay with interruption enabled
 	await _wait_for(opponent_config.first_charge_time, true)
-
 
 func _lock_position():
 
@@ -291,7 +326,7 @@ func _slach():
 	
 	# TODO - Enable melee damage collision area
 	
-	# TODO - Wait till the end of the attack animation or a timer
+	# TODO - Wait till the end of the attack animation with a signal
 	
 	# TODO - Disable melee damage collision area
 	
@@ -304,7 +339,15 @@ func _slach():
 func _range_attack():
 
 	await _charge_and_aim()
+
+	if (_interrupted):
+		return;
+
 	await _lock_and_finish_charge()
+
+	if (_interrupted):
+		return;
+
 	await _shoot()
 
 
@@ -328,7 +371,7 @@ func _lock_and_finish_charge():
 
 func _shoot():
 
-	# TODO - Fire a bullet toward the opponent "looking at" diretion
+	# Fire a bullet toward the opponent "looking at" diretion
 	_fire_bullet()
 	
 	# Wait for the recovery time

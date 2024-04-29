@@ -23,7 +23,7 @@ class_name OpponentConfig
 @export var base_health : float = 50
 ## Increament 'current_health' by 'health_regeneration' every seconds.
 @export var health_regeneration : float = 1
-## TODO - Extra life that can not be regenerate
+## Extra life that can not be regenerate
 @export var base_armor : float = 0
 
 
@@ -44,12 +44,6 @@ class_name OpponentConfig
 @export var first_charge_time : float = 1
 ## Delay while the opponent stops moving right before attacking
 @export var final_charge_time : float = 1
-
-@export_subgroup("Zone")
-## TODO - Size of a collider area created at the impact position of a projectile
-@export var zone_size : float = 1
-## TODO - Lifetime of the impact area
-@export var zone_lifetime : float = 1
 
 @export_subgroup("Recovery")
 ## Delay while the opponent stops moving right after landing an attack

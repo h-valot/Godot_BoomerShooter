@@ -24,6 +24,8 @@ opponent_config = ExtResource("2_3yq35")
 rso_player_position = ExtResource("3_81be2")
 _bullet_prefab = ExtResource("4_sug0f")
 
+[node name="FlightOffset" type="Node3D" parent="."]
+
 [node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 health_component = NodePath("../PF_Health")
@@ -41,6 +43,7 @@ shape = SubResource("CapsuleShape3D_iqglw")
 receiver_type = 2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+navigation_layers = 2
 
 [node name="[DEBUG]Head" type="CSGBox3D" parent="."]
 transform = Transform3D(0.227305, 0, 0, 0, 0.265188, 0, 0, 0, 1.0634, -0.0170318, 0.405434, -0.573797)
