@@ -19,7 +19,7 @@ config/icon="res://Assets/Graphics/Sprites/T_icon.svg"
 
 [autoload]
 
-Gizmo3D="*res://Packages/godot-3d-lines/Gizmo3D.gd"
+Gizmo3D="*res://addons/godot-3d-lines/Gizmo3D.gd"
 
 [input]
 
