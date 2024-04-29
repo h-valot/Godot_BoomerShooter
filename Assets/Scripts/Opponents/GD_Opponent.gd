@@ -25,7 +25,9 @@ var _is_alive : bool = true
 
 @onready var _health_component : HealthComponent = $PF_Health
 @onready var _navigation_agent_3d = $NavigationAgent3D
-@onready var _debug_head = $"[DEBUG]Head"
+@onready var _capsule_collision = $CapsuleCollision
+@onready var _flight_offset = $FlightOffset
+@onready var _debug_head = $"FlightOffset/[DEBUG]Head"
 
 signal on_opponent_dies
 #endregion
@@ -39,7 +41,19 @@ func _ready():
 	_health_component.connect("on_health_changed", _getting_touched)
 	_health_component.connect("on_armor_changed", _getting_touched)
 	_idle_position = global_transform.origin
-	#global_position = Vector3(global_position.x, global_position.y + opponent_config.flight_height, global_position.z) 
+	
+	# Initialize flying opponents
+	if (opponent_config.flight_height > 0):
+
+		_capsule_collision.set_deferred("disabled", true) 
+		_flight_offset.global_position = Vector3(global_position.x, global_position.y + opponent_config.flight_height + opponent_config.flight_height * 0.25, global_position.z) 
+		_navigation_agent_3d.set_navigation_layer_value(1, false)
+		_navigation_agent_3d.set_navigation_layer_value(2, true)
+	
+	else:
+
+		_navigation_agent_3d.set_navigation_layer_value(1, true)
+		_navigation_agent_3d.set_navigation_layer_value(2, false)
 
 
 func _physics_process(delta):
@@ -81,7 +95,7 @@ func _apply_gravity(delta):
 		return
 
 	if (opponent_config.flight_height > 0
-		&& _is_alive):
+	&& _is_alive):
 		return
 
 	velocity.y -= opponent_config.gravity * delta

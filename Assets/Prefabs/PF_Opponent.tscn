@@ -26,15 +26,19 @@ _bullet_prefab = ExtResource("4_sug0f")
 
 [node name="FlightOffset" type="Node3D" parent="."]
 
-[node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
+[node name="PF_HitBox" parent="FlightOffset" node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
-health_component = NodePath("../PF_Health")
+health_component = NodePath("../../PF_Health")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PF_HitBox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlightOffset/PF_HitBox"]
 shape = SubResource("CapsuleShape3D_i6e67")
 
-[node name="CapsuleMesh" type="MeshInstance3D" parent="."]
+[node name="CapsuleMesh" type="MeshInstance3D" parent="FlightOffset"]
 mesh = SubResource("CapsuleMesh_18p06")
+skeleton = NodePath("../..")
+
+[node name="[DEBUG]Head" type="CSGBox3D" parent="FlightOffset"]
+transform = Transform3D(0.227305, 0, 0, 0, 0.265188, 0, 0, 0, 1.0634, -0.0170318, 0.405434, -0.573797)
 
 [node name="CapsuleCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_iqglw")
@@ -44,9 +48,6 @@ receiver_type = 2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 navigation_layers = 2
-
-[node name="[DEBUG]Head" type="CSGBox3D" parent="."]
-transform = Transform3D(0.227305, 0, 0, 0, 0.265188, 0, 0, 0, 1.0634, -0.0170318, 0.405434, -0.573797)
 
 [node name="AISight" type="Area3D" parent="."]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, -7.5)
