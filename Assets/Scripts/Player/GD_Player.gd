@@ -13,12 +13,20 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var _weapon = $Weapon
 @onready var _head = $Head
+@onready var _health_component = $PF_Health
+@onready var _hud = $PF_PlayerHud
 
 
 func _ready():
 
+	_hud.initialize(player_config)
+	_health_component.initialize(player_config.base_health, player_config.health_regeneration, player_config.base_armor)
+	_health_component.on_health_changed.connect(_hud.update_health_bar)
+	_health_component.on_armor_changed.connect(_hud.update_armor_bar)
+
 	_weapon.initialize(bullet_prefab, weapon_config)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	
 
 #region MOTOR
@@ -45,8 +53,9 @@ func _move(delta):
 	
 	# Handle air-control
 	if not is_on_floor():
-		
+
 		_direction = lerp(_direction, _new_direction, player_config.air_control_scalar)
+
 	else:
 
 		_direction = lerp(_direction, _new_direction, delta * player_config.move_speed_acceleration)
@@ -56,6 +65,7 @@ func _move(delta):
 
 		velocity.x = _direction.x * _current_movement_speed
 		velocity.z = _direction.z * _current_movement_speed
+
 	else:
 
 		velocity.x = move_toward(velocity.x, 0, _current_movement_speed)
@@ -66,8 +76,11 @@ func _sprint():
 
 	# Handle sprint
 	if Input.is_action_just_pressed("Sprint") and is_on_floor():
+
 		_current_movement_speed = player_config.sprint_move_speed
+
 	else:
+
 		_current_movement_speed = player_config.base_move_speed
 
 
@@ -77,6 +90,8 @@ func _jump():
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 
 		velocity.y = player_config.jump_force
+		_health_component.update_current_health(-5)
+
 
 
 func _apply_gravity(delta):

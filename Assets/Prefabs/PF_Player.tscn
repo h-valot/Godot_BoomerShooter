@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgpgbd57412ef"]
+[gd_scene load_steps=12 format=3 uid="uid://bgpgbd57412ef"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Player.gd" id="1_vwxq5"]
 [ext_resource type="Resource" uid="uid://pyndghcxqbg0" path="res://Assets/Resources/Player/RE_PlayerConfig.tres" id="2_6i1sl"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="4_2am50"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="5_gw5uf"]
 [ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="5_skedv"]
+[ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Resources/Player/PF_PlayerHUD.tscn" id="6_o5hcx"]
 [ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Weapon.gd" id="7_ag12p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
@@ -19,6 +20,8 @@ player_config = ExtResource("2_6i1sl")
 bullet_prefab = ExtResource("3_sdlfp")
 weapon_config = ExtResource("3_mf20g")
 rso_player_position = ExtResource("5_skedv")
+
+[node name="PF_PlayerHud" parent="." instance=ExtResource("6_o5hcx")]
 
 [node name="CharacterBodyCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

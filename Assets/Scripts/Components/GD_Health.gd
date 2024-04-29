@@ -7,27 +7,28 @@ class_name HealthComponent
 ## OPPONENT can be damaged by PLAYER and NEUTRAL but not by itself.
 @export_enum("NEUTRAL", "PLAYER", "OPPONENT") var receiver_type : int = 0 
 
-var _base_health : float
-var _current_health : float
-var _health_regeneration : float
-var _base_armor : float
-var _current_armor : float
+var current_health : float
+var current_armor : float
 
+var _base_health : float
+var _base_armor : float
+var _health_regeneration : float
 var _regeneration_timer : float
 
 signal on_health_reached_zero
-signal on_health_changed
+signal on_health_changed(new_health)
 signal on_armor_reached_zero
-signal on_armor_changed
+signal on_armor_changed(new_armor)
 
 
 func initialize(base_health : float, health_regeneration : float, base_armor: float):
 
 	_base_health = base_health
-	_current_health = _base_health
-	_health_regeneration = health_regeneration
 	_base_armor = base_armor
-	_current_armor = _base_armor
+	_health_regeneration = health_regeneration
+
+	current_health = _base_health
+	current_armor = _base_armor
 
 
 func _process(delta):
@@ -43,37 +44,40 @@ func update_current_health(amount : float, causer_type : int = 0):
 
 	# Check causer and receiver receiver_type
 	if (causer_type != 0
-		&& receiver_type == causer_type):
+	&& receiver_type == causer_type):
 		return
 
 	# Clamp heal to the max '_base_health'
-	if (_current_health + amount >= _base_health):
-		_current_health = _base_health
+	if (current_health + amount >= _base_health):
+
+		current_health = _base_health
 		return
 
-	# Handle damage on '_current_armor'
+	# Handle damage on 'current_armor'
 	if (amount < 0
-		&& _current_armor > 0):
+	&& current_armor > 0):
 
-		_current_armor += amount
+		current_armor += amount
 
-		on_armor_changed.emit()
+		if (current_armor <= 0):
 
-		if (_current_armor <= 0):
-
-			amount = abs(_current_armor)
-			_current_armor = 0
+			amount = abs(current_armor)
+			current_armor = 0
+			on_armor_changed.emit(current_armor)
 			on_armor_reached_zero.emit()
 		
 		else:
 
+			on_armor_changed.emit(current_armor)
 			return
 
 	# Handle health
-	_current_health += amount
-	on_health_changed.emit()
+	current_health += amount
 
-	if (_current_health <= 0):
+	if (current_health <= 0):
 
-		_current_health = 0
+		current_health = 0
 		on_health_reached_zero.emit()
+
+	on_health_changed.emit(current_health)
+	print("HEALTH COMPONENT: Health updated = ", current_health, " - armor updated = ", current_armor)

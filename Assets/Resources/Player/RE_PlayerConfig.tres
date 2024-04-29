@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_1nify")
 base_health = 100.0
-health_regeneration = 5.0
+health_regeneration = 0.0
 base_armor = 50.0
 base_move_speed = 10.0
 sprint_move_speed = 12.5
