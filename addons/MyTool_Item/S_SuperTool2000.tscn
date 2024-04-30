@@ -55,23 +55,6 @@ offset_top = 3.0
 offset_right = 1148.0
 offset_bottom = 611.0
 
-[node name="Button_Save" type="Button" parent="TabContainer/Weapons/WeaponDetailsList"]
-layout_mode = 0
-offset_left = 601.0
-offset_top = 2.0
-offset_right = 751.0
-offset_bottom = 46.0
-
-[node name="Label_Save" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/Button_Save"]
-layout_mode = 0
-offset_right = 151.0
-offset_bottom = 42.0
-auto_translate = false
-text = "Save"
-horizontal_alignment = 1
-vertical_alignment = 1
-language = "en"
-
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Weapons/WeaponDetailsList"]
 layout_mode = 0
 offset_left = 6.0
@@ -89,10 +72,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Name :"
 vertical_alignment = 1
-
-[node name="VSplitContainer" type="VSplitContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name"]
-layout_mode = 2
-split_offset = 750
 
 [node name="TextEdit_Name" type="TextEdit" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name"]
 custom_minimum_size = Vector2(500, 35)
@@ -354,6 +333,16 @@ custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
 
+[node name="Button_Save_weapon" type="Button" parent="TabContainer/Weapons/WeaponDetailsList"]
+layout_mode = 0
+offset_left = 601.0
+offset_top = 2.0
+offset_right = 751.0
+offset_bottom = 46.0
+auto_translate = false
+theme_override_colors/font_hover_color = Color(0.913725, 0, 0, 1)
+text = "Save"
+
 [node name="Consumables" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -393,23 +382,6 @@ offset_left = 378.0
 offset_top = 3.0
 offset_right = 1148.0
 offset_bottom = 611.0
-
-[node name="Button_Save" type="Button" parent="TabContainer/Consumables/ConsumableDetailsList"]
-layout_mode = 0
-offset_left = 601.0
-offset_top = 2.0
-offset_right = 751.0
-offset_bottom = 46.0
-
-[node name="Label_Save" type="Label" parent="TabContainer/Consumables/ConsumableDetailsList/Button_Save"]
-layout_mode = 0
-offset_right = 151.0
-offset_bottom = 42.0
-auto_translate = false
-text = "Save"
-horizontal_alignment = 1
-vertical_alignment = 1
-language = "en"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Consumables/ConsumableDetailsList"]
 layout_mode = 0
@@ -693,6 +665,24 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+
+[node name="Button_Save_Consumable" type="Button" parent="TabContainer/Consumables/ConsumableDetailsList"]
+layout_mode = 0
+offset_left = 601.0
+offset_top = 2.0
+offset_right = 751.0
+offset_bottom = 46.0
+theme_override_colors/font_hover_color = Color(0.972549, 0, 0, 1)
+
+[node name="Label_Save" type="Label" parent="TabContainer/Consumables/ConsumableDetailsList/Button_Save_Consumable"]
+layout_mode = 0
+offset_right = 151.0
+offset_bottom = 42.0
+auto_translate = false
+text = "Save"
+horizontal_alignment = 1
+vertical_alignment = 1
+language = "en"
 
 [node name="Miscs" type="TabBar" parent="TabContainer"]
 visible = false

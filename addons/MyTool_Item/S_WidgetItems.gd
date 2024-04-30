@@ -2,10 +2,13 @@
 extends Control
 
 
+@onready var tab_container : TabContainer = $TabContainer as TabContainer
+
 #region InitializeWeapon
 @onready var weapon_instance_template_path
 
-@onready var tab_container : TabContainer = $TabContainer as TabContainer
+@onready var weapon_save_button : Button = $TabContainer/Weapons/WeaponDetailsList/Button_Save_weapon as Button
+
 
 @onready var weapon_tabBar: TabBar = $TabContainer/Weapons as TabBar
 @onready var weapon_item_list: ItemList = $TabContainer/Weapons/WeaponList as ItemList
@@ -38,6 +41,8 @@ extends Control
 #region InitializeConsumable
 
 @onready var consumable_instance_template_path
+
+@onready var consumable_save_button : Button = $TabContainer/Consumables/ConsumableDetailsList/Button_Save_Consumable as Button
 
 @onready var consumable_tabBar: TabBar = $TabContainer/Consumables as TabBar
 @onready var consumable_item_list: ItemList = $TabContainer/Consumables/ConsumableList as ItemList
@@ -129,7 +134,7 @@ func _initialize_weapon_item_instance(weapon_config: WeaponConfig, file_path: St
 	weapon_item_instance.get_node("B_ShowDetailsWeapon/L_NameWeapon").text = weapon_config.name
 	weapon_item_instance.get_node("B_ShowDetailsWeapon").connect("pressed", _on_b_show_details_weapon_pressed.bind(weapon_config))
 		
-		# Configurer le bouton de suppression
+	# Configurer le bouton de suppression
 	var delete_button = weapon_item_instance.get_node("B_DeleteWeapon")
 	if delete_button:
 		delete_button.connect("pressed", _on_b_delete_weapon_pressed.bind(weapon_config, weapon_item_instance, file_path))
@@ -187,7 +192,7 @@ func _on_b_delete_weapon_pressed(weapon_config: WeaponConfig, weapon_item_instan
 	confirmation_dialog.connect("confirmed", _confirm_delete_weapon.bind(weapon_config, weapon_item_instance, file_path))
 	add_child(confirmation_dialog)
 	confirmation_dialog.popup_centered()
-	
+
 
 func _confirm_delete_weapon(weapon_config: WeaponConfig, weapon_item_instance: Node, file_path: String):
 	# Delete UI instance
@@ -200,10 +205,72 @@ func _confirm_delete_weapon(weapon_config: WeaponConfig, weapon_item_instance: N
 	else:
 		print("Failed to delete weapon configuration file: ", file_path)
 	items_data["weapons"].erase(weapon_config)
+	
+	
+func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
+	var is_renamed = false
+	var old_name = weapon_config.name
+	var new_name = weapon_name.text
+	if old_name != new_name:
+		var old_path = "res://Assets/Resources/Items/Weapons/" + old_name + str(weapon_config.GUID) + ".tres"
+		var new_path = "res://Assets/Resources/Items/Weapons/" + new_name + str(weapon_config.GUID) + ".tres"
+		# Rename the file
+		var dir = DirAccess.open("res://Assets/Resources/Items/Weapons/")
+		if dir.file_exists(old_path):
+			var error_rename = dir.rename(old_path, new_path)
+			if error_rename != OK:
+				print("Failed to rename file: ", dir.get_last_error())
+				return
+			else:
+				print("RENAME GOOD")
+				is_renamed = true
+				
+		else:
+			print("Old file does not exist, no need to rename.")
+	# Update Weapon Config
+	update_weapon_config(weapon_config)
+	var file_path = "res://Assets/Resources/Items/Weapons/" + weapon_config.name + str(weapon_config.GUID) + ".tres"
+	if(is_renamed):
+		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+		EditorInterface.get_resource_filesystem().scan()
+		is_renamed = false
 
+	# Save the configuration of the weapon
+	var error_save = ResourceSaver.save(weapon_config, file_path)
+	if error_save != OK:
+		print("Error saving the resource: ", error_save)
+	else:
+		print("Resource successfully saved to: ", file_path)
+	
 
+func update_weapon_config(weapon_config: WeaponConfig):
+	weapon_config.name = weapon_name.text 
+	#weapon_item_mesh
+	weapon_config.icon = weapon_icon.texture 
+	weapon_config.quantity = weapon_quantity.value 
+	weapon_config.max_stack = weapon_max_stack.value 
+	weapon_config.stackable = weapon_stackable.button_pressed
+	weapon_config.switch_speed = weapon_switch_speed.value 
+	weapon_config.mag_size = weapon_mag_size.value 
+	weapon_config.starting_mag_amount = weapon_starting_mag_amount.value 
+	weapon_config.reload_time = weapon_reload_time.value 
+	weapon_config.recoil_strength = weapon_recoil_strength.value 
+	weapon_config.bullet_amount_per_shot = weapon_bullet_amount_per_shot.value 
+	weapon_config.spread = weapon_spread.value 
+	weapon_config.fire_rate = weapon_fire_rate.value 
+	#weapon_bullet_mesh
+	weapon_config.hit_scan = weapon_hit_scan.button_pressed 
+	weapon_config.interrupts_npc_attack = weapon_interrupts_npc_attacks.button_pressed 
+	weapon_config.bullet_damage = weapon_bullet_damage.value 
+	weapon_config.bullet_lifetime = weapon_bullet_life.value 
+	weapon_config.bullet_gravity_scale = weapon_bullet_gravity.value 
+	weapon_config.impact_size = weapon_impact_size.value 
+	
 # Load all details of the Weapon Config
 func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
+	if(weapon_save_button.is_connected("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))):
+		weapon_save_button.disconnect("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))
+	weapon_save_button.connect("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))
 	weapon_name.text = weapon_config.name
 	#weapon_item_mesh
 	weapon_icon.texture = weapon_config.icon
@@ -240,12 +307,12 @@ func _initialize_consumable_item_instance(consumable_config: ConsumableConfig, f
 	var consumable_item_instance = consumable_instance_template.duplicate()
 	consumable_item_instance.visible = true
 	consumable_item_instance.get_node("B_ShowDetailsConsumable/L_NameConsumable").text = consumable_config.name
-	consumable_item_instance.get_node("B_ShowDetailsConsumable").connect("pressed", _on_b_show_details_weapon_pressed.bind(consumable_config))
+	consumable_item_instance.get_node("B_ShowDetailsConsumable").connect("pressed", _on_b_show_details_consumable_pressed.bind(consumable_config))
 		
 	# Configurer le bouton de suppression
 	var delete_button = consumable_item_instance.get_node("B_DeleteConsumable")
 	if delete_button:
-		delete_button.connect("pressed", _on_b_delete_weapon_pressed.bind(consumable_config, consumable_item_instance, file_path))
+		delete_button.connect("pressed", _on_b_delete_consumable_pressed.bind(consumable_config, consumable_item_instance, file_path))
 	consumable_list_container.add_child(consumable_item_instance)
 
 func _on_b_add_consumable_pressed():
@@ -266,10 +333,40 @@ func _on_b_add_consumable_pressed():
 	else:
 		print("Error: Consumable configuration is invalid or incomplete.")
 
-
-
 func _on_b_show_details_consumable_pressed(consumable_config : ConsumableConfig):
-	pass
+	if(consumable_save_button.is_connected("pressed", _on_save_consumable_config_button_pressed.bind(consumable_config))):
+		consumable_save_button.disconnect("pressed", _on_save_consumable_config_button_pressed.bind(consumable_config))
+	consumable_save_button.connect("pressed", _on_save_consumable_config_button_pressed.bind(consumable_config))
+	consumable_name.text = consumable_config.name
+	#consumable_item_mesh
+	consumable_icon.texture = consumable_config.icon
+	consumable_quantity.value = consumable_config.quantity
+	consumable_max_stack.value = consumable_config.max_stack
+	consumable_stackable.button_pressed = consumable_config.stackable
+	consumable_use_heal_damage.button_pressed = consumable_config.use_heal_damage
+	consumable_heal_damage.value = consumable_config.heal_damage
+	consumable_use_armor.button_pressed = consumable_config.use_armor
+	consumable_armor.value = consumable_config.armor
+	consumable_use_stun_duration.button_pressed = consumable_config.use_stun_duration
+	consumable_stun_duration.value = consumable_config.stun_duration
+	consumable_use_speed_boost.button_pressed = consumable_config.use_speed_boost
+	consumable_speed_boost.value = consumable_config.speed_boost
+	consumable_use_invisibility_duration.button_pressed = consumable_config.use_invisibility_duration
+	consumable_invisibility_duration.value = consumable_config.invisibility_duration
+	consumable_use_jump_force_boost.button_pressed = consumable_config.use_jump_force_boost
+	consumable_jump_force_boost.value = consumable_config.jump_force_boost
+	consumable_use_damage_boost.button_pressed = consumable_config.use_damage_boost
+	consumable_damage_boost.value = consumable_config.damage_boost
+	consumable_use_speed.button_pressed = consumable_config.use_speed
+	consumable_speed.value = consumable_config.speeed
+	consumable_use_trajectory.button_pressed = consumable_config.use_trajectory
+	consumable_trajectory.value = consumable_config.trajectory
+	consumable_use_Lifetime.button_pressed = consumable_config.use_lifetime
+	consumable_Lifetime.value = consumable_config.lifetime
+	consumable_use_impact_size.button_pressed = consumable_config.use_impact_size
+	consumable_impact_size.value = consumable_config.impact_size
+	consumable_use_range.button_pressed = consumable_config.use_range
+	consumable_range.value = consumable_config.range
 
 
 func _on_b_delete_consumable_pressed(consumable_config: ConsumableConfig, consumable_item_instance: Node, file_path: String):
@@ -319,3 +416,66 @@ func _load_and_display_consumable_config(file_path: String):
 		print("Loaded consumable config: ", consumable_config.name)
 	else:
 		print("Failed to load consumable config from: ", file_path)
+
+
+func _on_save_consumable_config_button_pressed(consumable_config: ConsumableConfig):
+	var is_renamed = false
+	var old_name = consumable_config.name
+	var new_name = consumable_name.text
+	if old_name != new_name:
+		var old_path = "res://Assets/Resources/Items/Consumables/" + old_name + str(consumable_config.GUID) + ".tres"
+		var new_path = "res://Assets/Resources/Items/Consumables/" + new_name + str(consumable_config.GUID) + ".tres"
+		# Rename the file
+		var dir = DirAccess.open("res://Assets/Resources/Items/Consumables/")
+		if dir.file_exists(old_path):
+			var error_rename = dir.rename(old_path, new_path)
+			if error_rename != OK:
+				print("Failed to rename file: ", dir.get_last_error())
+				return
+			else:
+				print("RENAME GOOD")
+				is_renamed = true
+				
+		else:
+			print("Old file does not exist, no need to rename.")
+	# Update Consumable Config
+	update_consumable_config(consumable_config)
+	var file_path = "res://Assets/Resources/Items/Consumables/" + consumable_config.name + str(consumable_config.GUID) + ".tres"
+	if(is_renamed):
+		_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
+		EditorInterface.get_resource_filesystem().scan()
+		is_renamed = false
+
+
+
+func update_consumable_config(consumable_config: ConsumableConfig):
+	consumable_config.name = consumable_name.text
+	#consumable_item_mesh
+	consumable_config.icon = consumable_icon.texture 
+	consumable_config.quantity = consumable_quantity.value
+	consumable_config.max_stack = consumable_max_stack.value 
+	consumable_config.stackable = consumable_stackable.button_pressed
+	consumable_config.use_heal_damage = consumable_use_heal_damage.button_pressed
+	consumable_config.heal_damage = consumable_heal_damage.value
+	consumable_config.use_armor = consumable_use_armor.button_pressed
+	consumable_config.armor = consumable_armor.value
+	consumable_use_stun_duration.button_pressed = consumable_config.use_stun_duration
+	consumable_config.stun_duration = consumable_stun_duration.value
+	consumable_config.use_speed_boost = consumable_use_speed_boost.button_pressed
+	consumable_config.speed_boost = consumable_speed_boost.value
+	consumable_config.use_invisibility_duration = consumable_use_invisibility_duration.button_pressed
+	consumable_config.invisibility_duration = consumable_invisibility_duration.value
+	consumable_config.use_jump_force_boost = consumable_use_jump_force_boost.button_pressed
+	consumable_config.jump_force_boost = consumable_jump_force_boost.value
+	consumable_config.use_damage_boost = consumable_use_damage_boost.button_pressed
+	consumable_config.damage_boost = consumable_damage_boost.value
+	consumable_config.use_speed = consumable_use_speed.button_pressed
+	consumable_config.speeed = consumable_speed.value 
+	consumable_config.use_trajectory = consumable_use_trajectory.button_pressed
+	consumable_config.trajectory = consumable_trajectory.value
+	consumable_config.use_lifetime = consumable_use_Lifetime.button_pressed
+	consumable_config.lifetime = consumable_Lifetime.value
+	consumable_config.use_impact_size = consumable_use_impact_size.button_pressed
+	consumable_config.impact_size = consumable_impact_size.value 
+	consumable_config.use_range = consumable_use_range.button_pressed
+	consumable_config.range = consumable_range.value
