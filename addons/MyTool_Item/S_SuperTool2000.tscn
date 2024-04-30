@@ -55,15 +55,14 @@ layout_mode = 2
 [node name="B_ShowDetailsWeapon" type="Button" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="L_NameWeapon" type="Label" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer/B_ShowDetailsWeapon"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 3.0
-offset_top = 2.0
-offset_right = 293.0
-offset_bottom = 25.0
-text = "Weapon Text"
+offset_top = 7.0
+offset_right = 321.0
+offset_bottom = 30.0
+text = "Nouvelle Arme"
 
 [node name="B_DeleteWeapon" type="Button" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -112,7 +111,7 @@ layout_mode = 2
 text = "Select Item :"
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
+[node name="OptionButton_Mesh" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
 
@@ -124,7 +123,7 @@ layout_mode = 2
 text = "Icon Weapon :"
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+[node name="TextureRect_Icon" type="TextureRect" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 
@@ -371,7 +370,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="TabContainer/Consumables/ItemList"]
-visible = false
 layout_mode = 0
 offset_top = -31.0
 offset_bottom = -31.0
@@ -390,7 +388,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="TabContainer/Miscs/ItemList"]
-visible = false
 layout_mode = 2
 offset_top = -31.0
 offset_bottom = -31.0
