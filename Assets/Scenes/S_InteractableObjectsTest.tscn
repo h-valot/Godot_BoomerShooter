@@ -1,52 +1,42 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx7ii0hjkccxf"]
+[gd_scene load_steps=4 format=3 uid="uid://dx7ii0hjkccxf"]
 
 [ext_resource type="PackedScene" uid="uid://d0tg7jm3r2gnt" path="res://Assets/Scenes/S_MovementTest.tscn" id="1_j4ihm"]
-[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_Interactable.gd" id="2_7ocmu"]
-[ext_resource type="Resource" uid="uid://dk7w6eduhx2m0" path="res://Assets/Resources/Interactable/InteractableIndex.tres" id="3_ro6ds"]
-[ext_resource type="Resource" uid="uid://b8y6m5rktsnev" path="res://Assets/Resources/Interactable/InteractableAllyFaction.tres" id="4_2ncvy"]
-[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractableTriggerBox.gd" id="5_y6bwa"]
-[ext_resource type="Script" path="res://Assets/Scripts/Interactable/Conditions/GD_ConditionFaction.gd" id="6_03e1f"]
-[ext_resource type="Resource" uid="uid://chm4r7t180axm" path="res://Assets/Resources/Interactable/InteractableEnemyFaction.tres" id="6_n1mxt"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_owdmb"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_evi1t"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="2_ifc4m"]
+[ext_resource type="PackedScene" uid="uid://cswuj58ei2vts" path="res://Assets/Prefabs/PF_Inventory.tscn" id="3_o74hh"]
 
 [node name="SInteractableObjectsTest" type="Node3D"]
 
 [node name="SMovementTest" parent="." instance=ExtResource("1_j4ihm")]
 
-[node name="OtherInteractable" type="Node3D" parent="." node_paths=PackedStringArray("trigger_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.96639, 2)
-script = ExtResource("2_7ocmu")
-interactable_index = ExtResource("3_ro6ds")
-condition_array = [ExtResource("6_03e1f")]
-interactable_faction = ExtResource("4_2ncvy")
-trigger_box = NodePath("Area3D")
+[node name="Interactable" parent="." instance=ExtResource("2_ifc4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52345, 0.947442, 0.270869)
 
-[node name="Area3D" type="Area3D" parent="OtherInteractable"]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("5_y6bwa")
+[node name="Area3D" parent="Interactable" index="1"]
+collision_layer = 1
+collision_mask = 1
+one_interaction_per_frame = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OtherInteractable/Area3D"]
-shape = SubResource("SphereShape3D_owdmb")
+[node name="PfInventory" parent="Interactable" instance=ExtResource("3_o74hh")]
 
-[node name="Intaractable Demo" type="Node3D" parent="." node_paths=PackedStringArray("trigger_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16384, 0)
-script = ExtResource("2_7ocmu")
-interactable_index = ExtResource("3_ro6ds")
-condition_array = [ExtResource("6_03e1f")]
-interactable_faction = ExtResource("6_n1mxt")
-trigger_box = NodePath("Area3D")
+[node name="UI" parent="Interactable/PfInventory" index="0" node_paths=PackedStringArray("inventory")]
+inventory = NodePath("../../Inventory")
 
-[node name="Area3D" type="Area3D" parent="Intaractable Demo"]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("5_y6bwa")
+[node name="Interactable2" parent="." node_paths=PackedStringArray("inventory", "trigger_box") instance=ExtResource("2_ifc4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19263, 0.947442, 0.270869)
+inventory = NodePath("../Interactable/Inventory")
+trigger_box = NodePath("../Interactable/Area3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Intaractable Demo/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.09521)
-shape = SubResource("SphereShape3D_evi1t")
+[node name="Area3D" parent="Interactable2" index="1"]
+collision_layer = 1
+collision_mask = 1
+
+[node name="PfInventory" parent="Interactable2" instance=ExtResource("3_o74hh")]
+
+[node name="UI" parent="Interactable2/PfInventory" index="0" node_paths=PackedStringArray("inventory")]
+inventory = NodePath("../../Inventory")
 
 [editable path="SMovementTest"]
+[editable path="Interactable"]
+[editable path="Interactable/PfInventory"]
+[editable path="Interactable2"]
+[editable path="Interactable2/PfInventory"]

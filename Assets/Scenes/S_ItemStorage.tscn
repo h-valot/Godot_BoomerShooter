@@ -25,14 +25,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="Chest/Control"]
+[node name="Container" type="GridContainer" parent="Chest/Control"]
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 291.0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InventoryUI" type="Node2D" parent="Chest/Control" node_paths=PackedStringArray("inventory", "ui_container")]
 script = ExtResource("3_7gjb0")
 inventory = NodePath("../../Inventory")
-ui_container = NodePath("../GridContainer")
+hide_quantity_when_one = true
+ui_container = NodePath("../Container")

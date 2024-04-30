@@ -36,4 +36,4 @@ class_name ConsumableConfig
 @export var impact_size : float = 0
 @export_subgroup("Range")
 @export var use_range : bool = false
-@export var range : float = 0
+@export var throw_range : float = 0

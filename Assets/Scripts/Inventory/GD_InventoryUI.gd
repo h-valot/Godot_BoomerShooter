@@ -13,6 +13,7 @@ signal on_action_item(item: ItemConfig)
 @export var text_side: Side
 @export var text_anchor: float
 @export var hide_quantity_when_one: bool
+@export var hide_when_zero: bool = true
 @export var style_box_highlight: StyleBox
 @export var ui_container: Container
 
@@ -55,14 +56,16 @@ func _update_ui():
 
 	for inventory_item in inventory.content:
 		var item_config = inventory_item as ItemConfig
-		if item_config != null:
+
+		assert(item_config != null, "Item (dictionnary key) must be an ItemConfig")
+
+		var quantity = inventory.content[inventory_item]
+		if !(quantity == 0 && hide_when_zero):
 			var itemButton = Button.new()
 			
 			itemButton.pressed.connect(func(): _on_action_item(item_config))
 			assert(item_config.icon != null, "Missing icon for " + item_config.name)
-			itemButton.texture = item_config.icon
-
-			var quantity = inventory.content[inventory_item]
+			itemButton.icon = item_config.icon
 
 			if (hide_quantity_when_one && quantity != 1) || !hide_quantity_when_one:
 				var text = Label.new()
@@ -72,7 +75,7 @@ func _update_ui():
 				text.set_anchor(text_side, text_anchor)
 
 				itemButton.add_child(text)
-			$Container.add_child(itemButton)
+			ui_container.add_child(itemButton)
 	post_on_update_ui.emit()
 
 	_ui_visible = true
