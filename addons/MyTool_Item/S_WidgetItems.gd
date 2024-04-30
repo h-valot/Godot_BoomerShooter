@@ -229,19 +229,18 @@ func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 			print("Old file does not exist, no need to rename.")
 	# Update Weapon Config
 	update_weapon_config(weapon_config)
-	var file_path = "res://Assets/Resources/Items/Weapons/" + weapon_config.name + str(weapon_config.GUID) + ".tres"
-	if(is_renamed):
-		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
-		EditorInterface.get_resource_filesystem().scan()
-		is_renamed = false
-
+	
 	# Save the configuration of the weapon
+	var file_path = "res://Assets/Resources/Items/Weapons/" + weapon_config.name + str(weapon_config.GUID) + ".tres"
 	var error_save = ResourceSaver.save(weapon_config, file_path)
 	if error_save != OK:
 		print("Error saving the resource: ", error_save)
 	else:
 		print("Resource successfully saved to: ", file_path)
-	
+	if(is_renamed):
+		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+		EditorInterface.get_resource_filesystem().scan()
+		is_renamed = false
 
 func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.name = weapon_name.text 
@@ -435,12 +434,16 @@ func _on_save_consumable_config_button_pressed(consumable_config: ConsumableConf
 			else:
 				print("RENAME GOOD")
 				is_renamed = true
-				
 		else:
 			print("Old file does not exist, no need to rename.")
 	# Update Consumable Config
 	update_consumable_config(consumable_config)
 	var file_path = "res://Assets/Resources/Items/Consumables/" + consumable_config.name + str(consumable_config.GUID) + ".tres"
+	var error_save = ResourceSaver.save(consumable_config, file_path)
+	if error_save != OK:
+		print("Error saving the resource: ", error_save)
+	else:
+		print("Resource successfully saved to: ", file_path)
 	if(is_renamed):
 		_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
 		EditorInterface.get_resource_filesystem().scan()
