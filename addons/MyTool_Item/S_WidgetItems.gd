@@ -1,12 +1,16 @@
 @tool
 extends Control
 
+
+#region InitializeWeapon
+@onready var weapon_instance_template_path
+
+@onready var tab_container : TabContainer = $TabContainer as TabContainer
+
 @onready var weapon_tabBar: TabBar = $TabContainer/Weapons as TabBar
 @onready var weapon_item_list: ItemList = $TabContainer/Weapons/WeaponList as ItemList
-@onready var weapon_instance_template: HBoxContainer = $TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer.duplicate()
+@onready var weapon_instance_template: HBoxContainer 
 @onready var weapon_list_container: VBoxContainer = $TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer as VBoxContainer
-
-
 
 @onready var weapon_name : TextEdit = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name/TextEdit_Name as TextEdit
 @onready var weapon_item_mesh : OptionButton = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem/OptionButton_Mesh as OptionButton
@@ -30,13 +34,15 @@ extends Control
 @onready var weapon_bullet_gravity : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletGravityScale/SpinBox_BulletGravityScale as SpinBox
 @onready var weapon_impact_size : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ImpactSize/SpinBox_ImpactSize as SpinBox
 
+#endregion
+#region InitializeConsumable
 
+@onready var consumable_instance_template_path
 
 @onready var consumable_tabBar: TabBar = $TabContainer/Consumables as TabBar
 @onready var consumable_item_list: ItemList = $TabContainer/Consumables/ConsumableList as ItemList
-@onready var consumable_instance_template: HBoxContainer = $TabContainer/Consumables/ConsumableList/ScrollContainer/VBoxContainer/HBoxContainer.duplicate()
+@onready var consumable_instance_template: HBoxContainer
 @onready var consumable_list_container: VBoxContainer = $TabContainer/Consumables/ConsumableList/ScrollContainer/VBoxContainer as VBoxContainer
-
 
 @onready var consumable_name : TextEdit = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name/TextEdit_Name as TextEdit
 @onready var consumable_item_mesh : OptionButton = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem/OptionButton_Mesh as OptionButton
@@ -69,6 +75,7 @@ extends Control
 @onready var consumable_use_range : CheckBox = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Range/CheckBox_Range as CheckBox
 @onready var consumable_range : SpinBox = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Range/SpinBox_Range as SpinBox
 
+#endregion
 
 
 var items_data: Dictionary = {
@@ -77,50 +84,47 @@ var items_data: Dictionary = {
 	"misc": []
 }
 
+func _generate_guid() -> int:
+	return randi()
+
 func _ready() -> void:
-	weapon_tabBar.connect("tab_changed", Callable(self, "_on_tab_changed"))
+	_check_weapon_instance_template_exist()
+	_check_consumable_instance_template_exist()
+	
+	tab_container.connect("tab_changed", Callable(self, "_on_tab_changed"))
 	weapon_item_list.connect("item_selected", Callable(self, "_on_item_selected"))
-	_init_ui(weapon_tabBar.current_tab)
 	_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+	_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
+	_init_ui(tab_container.current_tab)
+
+
+func _check_weapon_instance_template_exist():
+	if not weapon_instance_template:
+		weapon_instance_template_path = preload("res://addons/MyTool_Item/h_box_weapon_container.tscn")
+		weapon_instance_template = weapon_instance_template_path.instantiate()
+	if not weapon_instance_template:
+		print("Critical error: Unable to load weapon instance template.")
+		return
 
 func _init_ui(current_tab: int) -> void:
 	_on_tab_changed(current_tab)
 
 func _on_tab_changed(tab_index: int) -> void:
-	var current_tab_title = weapon_tabBar.get_tab_title(tab_index).to_lower()
+	var current_tab_title = tab_container.get_tab_title(tab_index).to_lower()
+	print("current tab title : " + current_tab_title)
 	match current_tab_title:
 		"weapons":
-			_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
-			weapon_list_container.visible = true
-			consumable_list_container.visible = false
+			weapon_tabBar.visible = true
+			consumable_tabBar.visible = false
 		"consumables":
-			_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
-			consumable_list_container.visible = true
-			weapon_list_container.visible = false
-
-func _generate_guid() -> int:
-	return randi()
-
-func _on_b_add_weapon_pressed() -> void:
-	var weapon_config = WeaponConfig.new()
-	weapon_config.GUID = _generate_guid()
-	weapon_config.name = "Nouvelle Arme"
-	if weapon_config.is_class("Resource") and weapon_config.name != "":
-		var save_path = "res://Assets/Resources/Items/Weapons/"+ weapon_config.name + str(weapon_config.GUID) + ".tres"
-		var error = ResourceSaver.save(weapon_config,save_path)
-		
-		if error != OK:
-			print("Error saving the resource: ", error)
-		else:
-			print("Resource successfully saved to: ", save_path)
-		
-		_initialize_weapon_item_instance(weapon_config, save_path)
-		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
-	else:
-		print("Error: Weapon configuration is invalid or incomplete.")
+			consumable_tabBar.visible = true
+			weapon_tabBar.visible = false
 
 func _initialize_weapon_item_instance(weapon_config: WeaponConfig, file_path: String):
 	var weapon_item_instance = weapon_instance_template.duplicate()
+	if not weapon_item_instance:
+		print("Failed to load weapon instance template from: ", weapon_instance_template_path)
+		return
 	weapon_item_instance.visible = true
 	weapon_item_instance.get_node("B_ShowDetailsWeapon/L_NameWeapon").text = weapon_config.name
 	weapon_item_instance.get_node("B_ShowDetailsWeapon").connect("pressed", _on_b_show_details_weapon_pressed.bind(weapon_config))
@@ -131,12 +135,28 @@ func _initialize_weapon_item_instance(weapon_config: WeaponConfig, file_path: St
 		delete_button.connect("pressed", _on_b_delete_weapon_pressed.bind(weapon_config, weapon_item_instance, file_path))
 	weapon_list_container.add_child(weapon_item_instance)
 
+func _on_b_add_weapon_pressed() -> void:
+	var weapon_config = WeaponConfig.new()
+	weapon_config.GUID = _generate_guid()
+	weapon_config.name = "New Weapon"
+	if weapon_config.is_class("Resource") and weapon_config.name != "":
+		var save_path = "res://Assets/Resources/Items/Weapons/"+ weapon_config.name + str(weapon_config.GUID) + ".tres"
+		var error = ResourceSaver.save(weapon_config,save_path)
+		if error != OK:
+			print("Error saving the resource: ", error)
+		else:
+			print("Resource successfully saved to: ", save_path)
+		
+		_initialize_weapon_item_instance(weapon_config, save_path)
+		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+	else:
+		print("Error: Weapon configuration is invalid or incomplete.")
 
 func _clear_weapon_list():
 	for child in weapon_list_container.get_children():
 		child.queue_free()
-		
-		
+
+
 func _list_files_in_directory(directory_path: String):
 	_clear_weapon_list()
 	var dir = DirAccess.open(directory_path)
@@ -153,6 +173,7 @@ func _list_files_in_directory(directory_path: String):
 
 func _load_and_display_weapon_config(file_path: String):
 	var weapon_config := ResourceLoader.load(file_path) as WeaponConfig
+	print("file path " + file_path)
 	if weapon_config:
 		_initialize_weapon_item_instance(weapon_config, file_path)
 		print("Loaded weapon config: ", weapon_config.name)
@@ -207,10 +228,30 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	print("Details shown for: ", weapon_config.name)
 
 
+func _check_consumable_instance_template_exist():
+	if not consumable_instance_template:
+		consumable_instance_template_path = preload("res://addons/MyTool_Item/h_box_consumable_container.tscn")
+		consumable_instance_template = consumable_instance_template_path.instantiate()
+	if not weapon_instance_template:
+		print("Critical error: Unable to load weapon instance template.")
+		return
+
+func _initialize_consumable_item_instance(consumable_config: ConsumableConfig, file_path: String):
+	var consumable_item_instance = consumable_instance_template.duplicate()
+	consumable_item_instance.visible = true
+	consumable_item_instance.get_node("B_ShowDetailsConsumable/L_NameConsumable").text = consumable_config.name
+	consumable_item_instance.get_node("B_ShowDetailsConsumable").connect("pressed", _on_b_show_details_weapon_pressed.bind(consumable_config))
+		
+	# Configurer le bouton de suppression
+	var delete_button = consumable_item_instance.get_node("B_DeleteConsumable")
+	if delete_button:
+		delete_button.connect("pressed", _on_b_delete_weapon_pressed.bind(consumable_config, consumable_item_instance, file_path))
+	consumable_list_container.add_child(consumable_item_instance)
+
 func _on_b_add_consumable_pressed():
 	var consumable_config = ConsumableConfig.new()
 	consumable_config.GUID = _generate_guid()
-	consumable_config.name = "Nouveau Consumable"
+	consumable_config.name = "New Consumable"
 	if consumable_config.is_class("Resource") and consumable_config.name != "":
 		var save_path = "res://Assets/Resources/Items/Consumables/"+ consumable_config.name + str(consumable_config.GUID) + ".tres"
 		var error = ResourceSaver.save(consumable_config,save_path)
@@ -223,34 +264,40 @@ func _on_b_add_consumable_pressed():
 		_initialize_consumable_item_instance(consumable_config, save_path)
 		_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
 	else:
-		print("Error: Weapon configuration is invalid or incomplete.")
-
-func _initialize_consumable_item_instance(consumable_config: ConsumableConfig, file_path: String):
-	var consumable_item_instance = consumable_instance_template.duplicate()
-	consumable_item_instance.visible = true
-	consumable_item_instance.get_node("B_ShowDetailsConsumable/L_NameConsumable").text = consumable_config.name
-	consumable_item_instance.get_node("B_ShowDetailsConsumable").connect("pressed", _on_b_show_details_weapon_pressed.bind(consumable_config))
-		
-		# Configurer le bouton de suppression
-	var delete_button = consumable_item_instance.get_node("B_DeleteConsumable")
-	if delete_button:
-		delete_button.connect("pressed", _on_b_delete_weapon_pressed.bind(consumable_config, consumable_item_instance, file_path))
-	consumable_list_container.add_child(consumable_item_instance)
+		print("Error: Consumable configuration is invalid or incomplete.")
 
 
 
 func _on_b_show_details_consumable_pressed(consumable_config : ConsumableConfig):
 	pass
 
-func _on_b_delete_consumable_pressed(consumable_config : ConsumableConfig, consumable_item_instance: Node, file_path: String):
-	pass
+
+func _on_b_delete_consumable_pressed(consumable_config: ConsumableConfig, consumable_item_instance: Node, file_path: String):
+	# Show a confirmation dialog before deleting
+	var confirmation_dialog = ConfirmationDialog.new()
+	confirmation_dialog.dialog_text = "Are you sure you want to delete this consumable: " + consumable_config.name + "?"
+	confirmation_dialog.connect("confirmed", _confirm_delete_consumable.bind(consumable_config, consumable_item_instance, file_path))
+	add_child(confirmation_dialog)
+	confirmation_dialog.popup_centered()
+	
+
+func _confirm_delete_consumable(consumable_config: ConsumableConfig, consumable_item_instance: Node, file_path: String):
+	# Delete UI instance
+	consumable_item_instance.queue_free()
+	# Delete File System Configuration File
+	var dir = DirAccess.open("res://Assets/Resources/Items/Consumables/")
+	if dir.remove(file_path) == OK:
+		print("Consumable configuration file deleted successfully: ", file_path)
+		EditorInterface.get_resource_filesystem().scan()
+	else:
+		print("Failed to delete consumable configuration file: ", file_path)
+	items_data["consumables"].erase(consumable_config)
 
 
 func _clear_consumable_list():
 	for child in consumable_list_container.get_children():
 		child.queue_free()
-		
-		
+
 func _list_consumable_files_in_directory(directory_path: String):
 	_clear_consumable_list()
 	var dir = DirAccess.open(directory_path)
@@ -269,6 +316,6 @@ func _load_and_display_consumable_config(file_path: String):
 	var consumable_config := ResourceLoader.load(file_path) as ConsumableConfig
 	if consumable_config:
 		_initialize_consumable_item_instance(consumable_config, file_path)
-		print("Loaded weapon config: ", consumable_config.name)
+		print("Loaded consumable config: ", consumable_config.name)
 	else:
-		print("Failed to load weapon config from: ", file_path)
+		print("Failed to load consumable config from: ", file_path)

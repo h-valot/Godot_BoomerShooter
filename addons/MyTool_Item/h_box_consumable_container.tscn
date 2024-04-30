@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dfop0j8j6mott"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+
+[node name="B_ShowDetailsConsumable" type="Button" parent="."]
+custom_minimum_size = Vector2(325, 25)
+layout_mode = 2
+
+[node name="L_NameConsumable" type="Label" parent="B_ShowDetailsConsumable"]
+layout_mode = 0
+offset_right = 323.0
+offset_bottom = 27.0
+text = "New Weapon"
+
+[node name="B_DeleteConsumable" type="Button" parent="."]
+layout_mode = 2
+text = "-"

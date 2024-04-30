@@ -18,10 +18,8 @@ offset_top = 3.0
 offset_right = 1154.0
 offset_bottom = 650.0
 tab_alignment = 1
-current_tab = 1
 
 [node name="Weapons" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="WeaponList" type="ItemList" parent="TabContainer/Weapons"]
@@ -48,21 +46,6 @@ offset_right = 356.0
 offset_bottom = 598.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Weapons/WeaponList/ScrollContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="B_ShowDetailsWeapon" type="Button" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="L_NameWeapon" type="Label" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer/B_ShowDetailsWeapon"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="B_DeleteWeapon" type="Button" parent="TabContainer/Weapons/WeaponList/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="WeaponDetailsList" type="ItemList" parent="TabContainer/Weapons"]
@@ -372,6 +355,7 @@ layout_mode = 2
 max_value = 2.14748e+09
 
 [node name="Consumables" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ConsumableList" type="ItemList" parent="TabContainer/Consumables"]
@@ -383,6 +367,8 @@ offset_left = 5.0
 offset_top = 3.0
 offset_right = 5.0
 offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="B_AddConsumable" type="Button" parent="TabContainer/Consumables/ConsumableList"]
 layout_mode = 0
@@ -401,22 +387,8 @@ offset_bottom = 598.0
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Consumables/ConsumableList/ScrollContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableList/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="B_ShowDetailsConsumable" type="Button" parent="TabContainer/Consumables/ConsumableList/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="L_NameConsumable" type="Label" parent="TabContainer/Consumables/ConsumableList/ScrollContainer/VBoxContainer/HBoxContainer/B_ShowDetailsConsumable"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="B_DeleteConsumable" type="Button" parent="TabContainer/Consumables/ConsumableList/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
 [node name="ConsumableDetailsList" type="ItemList" parent="TabContainer/Consumables"]
+layout_mode = 0
 offset_left = 378.0
 offset_top = 3.0
 offset_right = 1148.0
