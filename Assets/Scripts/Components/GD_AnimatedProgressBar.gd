@@ -6,14 +6,12 @@ class_name AnimatedProgressBar
 @export_color_no_alpha var _under_color : Color
 @export_color_no_alpha var _background_color : Color
 @export_color_no_alpha var _border_color : Color
+@export var _corner_radius : float = 3
+@export var _corner_width : float = 1
 
 @export_group("Internal references")
 @export var _upper_progress_bar : ProgressBar
 @export var _under_progress_bar : ProgressBar
-
-var _sbf_upper_fill : StyleBoxFlat
-var _sbf_under_fill : StyleBoxFlat
-var _sbf_under_background : StyleBoxFlat
 
 var value : set = update_value
 var direction : float
@@ -21,29 +19,36 @@ var direction : float
 
 func initalize():
 
-	_sbf_upper_fill = _upper_progress_bar.get_theme_stylebox("fill")
-	_sbf_upper_fill.bg_color = _upper_color
-	_sbf_upper_fill.border_color = _border_color
+	_upper_progress_bar.add_theme_stylebox_override("fill", _create_new_sbf(_corner_radius, _corner_width, _upper_color, _border_color))
+	_under_progress_bar.add_theme_stylebox_override("fill", _create_new_sbf(_corner_radius, _corner_width, _under_color, _border_color))
+	_under_progress_bar.add_theme_stylebox_override("background", _create_new_sbf(_corner_radius, _corner_width, _background_color, _border_color))
 
-	_sbf_under_fill = _under_progress_bar.get_theme_stylebox("fill")
-	_sbf_under_fill.bg_color = _under_color
-	_sbf_under_fill.border_color = _border_color
 
-	_sbf_under_background = _under_progress_bar.get_theme_stylebox("background")
-	_sbf_under_background.bg_color = _background_color
-	_sbf_under_background.border_color = _border_color
+func _create_new_sbf(corner_radius, corner_width, bg_color, border_color):
+	var sbf = StyleBoxFlat.new()
+	sbf.corner_radius_bottom_left = corner_radius
+	sbf.corner_radius_bottom_right = corner_radius
+	sbf.corner_radius_top_left = corner_radius
+	sbf.corner_radius_top_right = corner_radius
+	sbf.border_width_bottom = corner_width
+	sbf.border_width_left = corner_width
+	sbf.border_width_right = corner_width
+	sbf.border_width_top = corner_width
+	sbf.bg_color = bg_color
+	sbf.border_color = border_color
+	return sbf
 
 
 func update_value(new_value):
 		
-	direction = 1
-	if (new_value > 0):
-
-		direction = -1
-
 	_upper_progress_bar.value = new_value
+
+	if (_under_progress_bar.value < new_value):
+		
+		_under_progress_bar.value = new_value
+		return
 
 	while (_under_progress_bar.value != _upper_progress_bar.value):
 
-		_under_progress_bar.value += 0.01 * direction
-		await get_tree().create_timer(0.1).timeout
+		_under_progress_bar.value -= 0.01
+		await get_tree().create_timer(0.05).timeout
