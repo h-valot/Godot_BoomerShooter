@@ -88,21 +88,30 @@ func _lock_fire(delta):
 
 func _fire():
 	
-	if (_weapon_config.hit_scan == true):
-	
-		_fire_raycast()
-	
-	else:
-	
-		_fire_bullet()
+	for i in _weapon_config.bullet_amount_per_shot:
+
+		if (_weapon_config.hit_scan == true): 
+			
+			_fire_raycast()
+
+		else: 
+			
+			_fire_bullet()
 
 
 func _fire_raycast():
-	
-	_raycast = PhysicsRayQueryParameters3D.create(
-		_camera_3d.global_position, 
-		_camera_3d.global_position - _camera_3d.global_transform.basis.z * 100
-	)
+
+	var from = _camera_3d.global_position
+	var to = _camera_3d.global_position - _camera_3d.global_transform.basis.z * 100
+
+	if (_weapon_config.bullet_amount_per_shot > 1):
+
+		to.x += randf_range(_weapon_config.spread, -_weapon_config.spread)
+		to.y += randf_range(_weapon_config.spread, -_weapon_config.spread)
+		to.z += randf_range(_weapon_config.spread, -_weapon_config.spread)
+
+	_raycast = PhysicsRayQueryParameters3D.create(from, to)
+	Gizmo3D.DrawLine(from, to, Color.RED, 1)
 	_raycast.collision_mask = 1 # Colliding only with entities
 	_raycast.collide_with_areas = true
 	_raycast.collide_with_bodies = _weapon_config.create_zone_on_impact
@@ -110,7 +119,6 @@ func _fire_raycast():
 
 	if (!_result):
 		return;
-
 		
 	print("WEAPON: raycast touched: ", _result.collider.name)
 	
@@ -132,13 +140,18 @@ func _fire_bullet():
 	# Otherwise, bullets moves with the player
 	owner.get_parent().add_child(new_bullet)
 	
-	new_bullet.transform = _muzzle.global_transform
+	var from = _muzzle.global_position
+	var to = -_muzzle.global_transform.basis.z.normalized() * 100
+
+	if (_weapon_config.bullet_amount_per_shot > 1):
+		
+		to.x += randf_range(_weapon_config.spread, -_weapon_config.spread)
+		to.y += randf_range(_weapon_config.spread, -_weapon_config.spread)
+		to.z += randf_range(_weapon_config.spread, -_weapon_config.spread)
+
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(
-		_weapon_config, 
-		zone_prefab,
-		health_component.receiver_type
-	)
+	new_bullet.initialize(_weapon_config, zone_prefab, health_component.receiver_type)
+	new_bullet.launch(from, to)
 
 
 func _generate_zone(impact_position):
