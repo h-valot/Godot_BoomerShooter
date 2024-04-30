@@ -51,6 +51,7 @@ navigation_layers = 2
 
 [node name="AISight" type="Area3D" parent="."]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, -7.5)
+collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AISight"]
 shape = SubResource("BoxShape3D_nwa1i")

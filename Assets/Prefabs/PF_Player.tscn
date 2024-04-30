@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bgpgbd57412ef"]
+[gd_scene load_steps=13 format=3 uid="uid://bgpgbd57412ef"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Player.gd" id="1_vwxq5"]
 [ext_resource type="Resource" uid="uid://pyndghcxqbg0" path="res://Assets/Resources/Player/RE_PlayerConfig.tres" id="2_6i1sl"]
@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="5_gw5uf"]
 [ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="5_skedv"]
 [ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Resources/Player/PF_PlayerHUD.tscn" id="6_o5hcx"]
-[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Weapon.gd" id="7_ag12p"]
+[ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="7_ag12p"]
+[ext_resource type="PackedScene" uid="uid://n8fyongkeppa" path="res://Assets/Prefabs/PF_ImpactZone.tscn" id="10_amtfl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
 
@@ -55,3 +56,4 @@ receiver_type = 1
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("7_ag12p")
 health_component = NodePath("../PF_Health")
+zone_prefab = ExtResource("10_amtfl")

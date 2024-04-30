@@ -1,9 +1,11 @@
 extends Area3D
 class_name Bullet
 
+@export_category("References")
+@export var zone_prefab : PackedScene
+
 var _velocity = Vector3.ZERO
 var _weapon_config : WeaponConfig
-var _last_collider : Object
 var _lifetime : float
 var _initialized : bool = false
 var _causer_type : int
@@ -50,12 +52,32 @@ func _on_area_entered(area):
 
 	if (area as HitBoxComponent):
 
-		if (area.health_component):
+		if (_weapon_config.create_zone_on_impact):
+
+			_generate_zone(area.position)
+
+		else:
 
 			# Bullet can not hurt object of their type, expect for NEUTRALs
 			if (_causer_type != 0
-				&& area.health_component.receiver_type == _causer_type):
+			&& area.health_component.receiver_type == _causer_type):
 				return
 
 			area.health_component.update_current_health(-_weapon_config.bullet_damage, _causer_type)
 			self.queue_free()
+
+
+
+func _generate_zone(impact_position):
+
+	var new_zone = zone_prefab.instantiate()
+	owner.get_parent().add_child(new_zone)
+	
+	new_zone.position = impact_position
+	new_zone.initialize(
+		_weapon_config.zone_radius, 
+		_weapon_config.zone_lifetime, 
+		_weapon_config.zone_damage_per_tick, 
+		_weapon_config.zone_tick_duration, 
+		_causer_type
+	)

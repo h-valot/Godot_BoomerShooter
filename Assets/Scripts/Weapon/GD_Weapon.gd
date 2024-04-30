@@ -3,6 +3,7 @@ class_name Weapon
 
 @export_category("References")
 @export var health_component : HealthComponent
+@export var zone_prefab : PackedScene
 
 var _firing : bool = false
 var _fire_rate_delay : float = 0.0
@@ -98,18 +99,29 @@ func _fire():
 
 func _fire_raycast():
 	
-	_raycast = PhysicsRayQueryParameters3D.create(_camera_3d.global_position, _camera_3d.global_position - _camera_3d.global_transform.basis.z * 100)
+	_raycast = PhysicsRayQueryParameters3D.create(
+		_camera_3d.global_position, 
+		_camera_3d.global_position - _camera_3d.global_transform.basis.z * 100
+	)
+	_raycast.collision_mask = 1 # Colliding only with entities
 	_raycast.collide_with_areas = true
-	_raycast.collide_with_bodies = false
+	_raycast.collide_with_bodies = _weapon_config.create_zone_on_impact
 	_result = _space_query.intersect_ray(_raycast)
 
-	if (_result):
-		
-		print("WEAPON: raycast touched: ", _result.collider.name)
-		
-		if (_result.collider as HitBoxComponent):
+	if (!_result):
+		return;
 
-			_result.collider.health_component.update_current_health(-_weapon_config.bullet_damage)
+		
+	print("WEAPON: raycast touched: ", _result.collider.name)
+	
+	if (_weapon_config.create_zone_on_impact):
+		
+		_generate_zone(_result.position)
+		return
+
+	if (_result.collider as HitBoxComponent):
+
+		_result.collider.health_component.update_current_health(-_weapon_config.bullet_damage)
 
 
 func _fire_bullet():
@@ -122,4 +134,23 @@ func _fire_bullet():
 	
 	new_bullet.transform = _muzzle.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(_weapon_config, health_component.receiver_type)
+	new_bullet.initialize(
+		_weapon_config, 
+		health_component.receiver_type
+	)
+
+
+func _generate_zone(impact_position):
+
+	print("spawning area")
+	var new_zone = zone_prefab.instantiate()
+	owner.get_parent().add_child(new_zone)
+	
+	new_zone.position = impact_position
+	new_zone.initialize(
+		_weapon_config.zone_radius, 
+		_weapon_config.zone_lifetime, 
+		_weapon_config.zone_damage_per_tick, 
+		_weapon_config.zone_tick_duration, 
+		health_component.receiver_type
+	)
