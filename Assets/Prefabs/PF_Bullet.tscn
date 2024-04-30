@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://d23duj43qnji1"]
+[gd_scene load_steps=4 format=3 uid="uid://d23duj43qnji1"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Bullet.gd" id="1_owtxb"]
-[ext_resource type="PackedScene" uid="uid://n8fyongkeppa" path="res://Assets/Prefabs/PF_ImpactZone.tscn" id="2_jg5fy"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_pea6r"]
 
@@ -9,7 +8,6 @@
 
 [node name="PF_Bullet" type="Area3D"]
 script = ExtResource("1_owtxb")
-zone_prefab = ExtResource("2_jg5fy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_pea6r")

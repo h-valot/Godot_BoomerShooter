@@ -136,13 +136,13 @@ func _fire_bullet():
 	new_bullet = new_bullet as Bullet
 	new_bullet.initialize(
 		_weapon_config, 
+		zone_prefab,
 		health_component.receiver_type
 	)
 
 
 func _generate_zone(impact_position):
 
-	print("spawning area")
 	var new_zone = zone_prefab.instantiate()
 	owner.get_parent().add_child(new_zone)
 	
