@@ -14,7 +14,6 @@ signal on_action_item(item: ItemConfig)
 @export var text_anchor: float
 @export var hide_quantity_when_one: bool
 @export var hide_when_zero: bool = true
-@export var style_box_highlight: StyleBox
 @export var ui_container: Container
 
 ## Update UI on ready
