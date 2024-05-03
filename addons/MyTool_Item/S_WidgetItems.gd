@@ -98,7 +98,7 @@ func _ready() -> void:
 	
 	tab_container.connect("tab_changed", Callable(self, "_on_tab_changed"))
 	weapon_item_list.connect("item_selected", Callable(self, "_on_item_selected"))
-	_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+	_list_weapons_files_in_directory("res://Assets/Resources/Items/Weapons/")
 	_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
 	_init_ui(tab_container.current_tab)
 
@@ -153,7 +153,7 @@ func _on_b_add_weapon_pressed() -> void:
 			print("Resource successfully saved to: ", save_path)
 		
 		_initialize_weapon_item_instance(weapon_config, save_path)
-		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+		_list_weapons_files_in_directory("res://Assets/Resources/Items/Weapons/")
 	else:
 		print("Error: Weapon configuration is invalid or incomplete.")
 
@@ -162,7 +162,7 @@ func _clear_weapon_list():
 		child.queue_free()
 
 
-func _list_files_in_directory(directory_path: String):
+func _list_weapons_files_in_directory(directory_path: String):
 	_clear_weapon_list()
 	var dir = DirAccess.open(directory_path)
 	if dir:
@@ -192,6 +192,7 @@ func _on_b_delete_weapon_pressed(weapon_config: WeaponConfig, weapon_item_instan
 	confirmation_dialog.connect("confirmed", _confirm_delete_weapon.bind(weapon_config, weapon_item_instance, file_path))
 	add_child(confirmation_dialog)
 	confirmation_dialog.popup_centered()
+	
 
 
 func _confirm_delete_weapon(weapon_config: WeaponConfig, weapon_item_instance: Node, file_path: String):
@@ -238,7 +239,7 @@ func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 	else:
 		print("Resource successfully saved to: ", file_path)
 	if(is_renamed):
-		_list_files_in_directory("res://Assets/Resources/Items/Weapons/")
+		_list_weapons_files_in_directory("res://Assets/Resources/Items/Weapons/")
 		EditorInterface.get_resource_filesystem().scan()
 		is_renamed = false
 
