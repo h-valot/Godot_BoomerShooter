@@ -1,5 +1,6 @@
 extends InteractableCondition
 
+## Valid an interaction if both object are overlaping.
 class_name ConditionCollision
 
 func _ready():

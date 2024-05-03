@@ -3,8 +3,11 @@ extends Node
 ## Instance of an Intaractable object, require to have an area as child with the script [InteractableTriggerBox]
 class_name Interactable
 
+## Called after an interaction was requested.
 signal on_get_interaction(other: Node)
+## Called when an interaction succeed all conditions.
 signal on_interact(other: Interactable)
+## Called when overlap another interactable.
 signal on_get_interactable_overlap(other: Node)
 
 @export var inventory: Inventory;
@@ -46,6 +49,7 @@ func _on_overlap(other: Node):
 	if interact_on_overlap:
 		interact()
 
+## Cause an interaction with the other [Interactable]
 func interact():
 	if (current_other_interactable != null):
 		current_other_interactable.on_get_interaction.emit(self)

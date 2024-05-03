@@ -1,15 +1,16 @@
 extends Area3D
 
+## Trigger box for [Interactable]
 class_name InteractableTriggerBox
 
 @export var one_interaction_per_frame: bool = true
 
+## Called when overlap another [Area3D]
 signal on_overlap(other)
-
-var overlapping_bodies: Array
 
 # Emit a signal for each overlapping actor
 func _physics_process(_delta):
+	var overlapping_bodies: Array
 	overlapping_bodies = get_overlapping_areas()
 	for overlapping_body in overlapping_bodies:
 		var collider = overlapping_body as Area3D
