@@ -1,6 +1,6 @@
 extends Node
 
-## Instance of an Intaractable object, require to have an area as child with  the script [InteractableTriggerBox]
+## Instance of an Intaractable object, require to have an area as child with the script [InteractableTriggerBox]
 class_name Interactable
 
 signal on_get_interaction(other: Node)
@@ -12,6 +12,7 @@ signal on_get_interactable_overlap(other: Node)
 @export var require_condition: bool = false
 @export var condition_array: Array = []
 @export var interactable_faction: InteractableFaction
+@export var interact_on_overlap: bool = false
 
 @export var trigger_box: InteractableTriggerBox
 
@@ -27,7 +28,7 @@ func _ready():
 ## Called when receive an interaction
 func _on_get_interaction(other: Interactable):
 	assert(other != null, "Other is null when get interaction.")
-
+	
 	# Skip if any condition failed
 	for condition in other.condition_array:
 		if (!condition.compare(other, self)):
@@ -42,6 +43,8 @@ func _on_overlap(other: Node):
 
 	current_other_interactable = other_interactible
 	on_get_interactable_overlap.emit()
+	if interact_on_overlap:
+		interact()
 
 func interact():
 	if (current_other_interactable != null):

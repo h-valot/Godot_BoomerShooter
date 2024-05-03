@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dx7ii0hjkccxf"]
+[gd_scene load_steps=6 format=3 uid="uid://dx7ii0hjkccxf"]
 
 [ext_resource type="PackedScene" uid="uid://d0tg7jm3r2gnt" path="res://Assets/Scenes/S_MovementTest.tscn" id="1_j4ihm"]
 [ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="2_ifc4m"]
-[ext_resource type="PackedScene" uid="uid://cswuj58ei2vts" path="res://Assets/Prefabs/PF_Inventory.tscn" id="3_o74hh"]
+[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="3_sop5u"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="4_2nary"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="4_x7nxb"]
 
 [node name="SInteractableObjectsTest" type="Node3D"]
 
@@ -11,32 +13,50 @@
 [node name="Interactable" parent="." instance=ExtResource("2_ifc4m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52345, 0.947442, 0.270869)
 
-[node name="Area3D" parent="Interactable" index="1"]
+[node name="Area3D" parent="Interactable" index="2"]
 collision_layer = 1
 collision_mask = 1
 one_interaction_per_frame = true
 
-[node name="PfInventory" parent="Interactable" instance=ExtResource("3_o74hh")]
+[node name="InventoryInitializer2" type="Node" parent="Interactable" node_paths=PackedStringArray("inventory")]
+script = ExtResource("4_2nary")
+inventory = NodePath("../Inventory")
+items = {
+ExtResource("4_x7nxb"): 3
+}
 
-[node name="UI" parent="Interactable/PfInventory" index="0" node_paths=PackedStringArray("inventory")]
+[node name="Control" parent="Interactable" instance=ExtResource("3_sop5u")]
+
+[node name="UI" parent="Interactable/Control" index="0" node_paths=PackedStringArray("interactable", "inventory")]
+interactable = NodePath("../..")
 inventory = NodePath("../../Inventory")
 
 [node name="Interactable2" parent="." node_paths=PackedStringArray("inventory", "trigger_box") instance=ExtResource("2_ifc4m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19263, 0.947442, 0.270869)
 inventory = NodePath("../Interactable/Inventory")
+interact_on_overlap = true
 trigger_box = NodePath("../Interactable/Area3D")
 
-[node name="Area3D" parent="Interactable2" index="1"]
+[node name="Area3D" parent="Interactable2" index="2"]
 collision_layer = 1
 collision_mask = 1
+one_interaction_per_frame = true
 
-[node name="PfInventory" parent="Interactable2" instance=ExtResource("3_o74hh")]
+[node name="InventoryInitializer2" type="Node" parent="Interactable2" node_paths=PackedStringArray("inventory")]
+script = ExtResource("4_2nary")
+inventory = NodePath("../Inventory")
+items = {
+ExtResource("4_x7nxb"): 3
+}
 
-[node name="UI" parent="Interactable2/PfInventory" index="0" node_paths=PackedStringArray("inventory")]
+[node name="Control" parent="Interactable2" instance=ExtResource("3_sop5u")]
+
+[node name="UI" parent="Interactable2/Control" index="0" node_paths=PackedStringArray("interactable", "inventory")]
+interactable = NodePath("../..")
 inventory = NodePath("../../Inventory")
 
 [editable path="SMovementTest"]
 [editable path="Interactable"]
-[editable path="Interactable/PfInventory"]
+[editable path="Interactable/Control"]
 [editable path="Interactable2"]
-[editable path="Interactable2/PfInventory"]
+[editable path="Interactable2/Control"]

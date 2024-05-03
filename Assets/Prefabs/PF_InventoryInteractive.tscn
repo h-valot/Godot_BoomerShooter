@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cswuj58ei2vts"]
+[gd_scene load_steps=2 format=3 uid="uid://c6u35swacsip"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="1_frgum"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUIInteractive.gd" id="1_ca6wn"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("ui_container")]
-script = ExtResource("1_frgum")
+script = ExtResource("1_ca6wn")
 text_anchor = 1.0
 ui_container = NodePath("Container")
 

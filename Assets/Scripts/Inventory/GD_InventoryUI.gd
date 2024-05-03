@@ -1,6 +1,6 @@
 extends Node2D
 
-## Show the content of an inventory.
+## Show the content of an [Inventory].
 class_name InventoryUI
 
 signal on_update_ui()

@@ -18,7 +18,6 @@ func _ready():
 	interactable.on_interact.connect(_on_interact)
 
 func _on_interact(other: Interactable):
-	print("On interact")
 	var other_inventory_buffer = InventoryUtils.get_child_of_type(other, typeof(InventoryUI))
 	if other_inventory_buffer != null:
 		_other_inventory = other_inventory_buffer
