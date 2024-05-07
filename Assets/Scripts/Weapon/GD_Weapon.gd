@@ -120,7 +120,6 @@ func _lock_fire(delta):
 
 func _fire():
 	
-	_recoil()
 	for i in _weapon_config.bullet_amount_per_shot:
 
 		if (_weapon_config.hit_scan == true): 
@@ -130,6 +129,8 @@ func _fire():
 		else: 
 			
 			_fire_bullet()
+	
+	_recoil()
 	
 
 var _shake_strength : float = 0.0
