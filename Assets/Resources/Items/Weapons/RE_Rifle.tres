@@ -21,6 +21,7 @@ bullet_start_speed = 30.0
 bullet_lifetime = 3.0
 bullet_gravity_scale = 0.0
 impact_size = 1.0
+GUID = 0
 name = "Rifle"
 quantity = 1.0
 max_stack = 1.0

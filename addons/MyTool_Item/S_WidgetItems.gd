@@ -134,7 +134,6 @@ func _initialize_weapon_item_instance(weapon_config: WeaponConfig, file_path: St
 	weapon_item_instance.get_node("B_ShowDetailsWeapon/L_NameWeapon").text = weapon_config.name
 	weapon_item_instance.get_node("B_ShowDetailsWeapon").connect("pressed", _on_b_show_details_weapon_pressed.bind(weapon_config))
 		
-	# Configurer le bouton de suppression
 	var delete_button = weapon_item_instance.get_node("B_DeleteWeapon")
 	if delete_button:
 		delete_button.connect("pressed", _on_b_delete_weapon_pressed.bind(weapon_config, weapon_item_instance, file_path))
@@ -230,7 +229,6 @@ func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 			print("Old file does not exist, no need to rename.")
 	# Update Weapon Config
 	update_weapon_config(weapon_config)
-	
 	# Save the configuration of the weapon
 	var file_path = "res://Assets/Resources/Items/Weapons/" + weapon_config.name + str(weapon_config.GUID) + ".tres"
 	var error_save = ResourceSaver.save(weapon_config, file_path)

@@ -17,6 +17,10 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=240
 config/icon="res://Assets/Graphics/Sprites/T_icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/tool_player/plugin.cfg")
+
 [input]
 
 Forward={

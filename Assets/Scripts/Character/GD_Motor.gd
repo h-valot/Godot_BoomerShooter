@@ -1,4 +1,5 @@
 extends CharacterBody3D
+#extends Resource
 class_name Motor
 
 @export_group("Main properties")
