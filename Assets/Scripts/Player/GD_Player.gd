@@ -75,7 +75,8 @@ func _move(delta):
 func _sprint():
 
 	# Handle sprint
-	if Input.is_action_just_pressed("Sprint") and is_on_floor():
+	if (Input.is_action_just_pressed("Sprint")
+	&& is_on_floor()):
 
 		_current_movement_speed = player_config.sprint_move_speed
 
@@ -87,7 +88,8 @@ func _sprint():
 func _jump():
 
 	# Handle jump
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	if (Input.is_action_just_pressed("Jump")
+	&& is_on_floor()):
 
 		velocity.y = player_config.jump_force
 
@@ -96,14 +98,14 @@ func _jump():
 func _apply_gravity(delta):
 
 	# Add the gravity
-	if not is_on_floor():
+	if (!is_on_floor()):
 
 		velocity.y -= _gravity * delta
 
 
 func _look(event):
 
-	if event is InputEventMouseMotion:
+	if (event is InputEventMouseMotion):
 
 		rotate_y(deg_to_rad(-event.relative.x * player_config.horizontal_mouse_sensitivity))
 		_head.rotate_x(deg_to_rad(-event.relative.y * player_config.vertical_mouse_sensitivity))

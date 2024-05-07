@@ -8,6 +8,10 @@ class_name Weapon
 var _firing : bool = false
 var _fire_rate_delay : float = 0.0
 
+var _is_reloading : bool = false
+var _reload_delay : float = 0.0
+var _successive_shot : int = 0
+
 var _can_fire : bool = true
 var _can_fire_delay : float = 0.0
 
@@ -20,12 +24,14 @@ var _initialized : bool = false
 
 @onready var _muzzle = $"../Head/Camera3D/CSGBox3D/Muzzle"
 @onready var _camera_3d = $"../Head/Camera3D"
+@onready var _head = $"../Head"
 
 
 func initialize(bullet_prefab : PackedScene, weapon_config : WeaponConfig):
 	
 	_bullet_prefab = bullet_prefab
 	_weapon_config = weapon_config
+	_camera_3d = _camera_3d as Camera3D
 	_initialized = true
 
 
@@ -40,6 +46,8 @@ func _physics_process(delta):
 func _process(delta):
 	
 	_get_inputs()
+	_reload(delta)
+	_camera_shake(delta)
 	_auto_fire(delta)
 	_lock_fire(delta)
 
@@ -49,20 +57,44 @@ func _get_inputs():
 
 	if (Input.is_action_just_pressed("Fire")):
 	
-		if (_can_fire):
+		if (_can_fire
+		&& !_is_reloading):
 	
 			_fire()
 			_can_fire = false
 			_fire_rate_delay = 0
 			_firing = true
 	
-	if(Input.is_action_just_released("Fire")):
+	if (Input.is_action_just_released("Fire")):
 	
 		_firing = false
+		_successive_shot = 0
+		_head.rotate_x(deg_to_rad((_weapon_config.recoil_curve.sample(_successive_shot)) * _weapon_config.recoil_scalar))
+
+	if (Input.is_action_just_pressed("Reload")):
+
+		_is_reloading = true;
+
+
+func _reload(delta):
+
+	if (!_is_reloading):
+		return
+	
+	_reload_delay += delta
+	
+	if (_reload_delay > _weapon_config.reload_time):
+
+		_reload_delay -= _weapon_config.reload_time
+		# TODO - Reloading functionality
+		_is_reloading = false;
 
 
 func _auto_fire(delta):
 	
+	if (_is_reloading):
+		return
+
 	if (!_firing):
 		return
 		
@@ -88,6 +120,7 @@ func _lock_fire(delta):
 
 func _fire():
 	
+	_recoil()
 	for i in _weapon_config.bullet_amount_per_shot:
 
 		if (_weapon_config.hit_scan == true): 
@@ -97,7 +130,24 @@ func _fire():
 		else: 
 			
 			_fire_bullet()
+	
 
+var _shake_strength : float = 0.0
+var _rnd = RandomNumberGenerator.new()
+func _recoil():
+
+	_successive_shot += 1
+	_head.rotate_x(deg_to_rad((_weapon_config.recoil_curve.sample(_successive_shot)) * _weapon_config.recoil_scalar))
+	_shake_strength = _weapon_config.camera_shake_strength
+
+
+func _camera_shake(delta):
+
+	if (_shake_strength <= 0):
+		return
+	
+	_shake_strength = lerpf(_shake_strength, 0, _weapon_config.camera_shake_fade * delta)
+	_camera_3d.h_offset = _rnd.randf_range(-_shake_strength, _shake_strength)
 
 func _fire_raycast():
 

@@ -10,7 +10,10 @@ class_name WeaponConfig
 @export var reload_time : float = 0
 
 @export_subgroup("Shot")
-@export var recoil_strength : float = 10
+@export var recoil_scalar : float = 10
+@export var recoil_curve : Curve
+@export var camera_shake_strength : float = 3
+@export var camera_shake_fade : float = 5
 @export var bullet_amount_per_shot : float = 10
 @export var spread : float = 10
 @export var fire_rate : float = 0.25
