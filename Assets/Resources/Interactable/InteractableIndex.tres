@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="InteractableIndex" load_steps=2 format=3 uid="uid://dk7w6eduhx2m0"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractableIndex.gd" id="1_i87jt"]
+
+[resource]
+script = ExtResource("1_i87jt")

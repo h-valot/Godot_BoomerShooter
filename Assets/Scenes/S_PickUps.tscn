@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4475oj3dbypp"]
+
+[ext_resource type="PackedScene" uid="uid://dx7ii0hjkccxf" path="res://Assets/Scenes/S_InteractableObjectsTest.tscn" id="1_awtyq"]
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractableTriggerBox.gd" id="2_vbq02"]
+[ext_resource type="Resource" uid="uid://dk7w6eduhx2m0" path="res://Assets/Resources/Interactable/InteractableIndex.tres" id="4_h8uka"]
+[ext_resource type="Resource" uid="uid://b8y6m5rktsnev" path="res://Assets/Resources/Interactable/InteractableAllyFaction.tres" id="5_3muft"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="5_404b0"]
+[ext_resource type="Script" path="res://Assets/Scripts/PickUps/GD_PickUp.gd" id="6_iopin"]
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_Interactable.gd" id="6_nu1b8"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="7_8mjew"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3hlos"]
+
+[node name="SPickUps" type="Node3D"]
+
+[node name="SInteractableObjectsTest" parent="." instance=ExtResource("1_awtyq")]
+
+[node name="PickUp" type="Node3D" parent="." node_paths=PackedStringArray("inventory", "interactable")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 9.18157)
+script = ExtResource("6_iopin")
+inventory = NodePath("Inventory")
+item = ExtResource("7_8mjew")
+interactable = NodePath("Interactable")
+
+[node name="Inventory" type="Node" parent="PickUp"]
+script = ExtResource("5_404b0")
+
+[node name="Interactable" type="Node" parent="PickUp" node_paths=PackedStringArray("inventory", "trigger_box")]
+script = ExtResource("6_nu1b8")
+inventory = NodePath("../Inventory")
+interactable_index = ExtResource("4_h8uka")
+interactable_faction = ExtResource("5_3muft")
+trigger_box = NodePath("InteractableTriggerBox")
+
+[node name="InteractableTriggerBox" type="Area3D" parent="PickUp/Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 9.18157)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_vbq02")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUp/Interactable/InteractableTriggerBox"]
+shape = SubResource("SphereShape3D_3hlos")
+
+[node name="PickUp2" type="Node3D" parent="." node_paths=PackedStringArray("inventory", "interactable")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 9.18157)
+script = ExtResource("6_iopin")
+inventory = NodePath("Inventory")
+item = ExtResource("7_8mjew")
+interactable = NodePath("Interactable")
+
+[node name="Inventory" type="Node" parent="PickUp2"]
+script = ExtResource("5_404b0")
+
+[node name="Interactable" type="Node" parent="PickUp2" node_paths=PackedStringArray("inventory", "trigger_box")]
+script = ExtResource("6_nu1b8")
+inventory = NodePath("../Inventory")
+interactable_index = ExtResource("4_h8uka")
+interactable_faction = ExtResource("5_3muft")
+trigger_box = NodePath("InteractableTriggerBox")
+
+[node name="InteractableTriggerBox" type="Area3D" parent="PickUp2/Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 9.18157)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_vbq02")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUp2/Interactable/InteractableTriggerBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482893, 0.0957407, 0.247158)
+shape = SubResource("SphereShape3D_3hlos")

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="InteractableFaction" load_steps=2 format=3 uid="uid://b8y6m5rktsnev"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractableFaction.gd" id="1_wffrd"]
+
+[resource]
+script = ExtResource("1_wffrd")
+name = "Ally"
