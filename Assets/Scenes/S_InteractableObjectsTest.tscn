@@ -1,62 +1,77 @@
 [gd_scene load_steps=6 format=3 uid="uid://dx7ii0hjkccxf"]
 
-[ext_resource type="PackedScene" uid="uid://d0tg7jm3r2gnt" path="res://Assets/Scenes/S_MovementTest.tscn" id="1_j4ihm"]
-[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="2_ifc4m"]
-[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="3_sop5u"]
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="4_2nary"]
-[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="4_x7nxb"]
+[ext_resource type="Material" uid="uid://rhhcmqw3swmi" path="res://Assets/Graphics/Materials/M_GridDark.tres" id="1_3cbno"]
+[ext_resource type="PackedScene" uid="uid://crv4uiyqbey8w" path="res://Assets/Prefabs/PF_CharacterWithInteraction.tscn" id="2_wmjbu"]
+[ext_resource type="PackedScene" uid="uid://dsafwjmrbexat" path="res://Assets/Prefabs/PF_Door.tscn" id="3_5y824"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ha34v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ihis2"]
 
 [node name="SInteractableObjectsTest" type="Node3D"]
 
-[node name="SMovementTest" parent="." instance=ExtResource("1_j4ihm")]
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 0.1, 0, 0, 0, 25, 0, 0, 0)
 
-[node name="Interactable" parent="." instance=ExtResource("2_ifc4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52345, 0.947442, 0.270869)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ha34v")
 
-[node name="Area3D" parent="Interactable" index="2"]
-collision_layer = 1
-collision_mask = 1
-one_interaction_per_frame = true
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/CollisionShape3D"]
+mesh = SubResource("BoxMesh_ihis2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_3cbno")
 
-[node name="InventoryInitializer2" type="Node" parent="Interactable" node_paths=PackedStringArray("inventory")]
-script = ExtResource("4_2nary")
-inventory = NodePath("../Inventory")
-items = {
-ExtResource("4_x7nxb"): 3
-}
+[node name="Border" type="StaticBody3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 10, 0, 0, 0, 1, 0, 4.72855, -12.4188)
 
-[node name="Control" parent="Interactable" instance=ExtResource("3_sop5u")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Border"]
+shape = SubResource("BoxShape3D_ha34v")
 
-[node name="UI" parent="Interactable/Control" index="0" node_paths=PackedStringArray("interactable", "inventory")]
-interactable = NodePath("../..")
-inventory = NodePath("../../Inventory")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Border/CollisionShape3D"]
+mesh = SubResource("BoxMesh_ihis2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_3cbno")
 
-[node name="Interactable2" parent="." node_paths=PackedStringArray("inventory", "trigger_box") instance=ExtResource("2_ifc4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19263, 0.947442, 0.270869)
-inventory = NodePath("../Interactable/Inventory")
-interact_on_overlap = true
-trigger_box = NodePath("../Interactable/Area3D")
+[node name="Border2" type="StaticBody3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 10, 0, 0, 0, 1, 0, 4.72855, 11.8116)
 
-[node name="Area3D" parent="Interactable2" index="2"]
-collision_layer = 1
-collision_mask = 1
-one_interaction_per_frame = true
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Border2"]
+shape = SubResource("BoxShape3D_ha34v")
 
-[node name="InventoryInitializer2" type="Node" parent="Interactable2" node_paths=PackedStringArray("inventory")]
-script = ExtResource("4_2nary")
-inventory = NodePath("../Inventory")
-items = {
-ExtResource("4_x7nxb"): 3
-}
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Border2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_ihis2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_3cbno")
 
-[node name="Control" parent="Interactable2" instance=ExtResource("3_sop5u")]
+[node name="Border3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 25, -11.9867, 4.72855, -0.398911)
 
-[node name="UI" parent="Interactable2/Control" index="0" node_paths=PackedStringArray("interactable", "inventory")]
-interactable = NodePath("../..")
-inventory = NodePath("../../Inventory")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Border3"]
+shape = SubResource("BoxShape3D_ha34v")
 
-[editable path="SMovementTest"]
-[editable path="Interactable"]
-[editable path="Interactable/Control"]
-[editable path="Interactable2"]
-[editable path="Interactable2/Control"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Border3/CollisionShape3D"]
+mesh = SubResource("BoxMesh_ihis2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_3cbno")
+
+[node name="Border4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 25, 12.0501, 4.72855, -0.164564)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Border4"]
+shape = SubResource("BoxShape3D_ha34v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Border4/CollisionShape3D"]
+mesh = SubResource("BoxMesh_ihis2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_3cbno")
+
+[node name="PfCharacterWithInteraction" parent="." instance=ExtResource("2_wmjbu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="PfDoor" parent="." instance=ExtResource("3_5y824")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88933, 1.06677, -8.65309)
+
+[editable path="PfCharacterWithInteraction"]
+[editable path="PfCharacterWithInteraction/PF_Character"]
+[editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/Inventory2"]
+[editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/Interactable"]

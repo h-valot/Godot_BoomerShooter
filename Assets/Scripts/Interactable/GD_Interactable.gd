@@ -26,6 +26,7 @@ func _ready():
 	assert(trigger_box != null, "Child 0 must be an InteractableTriggerBox");
 
 	trigger_box.on_overlap.connect(_on_overlap)
+	trigger_box.on_physic_process.connect(reset)
 	on_get_interaction.connect(_on_get_interaction)
 
 ## Called when receive an interaction
@@ -37,6 +38,8 @@ func _on_get_interaction(other: Interactable):
 		if (!condition.compare(other, self)):
 			return
 	on_interact.emit(other)
+
+func reset():
 	current_other_interactable = null
 
 func _on_overlap(other: Node):

@@ -8,8 +8,11 @@ class_name InteractableTriggerBox
 ## Called when overlap another [Area3D]
 signal on_overlap(other)
 
+signal on_physic_process()
+
 # Emit a signal for each overlapping actor
 func _physics_process(_delta):
+	on_physic_process.emit()
 	var overlapping_bodies: Array
 	overlapping_bodies = get_overlapping_areas()
 	for overlapping_body in overlapping_bodies:

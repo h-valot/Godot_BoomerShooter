@@ -1,17 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6u35swacsip"]
+[gd_scene load_steps=4 format=3 uid="uid://c6u35swacsip"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUIInteractive.gd" id="1_ca6wn"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="2_vrhel"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="3_0p2d5"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("ui_container")]
+[node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("inventory", "ui_container")]
 script = ExtResource("1_ca6wn")
+inventory = NodePath("../Inventory")
 text_anchor = 1.0
 ui_container = NodePath("Container")
+show_ui_on_ready = false
 
 [node name="Container" type="GridContainer" parent="UI"]
 anchors_preset = 15
@@ -25,3 +31,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 6
 metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("2_vrhel")
+
+[node name="InventoryInitializer" type="Node" parent="Inventory" node_paths=PackedStringArray("inventory")]
+script = ExtResource("3_0p2d5")
+inventory = NodePath("")

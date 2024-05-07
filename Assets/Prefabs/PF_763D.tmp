@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://crv4uiyqbey8w"]
+
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="1_tldtg"]
+[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="1_whgmv"]
+[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Character.tscn" id="2_hwrec"]
+
+[node name="PfCharacterWithInteraction" type="Node3D"]
+
+[node name="PF_Character" parent="." instance=ExtResource("2_hwrec")]
+
+[node name="Inventory2" parent="PF_Character/Motor/Head" index="1" instance=ExtResource("1_whgmv")]
+
+[node name="UI" parent="PF_Character/Motor/Head/Inventory2" index="0"]
+inventory = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://Assets/Scripts/Inventory/GD_Inventory.gd"),"content":[])
+
+ui_container = Object(GridContainer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":3,"anchors_preset":15,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":1.0,"anchor_bottom":1.0,"offset_left":0.0,"offset_top":0.0,"offset_right":100.0,"offset_bottom":100.0,"grow_horizontal":2,"grow_vertical":2,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":3,"size_flags_vertical":3,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":1,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","columns":6,"script":null,"metadata/_edit_use_anchors_":true)
+
+
+[node name="InventoryInitializer" parent="PF_Character/Motor/Head/Inventory2/Inventory" index="0"]
+inventory = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://Assets/Scripts/Inventory/GD_Inventory.gd"),"content":[])
+
+
+[node name="Interactable" parent="PF_Character/Motor/Head" index="2" node_paths=PackedStringArray("inventory") instance=ExtResource("1_tldtg")]
+transform = Transform3D(2.22899, 0, 0, 0, 1.62841, 0, 0, 0, 5.53716, -0.26455, -0.28143, -2.55076)
+inventory = NodePath("../Inventory2/Inventory")
+
+[node name="Area3D" parent="PF_Character/Motor/Head/Interactable" index="0"]
+one_interaction_per_frame = true
+
+[editable path="PF_Character"]
+[editable path="PF_Character/Motor/Head/Inventory2"]
+[editable path="PF_Character/Motor/Head/Interactable"]

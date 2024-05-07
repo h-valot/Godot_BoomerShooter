@@ -13,7 +13,7 @@ class Item:
 	var quantity: int
 
 @export_category("Inventory")
-@export var content = [] 
+@export var content: Array = []
 
 ## Add an item or increase it's quantity stored in the inventory.
 func add_item(item: ItemConfig, addition: int = 1):
@@ -32,7 +32,7 @@ func add_item(item: ItemConfig, addition: int = 1):
 	var item_quantity: int = get_item_quantity(item)
 
 	if (item_quantity + addition) > item.max_stack:
-		var diff = (item_quantity + addition) - item.max_stack
+		var diff: float = (item_quantity + addition) - item.max_stack
 		set_item_quantity(item, item_quantity + addition - diff)
 		return diff
 	else:

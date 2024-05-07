@@ -12,7 +12,6 @@ class TestInventory:
 		item.name = "Item"
 		item.stackable = true
 		item.max_stack = 10
-
 		var inventoryInitializer = InventoryInitializer.new()
 		inventoryInitializer.inventory = inventory
 		inventoryInitializer.items = {item: 5}

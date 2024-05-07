@@ -1,12 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ciqgtgvj5xw5o"]
+[gd_scene load_steps=6 format=3 uid="uid://ciqgtgvj5xw5o"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractableTriggerBox.gd" id="1_3lsfk"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_Interactable.gd" id="1_hyglr"]
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="2_6j054"]
 [ext_resource type="Resource" uid="uid://b8y6m5rktsnev" path="res://Assets/Resources/Interactable/InteractableAllyFaction.tres" id="2_uwnpb"]
 [ext_resource type="Resource" uid="uid://dk7w6eduhx2m0" path="res://Assets/Resources/Interactable/InteractableIndex.tres" id="2_ygbvo"]
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="4_c3wxh"]
-[ext_resource type="Script" path="res://Assets/Scripts/UI/GD_InventoryUI.gd" id="7_db8of"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_feoew"]
 
@@ -14,14 +11,8 @@
 script = ExtResource("1_hyglr")
 interactable_index = ExtResource("2_ygbvo")
 interactable_faction = ExtResource("2_uwnpb")
+interact_on_overlap = true
 trigger_box = NodePath("Area3D")
-
-[node name="InventoryInitializer" type="Node" parent="." node_paths=PackedStringArray("inventory")]
-script = ExtResource("4_c3wxh")
-inventory = NodePath("../Inventory")
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource("2_6j054")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
@@ -31,6 +22,3 @@ one_interaction_per_frame = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_feoew")
-
-[node name="InventoryUI" type="Node" parent="."]
-script = ExtResource("7_db8of")
