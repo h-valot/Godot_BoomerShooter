@@ -1,30 +1,39 @@
-[gd_resource type="Resource" script_class="WeaponConfig" load_steps=4 format=3 uid="uid://mh7u247v0q5j"]
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=4 format=3 uid="uid://h266x3ugdxyc"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Items/GD_WeaponConfig.gd" id="1_8quct"]
-[ext_resource type="PackedScene" uid="uid://dencii50hkdmw" path="res://Assets/Prefabs/PF_SphereMesh.tscn" id="1_10eqy"]
-[ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="1_oovjn"]
+[ext_resource type="PackedScene" uid="uid://d23duj43qnji1" path="res://Assets/Prefabs/PF_Bullet.tscn" id="1_ko6h3"]
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="1_ym6d2"]
+
+[sub_resource type="Curve" id="Curve_s7srp"]
+_data = [Vector2(0.00514138, 0.0182626), 0.0, 0.0, 0, 0, Vector2(0.994859, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [resource]
-script = ExtResource("1_8quct")
+script = ExtResource("1_ym6d2")
 switch_speed = 0.5
 mag_size = 30.0
 starting_mag_amount = 10.0
 reload_time = 0.0
-recoil_strength = 10.0
+recoil_scalar = 10.0
+recoil_curve = SubResource("Curve_s7srp")
+camera_shake_strength = 0.25
+camera_shake_fade = 10.0
 bullet_amount_per_shot = 10.0
 spread = 10.0
 fire_rate = 0.25
-bullet_mesh = ExtResource("1_10eqy")
+bullet_mesh = ExtResource("1_ko6h3")
 hit_scan = false
 interrupts_npc_attack = false
 bullet_damage = 10.0
 bullet_start_speed = 30.0
 bullet_lifetime = 3.0
-bullet_gravity_scale = 0.0
-impact_size = 1.0
+bullet_gravity_scale = 1.0
+create_zone_on_impact = true
+zone_radius = 1.0
+zone_lifetime = 1.0
+zone_damage_per_tick = 1.0
+zone_tick_duration = 1.0
 GUID = 0
-name = "Rifle"
-icon = ExtResource("1_oovjn")
+name = ""
 quantity = 1.0
-max_stack = 1.0
-stackable = false
+max_stack = -1.0
+stackable = true
