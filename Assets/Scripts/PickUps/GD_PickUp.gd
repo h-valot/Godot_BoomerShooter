@@ -16,7 +16,6 @@ func _ready():
 	interactable.trigger_box.on_overlap.connect(_on_overlap_pickup)
 
 func _on_overlap_pickup():
-	print("Overlap pickup")
 	interactable.interact()
 
 func _on_pickup_interact(other: Interactable):
