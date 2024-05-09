@@ -1,5 +1,6 @@
 extends InteractableCondition
 
+## Valid an interaction if both object have the same [InteractableFaction].
 class_name ConditionFaction
 
 func _ready():

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PlayerConfig" load_steps=2 format=3 uid="uid://pyndghcxqbg0"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_PlayerConfig.gd" id="1_1nify"]
+
+[resource]
+script = ExtResource("1_1nify")
+base_health = 100.0
+health_regeneration = 0.0
+base_armor = 0.0
+base_move_speed = 10.0
+sprint_move_speed = 12.5
+air_control_scalar = 0.03
+move_speed_acceleration = 10.0
+horizontal_mouse_sensitivity = 0.4
+vertical_mouse_sensitivity = 0.2
+max_vertical_aim = 89.0
+jump_force = 4.5
+gravity_hint = "You can tweak the gravity value (9.8) in the project settings > physics > 3d > default gravity"
+i_frame_duration = 0.5
+consumable_switch_time = 0.25

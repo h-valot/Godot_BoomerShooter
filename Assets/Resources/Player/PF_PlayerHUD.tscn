@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://de3fec6ns8th6"]
+
+[ext_resource type="Texture2D" uid="uid://dfelwj8fuqu02" path="res://Assets/Graphics/Sprites/S_Crosshair.png" id="1_gmvc2"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_PlayerHUD.gd" id="1_sv7qg"]
+[ext_resource type="PackedScene" uid="uid://dm8ynpofewa7" path="res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn" id="3_ay7wr"]
+
+[node name="PF_PlayerHud" type="Control" node_paths=PackedStringArray("health_progress_bar", "armor_progress_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sv7qg")
+health_progress_bar = NodePath("PF_AnimatedProgressBar2")
+armor_progress_bar = NodePath("PF_AnimatedProgressBar")
+
+[node name="TEX_Crosshair" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_gmvc2")
+
+[node name="PF_AnimatedProgressBar" parent="." instance=ExtResource("3_ay7wr")]
+offset_left = 28.0
+offset_top = 593.0
+offset_right = 128.0
+offset_bottom = 603.0
+_upper_color = Color(0.0313726, 0.576471, 1, 1)
+
+[node name="PF_AnimatedProgressBar2" parent="." instance=ExtResource("3_ay7wr")]
+offset_left = 28.0
+offset_top = 610.0
+offset_right = 228.0
+offset_bottom = 620.0

@@ -17,9 +17,13 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=240
 config/icon="res://Assets/Graphics/Sprites/T_icon.svg"
 
+[autoload]
+
+Gizmo3D="*res://addons/godot-3d-lines/Gizmo3D.gd"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/tool_player/plugin.cfg")
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 
@@ -56,5 +60,10 @@ Jump={
 Fire={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+Interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
