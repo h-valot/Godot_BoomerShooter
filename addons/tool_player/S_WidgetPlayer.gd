@@ -7,7 +7,7 @@ extends Control
 #region InitializeWeapon
 @onready var plauyer_instance_template_path
 
-@onready var player_save_button : Button = $TabContainer/Player/Button_Save_Player as Button
+@onready var player_save_button : Button = $TabContainer/Player/Button_Save as Button
 
 @onready var player_tabBar : TabBar = $TabContainer/Player as TabBar
 
@@ -86,7 +86,7 @@ func _on_button_save_pressed():
 func _update_player_config(player_config : PlayerConfig):
 	player_config.base_health = player_base_health.value 
 	player_config.health_regeneration = player_regen.value 
-	player_config.armor = player_armor.value 
+	player_config.base_armor = player_armor.value 
 	player_config.base_move_speed = player_move_speed.value 
 	player_config.sprint_move_speed = player_sprint_speed.value 
 	player_config.move_speed_acceleration = player_acceleration.value 
@@ -103,7 +103,7 @@ func _update_player_config(player_config : PlayerConfig):
 func _update_ui_player_config(player_config : PlayerConfig):
 	player_base_health.value = player_config.base_health
 	player_regen.value = player_config.health_regeneration
-	player_armor.value = player_config.armor
+	player_armor.value = player_config.base_armor
 	player_move_speed.value = player_config.base_move_speed
 	player_sprint_speed.value = player_config.sprint_move_speed
 	player_acceleration.value = player_config.move_speed_acceleration
@@ -126,7 +126,7 @@ func _load_player_motor(file_path : String) -> PlayerConfig:
 		player_config = ResourceLoader.load(file_path) as PlayerConfig
 		if player_config:
 			print("Fichier trouvé. Mise à jour des données...")
-			_update_player_config(player_config)
+			_update_ui_player_config(player_config)
 		else:
 			print("Erreur lors du chargement de la ressource. Création d'une nouvelle instance...")
 			_create_player_file(file_path)
@@ -134,7 +134,6 @@ func _load_player_motor(file_path : String) -> PlayerConfig:
 		var error = ResourceSaver.save(player_config, file_path)
 		if error == OK:
 			print("Motor config saved successfully.")
-		dir.free()
 		return player_config
 	else:
 		_create_player_file(file_path)  
