@@ -5,24 +5,30 @@ extends Control
 
 
 #region InitializeWeapon
-@onready var weapon_instance_template_path
+@onready var plauyer_instance_template_path
 
 @onready var player_save_button : Button = $TabContainer/Player/Button_Save_Player as Button
 
 @onready var player_tabBar : TabBar = $TabContainer/Player as TabBar
 
-@onready var player_move_speed : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_MoveSpeed/SpinBox_MoveSpeed as SpinBox
-@onready var player_sprint_speed : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_SprintSpeed/SpinBox_SprintSpeed as SpinBox
-@onready var player_acceleration : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_Acceleration/SpinBox_Acceleration as SpinBox
-@onready var player_jump_force : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_JumpForce/SpinBox_JumpForce as SpinBox
+@onready var player_move_speed : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Move_Speed/SpinBox_Base_Move_Speed as SpinBox
+@onready var player_sprint_speed : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Sprint_Move_Speed/SpinBox_Sprint_Move_Speed as SpinBox
+@onready var player_acceleration : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Move_Speed_Acceleration/SpinBox_Move_Speed_Acceleration as SpinBox
+@onready var player_jump_force : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Jump_Force/SpinBox_Jump_Force as SpinBox
 @onready var player_fall_speed : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_FallSpeed/SpinBox_FallSpeed as SpinBox
-@onready var player_hp : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_HP/SpinBox_HP as SpinBox
-@onready var player_regen : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_Regen/SpinBox_Regen as SpinBox
-@onready var player_armor : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_Armor/SpinBox_Armor as SpinBox
+@onready var player_base_health : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Health/SpinBox_Base_Health as SpinBox
+@onready var player_regen : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Health_Regeneration/SpinBox_Health_Regeneration as SpinBox
+@onready var player_armor : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Armor/SpinBox_Base_Armor as SpinBox
 @onready var player_stamina : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_Stamina/SpinBox_Stamina as SpinBox
-@onready var player_i_frame_duration : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_IFrameDurantion/SpinBox_IFrameDurantion as SpinBox
-@onready var player_consumable_switch_time : SpinBox = $TabContainer/Player/PlayerList/VScrollBar/VBoxContainer/HBoxContainer_ConsumableSwitchTime/SpinBox_ConsumableSwitchTime as SpinBox
+@onready var player_i_frame_duration : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_I_Frame_Duration/SpinBox_I_Frame_Duration as SpinBox
+@onready var player_consumable_switch_time : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Consumable_Switch_Time/SpinBox_Consumable_Switch_Time as SpinBox
 
+
+@onready var player_air_control_scalar : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Air_Control_Scalar/SpinBox_Air_Control_Scalar as SpinBox
+@onready var player_horizontal_mouse_sensitivity : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Horizontal_Mouse_Sensitivity/SpinBox_Horizontal_Mouse_Sensitivity as SpinBox
+@onready var player_vertical_mouse_sensitivity : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Vertical_Mouse_Sensitivity/SpinBox_Vertical_Mouse_Sensitivity as SpinBox
+@onready var player_max_vertical_aim : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Vertical_Mouse_Sensitivity/SpinBox_Vertical_Mouse_Sensitivity as SpinBox
+@onready var player_gravity_hint : Label = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Gravity_Hint/Label_Gravity_Hin_Details as Label
 #endregion
 
 @onready var opponents_tabBar : TabBar = $TabContainer/Opponents as TabBar
@@ -30,7 +36,7 @@ extends Control
 
 func _ready():
 	_init_ui(tab_container.current_tab)
-	_load_player_motor("res://Assets/Resources/Characters/player_motor.tres")
+	_load_player_motor("res://Assets/Resources/Player/RE_PlayerConfig.tres")
 
 func _generate_guid() -> int:
 	return randi()
@@ -50,23 +56,23 @@ func _on_tab_changed(tab_index: int) -> void:
 			player_tabBar.visible = false
 
 func _create_player_file(file_path : String):
-		var player_motor = Motor.new()
-		var error = ResourceSaver.save(player_motor, file_path)
+		var player_config = PlayerConfig.new()
+		var error = ResourceSaver.save(player_config, file_path)
 		if error == OK:
 			print("Motor config saved successfully.")
 		
 func _on_saved_player():
-	var dir = DirAccess.open("res://Assets/Resources/Characters/")
-	var file_path : String = "res://Assets/Resources/Characters/player_motor.tres"
-	var player_motor
+	var dir = DirAccess.open("res://Assets/Resources/Player/")
+	var file_path : String = "res://Assets/Resources/Player/RE_PlayerConfig.tres"
+	var player_config
 	if dir.file_exists(file_path):
-		player_motor = ResourceLoader.load(file_path) as Motor
-		if player_motor:
+		player_config = ResourceLoader.load(file_path) as PlayerConfig
+		if player_config:
 			print("Fichier trouvé. Mise à jour des données...")
-			_update_motor_properties(player_motor)
+			_update_player_config(player_config)
 		else:
 			print("Erreur lors du chargement de la ressource.")
-		var error = ResourceSaver.save(player_motor, file_path)
+		var error = ResourceSaver.save(player_config, file_path)
 		if error == OK:
 			print("Motor config saved successfully.")
 	else:
@@ -74,52 +80,52 @@ func _on_saved_player():
 		_create_player_file(file_path)
 	dir.free()
 
-func _update_motor_properties(player_motor : Motor):
-	player_motor.base_movement_speed = player_move_speed.value 
-	player_motor.sprint_movement_speed = player_sprint_speed.value 
-	player_motor.movement_speed_acceleration = player_acceleration.value 
-	player_motor.jump_force = player_jump_force.value 
-	#player_motor.fall_speed = player_fall_speed.value 
-	player_motor.max_health_points = player_hp.value 
-	player_motor.health_regeneration = player_regen.value 
-	player_motor.armor = player_armor.value 
-	#= player_motor. = player_stamina.value
-	player_motor.i_frame_duration = player_i_frame_duration.value 
-	player_motor.consumable_switch_time = player_consumable_switch_time.value 
+func _update_player_config(player_config : PlayerConfig):
+	player_config.base_movement_speed = player_move_speed.value 
+	player_config.sprint_movement_speed = player_sprint_speed.value 
+	player_config.movement_speed_acceleration = player_acceleration.value 
+	player_config.jump_force = player_jump_force.value 
+	#player_config.fall_speed = player_fall_speed.value 
+	player_config.max_health_points = player_hp.value 
+	player_config.health_regeneration = player_regen.value 
+	player_config.armor = player_armor.value 
+	#= player_config. = player_stamina.value
+	player_config.i_frame_duration = player_i_frame_duration.value 
+	player_config.consumable_switch_time = player_consumable_switch_time.value 
 	
-func _update_ui_motor_properties(player_motor : Motor):
-	player_move_speed.value = player_motor.base_movement_speed
-	player_sprint_speed.value = player_motor.sprint_movement_speed
-	player_acceleration.value = player_motor.movement_speed_acceleration
-	player_jump_force.value = player_motor.jump_force
-	#player_fall_speed.value = player_motor.fall_speed
-	player_hp.value = player_motor.max_health_points
-	player_regen.value = player_motor.health_regeneration
-	player_armor.value = player_motor.armor
-	#player_stamina.value = player_motor.
-	player_i_frame_duration.value = player_motor.i_frame_duration
-	player_consumable_switch_time.value = player_motor.consumable_switch_time
+func _update_ui_player_config(player_config : PlayerConfig):
+	player_move_speed.value = player_config.base_movement_speed
+	player_sprint_speed.value = player_config.sprint_movement_speed
+	player_acceleration.value = player_config.movement_speed_acceleration
+	player_jump_force.value = player_config.jump_force
+	#player_fall_speed.value = player_config.fall_speed
+	player_hp.value = player_config.max_health_points
+	player_regen.value = player_config.health_regeneration
+	player_armor.value = player_config.armor
+	#player_stamina.value = player_config.
+	player_i_frame_duration.value = player_config.i_frame_duration
+	player_consumable_switch_time.value = player_config.consumable_switch_time
 	#IL EN MANQUE
 
 
-func _load_player_motor(file_path : String) -> Motor:
-	var dir = DirAccess.open("res://Assets/Resources/Characters/")
-	var player_motor
+func _load_player_motor(file_path : String) -> PlayerConfig:
+	var dir = DirAccess.open("res://Assets/Resources/Player/")
+	var player_config
 	if dir.file_exists(file_path):
-		player_motor = ResourceLoader.load(file_path) as Motor
-		if player_motor:
+		player_config = ResourceLoader.load(file_path) as PlayerConfig
+		if player_config:
 			print("Fichier trouvé. Mise à jour des données...")
-			_update_motor_properties(player_motor)
+			_update_player_config(player_config)
 		else:
 			print("Erreur lors du chargement de la ressource. Création d'une nouvelle instance...")
 			_create_player_file(file_path)
-			_update_ui_motor_properties(player_motor)
-		var error = ResourceSaver.save(player_motor, file_path)
+			_update_ui_player_config(player_config)
+		var error = ResourceSaver.save(player_config, file_path)
 		if error == OK:
 			print("Motor config saved successfully.")
 		dir.free()
-		return player_motor
+		return player_config
 	else:
 		_create_player_file(file_path)  
-		player_motor = ResourceLoader.load(file_path) as Motor
-		return player_motor
+		player_config = ResourceLoader.load(file_path) as PlayerConfig
+		return player_config

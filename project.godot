@@ -23,7 +23,7 @@ Gizmo3D="*res://addons/godot-3d-lines/Gizmo3D.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/tool_player/plugin.cfg")
 
 [input]
 
