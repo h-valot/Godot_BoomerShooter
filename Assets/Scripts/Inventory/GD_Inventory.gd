@@ -33,7 +33,7 @@ func add_item(item: ItemConfig, addition: int = 1):
 
 	if (item_quantity + addition) > item.max_stack:
 		var diff: float = (item_quantity + addition) - item.max_stack
-		set_item_quantity(item, item_quantity + addition - diff)
+		set_item_quantity(item, item_quantity + addition - int(diff))
 		return diff
 	else:
 		set_item_quantity(item, item_quantity + addition)
@@ -81,3 +81,6 @@ func have_item(item: ItemConfig) -> bool:
 	if _item == null:
 		return false
 	return _item.quantity > 0
+
+func toggle():
+	pass

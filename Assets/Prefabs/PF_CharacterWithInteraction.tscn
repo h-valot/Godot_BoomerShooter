@@ -1,31 +1,64 @@
-[gd_scene load_steps=5 format=3 uid="uid://crv4uiyqbey8w"]
+[gd_scene load_steps=7 format=3 uid="uid://crv4uiyqbey8w"]
 
 [ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="1_tldtg"]
 [ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="1_whgmv"]
 [ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Character.tscn" id="2_hwrec"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/GD_InventoryUI.gd" id="3_vjl4t"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_PlayerInteract.gd" id="4_7x134"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_PlayerInventory.gd" id="6_il5xg"]
 
 [node name="PfCharacterWithInteraction" type="Node3D"]
 
 [node name="PF_Character" parent="." instance=ExtResource("2_hwrec")]
 
-[node name="Inventory2" parent="PF_Character/Motor/Head" index="1" instance=ExtResource("1_whgmv")]
+[node name="InventoryInteractive" parent="PF_Character/Motor/Head" index="1" instance=ExtResource("1_whgmv")]
 
-[node name="UI" parent="PF_Character/Motor/Head/Inventory2" index="0" node_paths=PackedStringArray("interactable")]
+[node name="UI" parent="PF_Character/Motor/Head/InventoryInteractive" index="0" node_paths=PackedStringArray("interactable")]
 interactable = NodePath("../../Interactable")
+show_ui_on_ready = true
 
-[node name="Interactable" parent="PF_Character/Motor/Head" index="2" node_paths=PackedStringArray("inventory") instance=ExtResource("1_tldtg")]
+[node name="InventoryUI" type="Control" parent="PF_Character/Motor/Head" index="2"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" type="Node2D" parent="PF_Character/Motor/Head/InventoryUI" node_paths=PackedStringArray("inventory", "ui_container")]
+script = ExtResource("3_vjl4t")
+inventory = NodePath("../../InventoryInteractive/Inventory")
+hide_quantity_when_one = true
+ui_container = NodePath("Container")
+
+[node name="Container" type="GridContainer" parent="PF_Character/Motor/Head/InventoryUI/UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Interactable" parent="PF_Character/Motor/Head" index="3" node_paths=PackedStringArray("inventory") instance=ExtResource("1_tldtg")]
 transform = Transform3D(2.22899, 0, 0, 0, 1.62841, 0, 0, 0, 5.53716, -0.26455, -0.28143, -2.55076)
-inventory = NodePath("../Inventory2/Inventory")
+inventory = NodePath("../InventoryInteractive/Inventory")
 interact_on_overlap = false
 
 [node name="Area3D" parent="PF_Character/Motor/Head/Interactable" index="0"]
 one_interaction_per_frame = true
 
-[node name="PlayerInteraction" type="Node" parent="PF_Character/Motor/Head" index="3" node_paths=PackedStringArray("interactable")]
+[node name="PlayerInteraction" type="Node" parent="PF_Character/Motor/Head" index="4" node_paths=PackedStringArray("interactable")]
 script = ExtResource("4_7x134")
 interactable = NodePath("../Interactable")
 
+[node name="PlayerInventory" type="Node" parent="PF_Character/Motor/Head" index="5" node_paths=PackedStringArray("inventoryUIInteractive", "inventoryUI")]
+script = ExtResource("6_il5xg")
+inventoryUIInteractive = NodePath("../InventoryInteractive/UI")
+inventoryUI = NodePath("../InventoryUI/UI")
+
 [editable path="PF_Character"]
-[editable path="PF_Character/Motor/Head/Inventory2"]
+[editable path="PF_Character/Motor/Head/InventoryInteractive"]
 [editable path="PF_Character/Motor/Head/Interactable"]

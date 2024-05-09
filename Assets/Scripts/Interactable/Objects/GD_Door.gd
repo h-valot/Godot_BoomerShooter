@@ -18,3 +18,7 @@ func _process(delta):
 		rotate(Vector3.UP, speed * delta)
 	elif (!is_open && rad_to_deg(transform.basis.get_euler().y) > 0):
 		rotate(-Vector3.UP, speed * delta)
+	elif (is_open):
+		rotation_degrees.y = 90;
+	elif (!is_open):
+		rotation_degrees.y = 0;

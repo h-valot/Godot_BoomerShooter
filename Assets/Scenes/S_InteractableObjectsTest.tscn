@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dx7ii0hjkccxf"]
+[gd_scene load_steps=7 format=3 uid="uid://dx7ii0hjkccxf"]
 
 [ext_resource type="Material" uid="uid://rhhcmqw3swmi" path="res://Assets/Graphics/Materials/M_GridDark.tres" id="1_3cbno"]
 [ext_resource type="PackedScene" uid="uid://crv4uiyqbey8w" path="res://Assets/Prefabs/PF_CharacterWithInteraction.tscn" id="2_wmjbu"]
 [ext_resource type="PackedScene" uid="uid://dsafwjmrbexat" path="res://Assets/Prefabs/PF_Door.tscn" id="3_5y824"]
+[ext_resource type="PackedScene" uid="uid://ccwpdfq6nw0g0" path="res://Assets/Prefabs/PF_PickUp.tscn" id="4_jrsqp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ha34v"]
 
@@ -71,7 +72,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
 [node name="PfDoor" parent="." instance=ExtResource("3_5y824")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88933, 1.06677, -8.65309)
 
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="PfPickUp2" parent="Pickups" instance=ExtResource("4_jrsqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1849, 0.773863, 1.19321)
+
+[node name="PfPickUp" parent="Pickups" instance=ExtResource("4_jrsqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.433752, 0)
+
 [editable path="PfCharacterWithInteraction"]
 [editable path="PfCharacterWithInteraction/PF_Character"]
-[editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/Inventory2"]
+[editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/InventoryInteractive"]
 [editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/Interactable"]
