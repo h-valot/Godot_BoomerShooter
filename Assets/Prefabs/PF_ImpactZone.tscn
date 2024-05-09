@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://n8fyongkeppa"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_ImpactZone.gd" id="1_tx5ar"]
+[ext_resource type="Material" uid="uid://rhhcmqw3swmi" path="res://Assets/Graphics/Materials/M_GridDark.tres" id="2_cswok"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v37ie"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q2e66"]
+material = ExtResource("2_cswok")
+
+[node name="PF_ImpactZone" type="Area3D"]
+script = ExtResource("1_tx5ar")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_v37ie")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_q2e66")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

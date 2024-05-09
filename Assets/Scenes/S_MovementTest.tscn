@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0tg7jm3r2gnt"]
+[gd_scene load_steps=9 format=3 uid="uid://d0tg7jm3r2gnt"]
 
-[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Character.tscn" id="1_iemg8"]
+[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Player.tscn" id="1_iemg8"]
 [ext_resource type="PackedScene" uid="uid://bpft763acmlc2" path="res://Assets/Prefabs/PF_Cube_1x1.tscn" id="2_lu8k6"]
+[ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/PF_Opponent.tscn" id="2_upqix"]
+[ext_resource type="NavigationMesh" uid="uid://cfix7url5y7n2" path="res://Assets/Resources/NM_MovementTest.tres" id="4_qsb15"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_dy5sh"]
+vertices = PackedVector3Array(-99.5, 1, -99.5, -99.5, 1, 99.5, 99.5, 1, 99.5, 99.5, 1, -99.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8ulj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,24 +24,35 @@ glow_enabled = true
 
 [node name="SMovementTest" type="Node3D"]
 
-[node name="LevelDesign" type="Node3D" parent="."]
+[node name="Entities" type="Node3D" parent="."]
 
-[node name="PF_Character" parent="LevelDesign" instance=ExtResource("1_iemg8")]
+[node name="PF_Player" parent="Entities" instance=ExtResource("1_iemg8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0709593, 0, 14.3208)
 
-[node name="PF_Cube_1x1" parent="LevelDesign" instance=ExtResource("2_lu8k6")]
-transform = Transform3D(45.9084, 0, 0, 0, 1.02477, 0, 0, 0, 53.0596, 0, -0.5, 0)
+[node name="PF_Opponent" parent="Entities" instance=ExtResource("2_upqix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1.50309, 1.8717)
+
+[node name="GroundedNavMesh" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("4_qsb15")
+
+[node name="PF_Cube_1x1" parent="GroundedNavMesh" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, -0.156007, -1.5)
+
+[node name="PF_Cube_1x2" parent="GroundedNavMesh" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, 2.15601, -1.5)
+
+[node name="FlyNavMesh" type="NavigationRegion3D" parent="GroundedNavMesh"]
+navigation_mesh = SubResource("NavigationMesh_dy5sh")
+navigation_layers = 2
+
+[node name="PF_Cube_50x50" parent="GroundedNavMesh/FlyNavMesh" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(200, 0, 0, 0, 1, 0, 0, 0, 200, 0, 0, 0)
 
 [node name="Environment" type="Node3D" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_6yoed")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="PF_Cube_1x1" parent="." instance=ExtResource("2_lu8k6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1.5)
-
-[node name="PF_Cube_1x2" parent="." instance=ExtResource("2_lu8k6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -1.5)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_6yoed")
