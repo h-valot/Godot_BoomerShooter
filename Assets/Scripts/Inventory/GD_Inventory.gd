@@ -68,12 +68,13 @@ func set_item_quantity(item: ItemConfig, quantity: int):
 	for _item in content:
 		if _item.config == item:
 			_item.quantity = quantity
-			emit_signal("on_set_item_quantity", item)
+			on_set_item_quantity.emit(item)
 			return
 	var new_item = Item.new()
 	new_item.config = item
 	new_item.quantity = quantity;
 	content.append(new_item)
+	on_set_item_quantity.emit(item)
 
 ## Check if the item is in the inventory and if it is stored as more than 0.
 func have_item(item: ItemConfig) -> bool:
@@ -81,6 +82,3 @@ func have_item(item: ItemConfig) -> bool:
 	if _item == null:
 		return false
 	return _item.quantity > 0
-
-func toggle():
-	pass

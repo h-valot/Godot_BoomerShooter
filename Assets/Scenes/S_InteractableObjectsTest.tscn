@@ -69,6 +69,16 @@ surface_material_override/0 = ExtResource("1_3cbno")
 [node name="PfCharacterWithInteraction" parent="." instance=ExtResource("2_wmjbu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
 
+[node name="InventoryUI" parent="PfCharacterWithInteraction/PF_Player/PF_PlayerHud" index="4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="PfDoor" parent="." instance=ExtResource("3_5y824")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88933, 1.06677, -8.65309)
 
@@ -77,10 +87,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88933, 1.06677, -8.65309)
 [node name="PfPickUp2" parent="Pickups" instance=ExtResource("4_jrsqp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1849, 0.773863, 1.19321)
 
-[node name="PfPickUp" parent="Pickups" instance=ExtResource("4_jrsqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.433752, 0)
+[node name="PfPickUp" parent="." instance=ExtResource("4_jrsqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 2)
 
 [editable path="PfCharacterWithInteraction"]
-[editable path="PfCharacterWithInteraction/PF_Character"]
-[editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/InventoryInteractive"]
-[editable path="PfCharacterWithInteraction/PF_Character/Motor/Head/Interactable"]
+[editable path="PfCharacterWithInteraction/PF_Player"]
+[editable path="PfCharacterWithInteraction/PF_Player/PF_PlayerHud"]
+[editable path="PfCharacterWithInteraction/PF_Player/PF_PlayerHud/InventoryInteractive"]
+[editable path="PfCharacterWithInteraction/PF_Player/Head/Interactable"]

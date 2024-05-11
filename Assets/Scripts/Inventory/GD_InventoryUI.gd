@@ -54,22 +54,19 @@ func _update_ui():
 	_clear_ui()
 
 	for inventory_item in inventory.content:
-		var item_config = inventory_item as ItemConfig
-
-		assert(item_config != null, "Item (dictionnary key) must be an ItemConfig")
-
-		var quantity = inventory.content[inventory_item]
-		if !(quantity == 0 && hide_when_zero):
+		assert(inventory_item.config != null, "Item (dictionnary key) must be an ItemConfig")
+		print("Backehllo")
+		if !(inventory_item.quantity == 0 && hide_when_zero):
 			var itemButton = Button.new()
 			
-			itemButton.pressed.connect(func(): _on_action_item(item_config))
-			assert(item_config.icon != null, "Missing icon for " + item_config.name)
-			itemButton.icon = item_config.icon
+			itemButton.pressed.connect(func(): _on_action_item(inventory_item.config))
+			assert(inventory_item.config.icon != null, "Missing icon for " + inventory_item.config.name)
+			itemButton.icon = inventory_item.config.icon
 
-			if (hide_quantity_when_one && quantity != 1) || !hide_quantity_when_one:
+			if (hide_quantity_when_one && inventory_item.quantity != 1) || !hide_quantity_when_one:
 				var text = Label.new()
 
-				text.text = String.num_int64(quantity)
+				text.text = String.num_int64(inventory_item.quantity)
 				text.position = text_position
 				text.set_anchor(text_side, text_anchor)
 
