@@ -55,7 +55,6 @@ func _update_ui():
 
 	for inventory_item in inventory.content:
 		assert(inventory_item.config != null, "Item (dictionnary key) must be an ItemConfig")
-		print("Backehllo")
 		if !(inventory_item.quantity == 0 && hide_when_zero):
 			var itemButton = Button.new()
 			
