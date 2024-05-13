@@ -25,6 +25,14 @@ Gizmo3D="*res://addons/godot-3d-lines/Gizmo3D.gd"
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/tool_player/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "red",
+"res://Custom/": "green",
+"res://addons/": "yellow"
+}
+
 [input]
 
 Forward={
