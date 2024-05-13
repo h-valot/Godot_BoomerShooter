@@ -81,7 +81,6 @@ func _on_button_save_pressed():
 	else:
 		print("Fichier non trouvé. Création d'une nouvelle instance...")
 		_create_player_file(file_path)
-	dir.free()
 
 func _update_player_config(player_config : PlayerConfig):
 	player_config.base_health = player_base_health.value 
