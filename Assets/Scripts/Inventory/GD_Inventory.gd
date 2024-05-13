@@ -63,6 +63,19 @@ func find_item(item: ItemConfig):
 			return _item
 	return null
 
+## Return the item at the current index
+func get_item_by_index(index: int) -> ItemConfig:
+
+	if (index >= get_length()):
+		return null
+
+	return content[index]
+
+## Return the length on the inventory
+func get_length() -> int:
+	
+	return content.size()
+
 ## Set the stored quantity in a specific item.
 func set_item_quantity(item: ItemConfig, quantity: int):
 	for _item in content:
