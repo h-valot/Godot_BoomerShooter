@@ -5,16 +5,16 @@
 
 # Instructions
 
-- The [Custom](/Custom/) folder is your workspace. Everything you do must be in there.
+The [Custom](/Custom/) folder is your workspace. **Everything you do must be in there.**
 
-- DO NOT MODIFY FILES FROM [Assets](../Assets/) FOLDER ON YOUR OWN.
+**DO NOT MODIFY FILES FROM [ASSETS](../Assets/) FOLDER ON YOUR OWN.**
 
-- Do not be surprise if new files generated in thoses directiories:
+Do not be surprise if new files generated in thoses directiories:
 - [Items](../Assets/Resources/Items/)
 - [Player](../Assets/Resources/Player/)
 - [Opponents](../Assets/Resources/Opponents/)
 
-- [Here](https://onahime.notion.site/Boomer-Shooter-documentation-481e9d32d3d349889b5d19d746b3eb8a?pvs=4) is the tool documentation.
+[Here](https://onahime.notion.site/Boomer-Shooter-documentation-481e9d32d3d349889b5d19d746b3eb8a?pvs=4) is the tool documentation.
 
 # Development status
 
