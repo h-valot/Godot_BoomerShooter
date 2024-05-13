@@ -79,7 +79,8 @@ func hide_ui_compare(other: InventoryUI):
 func toogle_ui_standalone():
 	if !_ui_open:
 		show_ui_standalone()
-		return true
+		_ui_open = true
 	else:
 		hide_ui_standalone()
-		return false
+		_ui_open = false
+	return _ui_open
