@@ -35,6 +35,5 @@ metadata/_edit_use_anchors_ = true
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("2_vrhel")
 
-[node name="InventoryInitializer" type="Node" parent="Inventory" node_paths=PackedStringArray("inventory")]
+[node name="InventoryInitializer" type="Node" parent="Inventory"]
 script = ExtResource("3_0p2d5")
-inventory = NodePath("")

@@ -5,6 +5,7 @@ class_name PickUp
 
 @export var inventory: Inventory
 @export var item: ItemConfig 
+@export var quantity: int
 @export var interactable: Interactable
 @export var destroy_when_item_transferred: bool = true
 
@@ -13,16 +14,14 @@ func _ready():
 	assert(interactable != null, "Missing interactable.")
 
 	interactable.on_interact.connect(_on_pickup_interact)
-	interactable.on_get_interactable_overlap.connect(_on_overlap_pickup)
+	interactable.trigger_box.on_overlap.connect(_on_overlap_pickup)
 
 func _on_overlap_pickup():
 	interactable.interact()
 
 func _on_pickup_interact(other: Interactable):
-	if (typeof(other.get_parent()) == typeof(PickUp)):
-		return
-
 	assert(other.inventory != null, "Missing reference to inventory.")
-	other.inventory.add_item(item)
+
+	other.inventory.add_item(item, quantity)
 	if (destroy_when_item_transferred):
 		queue_free()

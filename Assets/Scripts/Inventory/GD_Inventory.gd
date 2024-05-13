@@ -33,7 +33,7 @@ func add_item(item: ItemConfig, addition: int = 1):
 
 	if (item_quantity + addition) > item.max_stack:
 		var diff: float = (item_quantity + addition) - item.max_stack
-		set_item_quantity(item, item_quantity + addition - diff)
+		set_item_quantity(item, item_quantity + addition - int(diff))
 		return diff
 	else:
 		set_item_quantity(item, item_quantity + addition)
@@ -63,17 +63,31 @@ func find_item(item: ItemConfig):
 			return _item
 	return null
 
+## Return the item at the current index
+func get_item_by_index(index: int) -> ItemConfig:
+
+	if (index >= get_length()):
+		return null
+
+	return content[index]
+
+## Return the length on the inventory
+func get_length() -> int:
+	
+	return content.size()
+
 ## Set the stored quantity in a specific item.
 func set_item_quantity(item: ItemConfig, quantity: int):
 	for _item in content:
 		if _item.config == item:
 			_item.quantity = quantity
-			emit_signal("on_set_item_quantity", item)
+			on_set_item_quantity.emit(item)
 			return
 	var new_item = Item.new()
 	new_item.config = item
 	new_item.quantity = quantity;
 	content.append(new_item)
+	on_set_item_quantity.emit(item)
 
 ## Check if the item is in the inventory and if it is stored as more than 0.
 func have_item(item: ItemConfig) -> bool:

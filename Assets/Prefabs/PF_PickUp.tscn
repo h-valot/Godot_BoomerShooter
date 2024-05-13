@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccwpdfq6nw0g0"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/PickUps/GD_PickUp.gd" id="1_tgluv"]
+[ext_resource type="Resource" uid="uid://h266x3ugdxyc" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="2_44pot"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="3_kl7ua"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="4_faotx"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="5_r5b23"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_aj0dv"]
+
+[node name="PfPickUp" type="Node3D" node_paths=PackedStringArray("inventory", "interactable")]
+script = ExtResource("1_tgluv")
+inventory = NodePath("Inventory")
+item = ExtResource("2_44pot")
+interactable = NodePath("Interactable")
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("3_kl7ua")]
+inventory = NodePath("../Inventory")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("4_faotx")
+
+[node name="InventoryInitializer" type="Node" parent="Inventory" node_paths=PackedStringArray("inventory")]
+script = ExtResource("5_r5b23")
+inventory = NodePath("..")
+items = {
+ExtResource("2_44pot"): 1
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_aj0dv")
+
+[editable path="Interactable"]

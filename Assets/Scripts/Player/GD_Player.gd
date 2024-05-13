@@ -24,10 +24,17 @@ func _ready():
 	_health_component.on_health_changed.connect(_hud.update_health_bar)
 	_health_component.on_armor_changed.connect(_hud.update_armor_bar)
 
-	_weapon.initialize(bullet_prefab, weapon_config)
+	_weapon.initialize()
+	weapon_config.initialize_mag()
+	_weapon.set_weapon(weapon_config)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	
+
+func _physics_process(delta):	
+
+	_handle_move(delta)
+	_change_weapon()
+
 
 #region MOTOR
 func _input(event):
@@ -35,7 +42,7 @@ func _input(event):
 	_look(event)
 
 
-func _physics_process(delta):	
+func _handle_move(delta):
 
 	_apply_gravity(delta)
 	_jump()
@@ -110,4 +117,76 @@ func _look(event):
 		rotate_y(deg_to_rad(-event.relative.x * player_config.horizontal_mouse_sensitivity))
 		_head.rotate_x(deg_to_rad(-event.relative.y * player_config.vertical_mouse_sensitivity))
 		_head.rotation.x = clamp(_head.rotation.x, deg_to_rad(-player_config.max_vertical_aim), deg_to_rad(player_config.max_vertical_aim))
+#endregion
+
+
+#region WEAPON
+var _current_weapon_index: int = 0
+
+@onready var _weapon_inventory : Inventory = $WeaponInventory
+
+
+func _change_weapon():
+
+	if (Input.is_action_just_pressed("Weapon-1")):
+		_set_weapon(0)
+
+	if (Input.is_action_just_pressed("Weapon-2")):
+		_set_weapon(1)
+
+	if (Input.is_action_just_pressed("Weapon-3")):
+		_set_weapon(2)
+
+	if (Input.is_action_just_pressed("Weapon-4")):
+		_set_weapon(3)
+
+	if (Input.is_action_just_pressed("Weapon-5")):
+		_set_weapon(4)
+
+	if (Input.is_action_just_pressed("Weapon-6")):
+		_set_weapon(5)
+
+	if (Input.is_action_just_pressed("Weapon-7")):
+		_set_weapon(6)
+
+	if (Input.is_action_just_pressed("Weapon-8")):
+		_set_weapon(7)
+
+	if (Input.is_action_just_pressed("Weapon-9")):
+		_set_weapon(8)
+
+	if (Input.is_action_just_pressed("Weapon-0")):
+		_set_weapon(9)
+
+	if (Input.is_action_just_pressed("Scroll-up")):
+		_cycle_weapon(1)
+
+	if (Input.is_action_just_pressed("Scroll-down")):
+		_cycle_weapon(-1)
+
+
+func _set_weapon(index: int):
+
+	var weapon_at_index: WeaponConfig = _weapon_inventory.get_item_by_index((index))
+
+	if (weapon_at_index == null):
+		print("this weapon doesn't exists")
+		return;
+
+	_weapon.set_weapon(weapon_at_index)
+	_current_weapon_index = index
+	print(_current_weapon_index)
+
+
+func _cycle_weapon(direction: int):
+
+	var index: int = _current_weapon_index + direction
+
+	if (index < 0):
+		index = _weapon_inventory.get_length()
+
+	if (index >= _weapon_inventory.get_length()):
+		index = 0
+	
+	_set_weapon(index)
 #endregion

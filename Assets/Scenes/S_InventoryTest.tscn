@@ -14,9 +14,8 @@ grow_vertical = 2
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("1_5g2s5")
 
-[node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("inventory")]
+[node name="UI" type="Node2D" parent="."]
 script = ExtResource("3_x13sf")
-inventory = NodePath("")
 text_anchor = 1.0
 
 [node name="Container" type="GridContainer" parent="UI"]

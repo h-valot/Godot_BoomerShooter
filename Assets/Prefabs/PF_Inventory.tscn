@@ -4,19 +4,20 @@
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="2_3ejh8"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="3_5nai5"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("inventory", "ui_container")]
+[node name="UI" type="Node2D" parent="."]
 script = ExtResource("1_frgum")
-inventory = NodePath("../Inventory")
 text_anchor = 1.0
-ui_container = NodePath("Container")
 
 [node name="Container" type="GridContainer" parent="UI"]
+layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
