@@ -20,10 +20,11 @@ config/icon="res://Assets/Graphics/Sprites/T_icon.svg"
 [autoload]
 
 Gizmo3D="*res://addons/godot-3d-lines/Gizmo3D.gd"
+CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/tool_player/plugin.cfg")
+enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/tool_player/plugin.cfg")
 
 [file_customization]
 
