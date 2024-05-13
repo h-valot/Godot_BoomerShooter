@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponConfig" load_steps=5 format=3 uid="uid://h266x3ugdxyc"]
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=4 format=3 uid="uid://mh7u247v0q5j"]
 
 [ext_resource type="PackedScene" uid="uid://d23duj43qnji1" path="res://Assets/Prefabs/PF_Bullet.tscn" id="1_ko6h3"]
 [ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="1_ym6d2"]
-[ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="2_55dec"]
 
 [sub_resource type="Curve" id="Curve_s7srp"]
 _data = [Vector2(0.00514138, 0.0182626), 0.0, 0.0, 0, 0, Vector2(0.994859, 1), 0.0, 0.0, 0, 0]
@@ -11,14 +10,14 @@ point_count = 2
 [resource]
 script = ExtResource("1_ym6d2")
 switch_speed = 0.5
-mag_size = 30.0
-starting_mag_amount = 10.0
-reload_time = 0.0
+mag_size = 3
+starting_mag_amount = 1
+reload_time = 3.0
 recoil_scalar = 10.0
 recoil_curve = SubResource("Curve_s7srp")
 camera_shake_strength = 0.25
 camera_shake_fade = 10.0
-bullet_amount_per_shot = 10.0
+bullet_amount_per_shot = 10
 spread = 10.0
 fire_rate = 0.25
 bullet_mesh = ExtResource("1_ko6h3")
@@ -35,7 +34,6 @@ zone_damage_per_tick = 1.0
 zone_tick_duration = 1.0
 GUID = 0
 name = ""
-icon = ExtResource("2_55dec")
 quantity = 1.0
 max_stack = -1.0
 stackable = true

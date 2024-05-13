@@ -5,34 +5,34 @@ class_name Weapon
 @export var health_component : HealthComponent
 @export var zone_prefab : PackedScene
 
-var _firing : bool = false
-var _fire_rate_delay : float = 0.0
-
-var _is_reloading : bool = false
-var _reload_delay : float = 0.0
-var _successive_shot : int = 0
-
-var _can_fire : bool = true
-var _can_fire_delay : float = 0.0
-
-var _space_query : PhysicsDirectSpaceState3D
-var _raycast : PhysicsRayQueryParameters3D
-var _result : Dictionary
 var _weapon_config : WeaponConfig
-var _bullet_prefab : PackedScene
 var _initialized : bool = false
+var _switching: bool = false
 
+@onready var _head = $"../Head"
 @onready var _muzzle = $"../Head/Camera3D/CSGBox3D/Muzzle"
 @onready var _camera_3d = $"../Head/Camera3D"
-@onready var _head = $"../Head"
+@onready var _weapon_inventory = $"/Inventory"
 
 
-func initialize(bullet_prefab : PackedScene, weapon_config : WeaponConfig):
+func initialize():
 	
-	_bullet_prefab = bullet_prefab
-	_weapon_config = weapon_config
 	_camera_3d = _camera_3d as Camera3D
+	_weapon_inventory = _weapon_inventory as Inventory
 	_initialized = true
+
+
+func set_weapon(weapon_config : WeaponConfig):
+
+	if (_switching):
+		return
+
+	_weapon_config = weapon_config
+	_bullet_prefab = _weapon_config.bullet_mesh
+
+	_switching = true
+	await get_tree().create_timer(_weapon_config.switch_speed).timeout
+	_switching = false
 
 
 func _physics_process(delta):
@@ -52,13 +52,24 @@ func _process(delta):
 	_lock_fire(delta)
 
 
-## Handle weapon fire input
+#region FIRE
+var _bullet_prefab : PackedScene
+var _space_query : PhysicsDirectSpaceState3D
+var _raycast : PhysicsRayQueryParameters3D
+var _result : Dictionary
+var _firing : bool = false
+var _fire_rate_delay : float = 0.0
+var _can_fire : bool = true
+var _can_fire_delay : float = 0.0
+
+
 func _get_inputs():
 
 	if (Input.is_action_just_pressed("Fire")):
 	
 		if (_can_fire
-		&& !_is_reloading):
+		&& !_is_reloading
+		&& !_empty_mag):
 	
 			_fire()
 			_can_fire = false
@@ -76,22 +87,11 @@ func _get_inputs():
 		_is_reloading = true;
 
 
-func _reload(delta):
-
-	if (!_is_reloading):
-		return
-	
-	_reload_delay += delta
-	
-	if (_reload_delay > _weapon_config.reload_time):
-
-		_reload_delay -= _weapon_config.reload_time
-		# TODO - Reloading functionality
-		_is_reloading = false;
-
-
 func _auto_fire(delta):
 	
+	if (_empty_mag):
+		return
+
 	if (_is_reloading):
 		return
 
@@ -119,6 +119,8 @@ func _lock_fire(delta):
 
 
 func _fire():
+
+	_use_bullet()
 	
 	for i in _weapon_config.bullet_amount_per_shot:
 
@@ -132,23 +134,6 @@ func _fire():
 	
 	_recoil()
 	
-
-var _shake_strength : float = 0.0
-var _rnd = RandomNumberGenerator.new()
-func _recoil():
-
-	_successive_shot += 1
-	_head.rotate_x(deg_to_rad((_weapon_config.recoil_curve.sample(_successive_shot)) * _weapon_config.recoil_scalar))
-	_shake_strength = _weapon_config.camera_shake_strength
-
-
-func _camera_shake(delta):
-
-	if (_shake_strength <= 0):
-		return
-	
-	_shake_strength = lerpf(_shake_strength, 0, _weapon_config.camera_shake_fade * delta)
-	_camera_3d.h_offset = _rnd.randf_range(-_shake_strength, _shake_strength)
 
 func _fire_raycast():
 
@@ -218,3 +203,82 @@ func _generate_zone(impact_position):
 		_weapon_config.zone_tick_duration, 
 		health_component.receiver_type
 	)
+
+#endregion
+
+
+#region RELOAD
+var _empty_mag: bool = false;
+var _is_reloading : bool = false
+var _reload_delay : float = 0.0
+
+
+func _reload(delta):
+
+	if (!_is_reloading):
+		return
+	
+	_reload_delay += delta
+	
+	if (_reload_delay > _weapon_config.reload_time):
+
+		_reload_delay -= _weapon_config.reload_time
+
+		# Reloading functionality
+		var new_stored_bullet_amount: int = _weapon_config.stored_bullet_amount - _weapon_config.mag_size
+		var new_current_bullet_amount: int
+
+		if (new_stored_bullet_amount == -_weapon_config.mag_size):
+
+			_empty_mag = true;
+			_is_reloading = false;
+			return
+		
+		if (new_stored_bullet_amount >= 0):
+
+			new_current_bullet_amount = _weapon_config.mag_size
+
+		else:
+
+			new_current_bullet_amount = _weapon_config.mag_size + new_stored_bullet_amount
+		
+		_weapon_config.stored_bullet_amount -= new_current_bullet_amount
+		_weapon_config.current_bullet_amount = new_current_bullet_amount
+
+		_is_reloading = false;
+
+
+func _use_bullet():
+
+	_weapon_config.current_bullet_amount -= 1
+
+	if (_weapon_config.current_bullet_amount <= 0):
+
+		_is_reloading = true
+		return;
+
+#endregion
+
+
+#region RECOIL
+var _shake_strength : float = 0.0
+var _rnd = RandomNumberGenerator.new()
+var _successive_shot : int = 0
+
+
+func _recoil():
+
+	_successive_shot += 1
+	_head.rotate_x(deg_to_rad((_weapon_config.recoil_curve.sample(_successive_shot)) * _weapon_config.recoil_scalar))
+	_shake_strength = _weapon_config.camera_shake_strength
+
+
+func _camera_shake(delta):
+
+	if (_shake_strength <= 0):
+		return
+	
+	_shake_strength = lerpf(_shake_strength, 0, _weapon_config.camera_shake_fade * delta)
+	_camera_3d.h_offset = _rnd.randf_range(-_shake_strength, _shake_strength)
+
+#endregion
