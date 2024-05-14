@@ -131,21 +131,6 @@ func get_all_skeletal_meshes_in_project(directory_path="res://"):
 		dir.list_dir_end()
 	return mesh_paths
 
-func get_all_bullet_meshes_in_project(directory_path="res://"):
-	var mesh_paths = []
-	var dir = DirAccess.open(directory_path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".blend") or file_name.ends_with(".fbx") or file_name.ends_with(".obj"):
-				mesh_paths.append(directory_path + file_name)
-			elif dir.current_is_dir():
-				mesh_paths += get_all_bullet_meshes_in_project(directory_path + file_name + "/")
-			file_name = dir.get_next()
-		dir.list_dir_end()
-	return mesh_paths
-
 func _ready() -> void:
 	_check_weapon_instance_template_exist()
 	_check_consumable_instance_template_exist()
