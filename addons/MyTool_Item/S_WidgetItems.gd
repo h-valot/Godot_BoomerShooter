@@ -107,7 +107,21 @@ func get_all_images_in_project(directory_path="res://"):
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	return image_paths
-
+	
+func get_all_skeletal_meshes_in_project(directory_path="res://"):
+	var mesh_paths = []
+	var dir = DirAccess.open(directory_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".blend") or file_name.ends_with(".fbx") or file_name.ends_with(".obj"):
+				mesh_paths.append(directory_path + file_name)
+			elif dir.current_is_dir():
+				mesh_paths += get_all_skeletal_meshes_in_project(directory_path + file_name + "/")
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	return mesh_paths
 
 func _ready() -> void:
 	_check_weapon_instance_template_exist()
@@ -119,20 +133,68 @@ func _ready() -> void:
 	_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
 	_init_ui(tab_container.current_tab)
 	
+	weapon_item_mesh.connect("item_selected", _on_mesh_selected)
 	icon_selector.connect("item_selected", _on_image_selected)
 	populate_images()
+	populate_meshes()
+
+func _on_mesh_selected(index: int):
+	var mesh_path = weapon_item_mesh.get_item_text(index)
 	
+func populate_meshes():
+	weapon_item_mesh.clear()
+	var meshes = get_all_skeletal_meshes_in_project()
+	weapon_item_mesh.add_item("NONE")
+	for mesh_path in meshes:
+		print(mesh_path)
+		weapon_item_mesh.add_item(mesh_path)
+
+#func populate_images():
+	#icon_selector.clear()
+	#var images = get_all_images_in_project()
+	#icon_selector.add_item("NONE")
+	#for image_path in images:
+		#var texture = load(str(image_path))
+		#icon_selector.add_icon_item(texture, image_path.get_file())
+#
+#func _on_image_selected(index: int):
+	#var selected_image_path = icon_selector.get_item_icon(index)
+	#if(icon_selector.get_item_text(index) == "NONE"):
+		#icon_selector.icon = null
+		#print("NONE")
+	#else:
+		#var texture = load(selected_image_path.resource_path)
+		#icon_selector.icon = texture 
+#@onready var icon_selector: OptionButton = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon/OptionButton_Icon as OptionButton
+
 func populate_images():
+	icon_selector.clear()
+	icon_selector.add_item("NONE")  # Ajouter une option NONE sans icône
 	var images = get_all_images_in_project()
 	for image_path in images:
-		var texture = load(str(image_path))
-		icon_selector.add_icon_item(texture, image_path.get_file())
+		var texture = load(image_path)  # Assurez-vous que load est correctement utilisé
+		if texture:
+			icon_selector.add_icon_item(texture, image_path.get_file())
+			icon_selector.set_item_metadata(icon_selector.get_item_count() - 1, image_path)
 
 func _on_image_selected(index: int):
-	var selected_image_path = icon_selector.get_item_icon(index)
-	
-	var texture = load(selected_image_path.resource_path)
-	icon_selector.icon = texture 
+	var selected_image_path = icon_selector.get_item_metadata(index)
+	if icon_selector.get_item_text(index) == "NONE":
+		icon_selector.icon = null
+		print("No icon selected.")
+	else:
+		var texture = load(selected_image_path)
+		icon_selector.icon = texture  # Définir l'icône du bouton d'option
+		print("Selected image: ", selected_image_path)
+
+func update_icon_display(weapon_config):
+	if weapon_config and weapon_config.icon:
+		for i in range(icon_selector.get_item_count()):
+			if icon_selector.get_item_metadata(i) == weapon_config.icon.resource_path:
+				icon_selector.selected = i
+				return
+	# Si aucune icône n'est configurée ou correspondante, sélectionnez NONE
+	icon_selector.selected = 0
 
 
 func _check_weapon_instance_template_exist():
@@ -278,7 +340,7 @@ func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 
 func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.name = weapon_name.text 
-	#weapon_item_mesh
+	weapon_config.item_mesh = load(weapon_item_mesh.get_item_text(weapon_item_mesh.get_item_index(weapon_item_mesh.get_selected_id())))
 	weapon_config.icon = icon_selector.icon 
 	weapon_config.quantity = weapon_quantity.value 
 	weapon_config.max_stack = weapon_max_stack.value 
@@ -300,14 +362,40 @@ func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.bullet_gravity_scale = weapon_bullet_gravity.value 
 	#weapon_config.impact_size = weapon_impact_size.value 
 	
+func _find_item_by_text(option_button: OptionButton, text: String):
+	print("Hello, World!")
+	for i in range(option_button.item_count):
+		print(str(option_button.get_item_text(i)) + " == " + text)
+		if option_button.get_item_text(i) == text:
+			return i
+	return -1
+
 # Load all details of the Weapon Config
 func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	if(weapon_save_button.is_connected("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))):
 		weapon_save_button.disconnect("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))
 	weapon_save_button.connect("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))
 	weapon_name.text = weapon_config.name
-	#weapon_item_mesh
-	icon_selector.icon = weapon_config.icon
+	
+	if(weapon_config.item_mesh != null):
+		weapon_item_mesh.text = weapon_config.item_mesh.resource_path
+	else:
+		weapon_item_mesh.text = "NONE" 
+	if weapon_config and weapon_config.icon and weapon_config.icon is Texture:
+		var weapon_icon_path = weapon_config.icon.resource_path
+		for i in range(icon_selector.get_item_count()):
+			var metadata = icon_selector.get_item_metadata(i)
+			if metadata and metadata == weapon_icon_path:
+				icon_selector.selected = i
+				return
+	icon_selector.selected = 0
+	#if(weapon_config.icon == null):
+		#icon_selector.icon = null
+	#else:
+		#icon_selector.icon = weapon_config.icon
+		#var item_index = _find_item_by_text(icon_selector, weapon_config.icon.resource_path)
+		#if (item_index > -1):
+			#icon_selector.select(item_index)
 	weapon_quantity.value = weapon_config.quantity
 	weapon_max_stack.value = weapon_config.max_stack
 	weapon_stackable.button_pressed = weapon_config.stackable
