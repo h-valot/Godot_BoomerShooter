@@ -169,10 +169,10 @@ func populate_meshes():
 
 func populate_images():
 	icon_selector.clear()
-	icon_selector.add_item("NONE")  # Ajouter une option NONE sans icône
+	icon_selector.add_item("NONE")
 	var images = get_all_images_in_project()
 	for image_path in images:
-		var texture = load(image_path)  # Assurez-vous que load est correctement utilisé
+		var texture = load(image_path)
 		if texture:
 			icon_selector.add_icon_item(texture, image_path.get_file())
 			icon_selector.set_item_metadata(icon_selector.get_item_count() - 1, image_path)
@@ -184,17 +184,9 @@ func _on_image_selected(index: int):
 		print("No icon selected.")
 	else:
 		var texture = load(selected_image_path)
-		icon_selector.icon = texture  # Définir l'icône du bouton d'option
+		icon_selector.icon = texture
 		print("Selected image: ", selected_image_path)
 
-func update_icon_display(weapon_config):
-	if weapon_config and weapon_config.icon:
-		for i in range(icon_selector.get_item_count()):
-			if icon_selector.get_item_metadata(i) == weapon_config.icon.resource_path:
-				icon_selector.selected = i
-				return
-	# Si aucune icône n'est configurée ou correspondante, sélectionnez NONE
-	icon_selector.selected = 0
 
 
 func _check_weapon_instance_template_exist():
@@ -381,14 +373,10 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 		weapon_item_mesh.text = weapon_config.item_mesh.resource_path
 	else:
 		weapon_item_mesh.text = "NONE" 
-	if weapon_config and weapon_config.icon and weapon_config.icon is Texture:
-		var weapon_icon_path = weapon_config.icon.resource_path
-		for i in range(icon_selector.get_item_count()):
-			var metadata = icon_selector.get_item_metadata(i)
-			if metadata and metadata == weapon_icon_path:
-				icon_selector.selected = i
-				return
-	icon_selector.selected = 0
+		
+		
+		
+	
 	#if(weapon_config.icon == null):
 		#icon_selector.icon = null
 	#else:
@@ -416,6 +404,14 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	weapon_bullet_gravity.value = weapon_config.bullet_gravity_scale
 	#weapon_impact_size.value = weapon_config.impact_size
 	print("Details shown for: ", weapon_config.name)
+	if weapon_config and weapon_config.icon and weapon_config.icon is Texture:
+		var weapon_icon_path = weapon_config.icon.resource_path
+		for i in range(icon_selector.get_item_count()):
+			var metadata = icon_selector.get_item_metadata(i)
+			if metadata and metadata == weapon_icon_path:
+				icon_selector.selected = i
+				return
+	icon_selector.selected = 0
 
 
 func _check_consumable_instance_template_exist():
