@@ -75,12 +75,13 @@ func _get_inputs():
 			_can_fire = false
 			_fire_rate_delay = 0
 			_firing = true
+			
+			_successive_shot = 0
+			_head.rotate_x(deg_to_rad((_weapon_config.recoil_curve.sample(_successive_shot)) * _weapon_config.recoil_scalar))
 	
 	if (Input.is_action_just_released("Fire")):
 	
 		_firing = false
-		_successive_shot = 0
-		_head.rotate_x(deg_to_rad((_weapon_config.recoil_curve.sample(_successive_shot)) * _weapon_config.recoil_scalar))
 
 	if (Input.is_action_just_pressed("Reload")):
 
@@ -138,7 +139,7 @@ func _fire():
 func _fire_raycast():
 
 	var from = _camera_3d.global_position
-	var to = _camera_3d.global_position - _camera_3d.global_transform.basis.z * 100
+	var to = _camera_3d.global_position - _camera_3d.global_transform.basis.z * _weapon_config.raycast_length
 
 	if (_weapon_config.bullet_amount_per_shot > 1):
 
@@ -150,7 +151,7 @@ func _fire_raycast():
 	Gizmo3D.DrawLine(from, to, Color.RED, 1)
 	_raycast.collision_mask = 1 # Colliding only with entities
 	_raycast.collide_with_areas = true
-	_raycast.collide_with_bodies = _weapon_config.create_zone_on_impact
+	_raycast.collide_with_bodies = true
 	_result = _space_query.intersect_ray(_raycast)
 
 	if (!_result):

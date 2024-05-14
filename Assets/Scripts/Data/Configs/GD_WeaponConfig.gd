@@ -18,6 +18,7 @@ var current_bullet_amount: int = 0
 @export var camera_shake_fade : float = 5
 @export var bullet_amount_per_shot : int = 10
 @export var spread : float = 10
+@export var raycast_length : float = 100
 @export var fire_rate : float = 0.25
 
 

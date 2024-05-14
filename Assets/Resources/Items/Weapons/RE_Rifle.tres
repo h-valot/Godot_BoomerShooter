@@ -20,6 +20,7 @@ camera_shake_strength = 0.25
 camera_shake_fade = 10.0
 bullet_amount_per_shot = 10
 spread = 10.0
+raycast_length = 100.0
 fire_rate = 0.25
 bullet_mesh = ExtResource("1_ko6h3")
 hit_scan = false
