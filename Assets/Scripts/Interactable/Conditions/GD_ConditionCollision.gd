@@ -3,9 +3,6 @@ extends InteractableCondition
 ## Valid an interaction if both object are overlaping.
 class_name ConditionCollision
 
-func _ready():
-    OnCompare.connect(self.on_compare)
-
 func on_compare(node_a, node_b, result: BoolObject):
     if (require_collision):
         var collision_object_a = node_a.get_child(0) as CollisionObject3D

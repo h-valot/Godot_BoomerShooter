@@ -25,19 +25,20 @@ func add_item(item: ItemConfig, addition: int = 1):
 			addition = 1
 		elif addition < 0:
 			addition = 0
-		
 		set_item_quantity(item, addition)
 		return 0
 
 	var item_quantity: int = get_item_quantity(item)
 
-	if (item_quantity + addition) > item.max_stack:
-		var diff: float = (item_quantity + addition) - item.max_stack
-		set_item_quantity(item, item_quantity + addition - int(diff))
-		return diff
-	else:
-		set_item_quantity(item, item_quantity + addition)
-		return 0
+	if (item.max_stack > 0):
+		if (item_quantity + addition) > item.max_stack:
+			var diff: float = (item_quantity + addition) - item.max_stack
+			set_item_quantity(item, item_quantity + addition - int(diff))
+			return diff;
+		else:
+			set_item_quantity(item, item_quantity + addition)
+			return 0	
+	set_item_quantity(item, item_quantity + addition)		
 
 ## Substract the quantity of an item, but do not remove the instance from the array.
 func remove_item(item: ItemConfig, substraction: int = 1):

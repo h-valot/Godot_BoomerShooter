@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="InteractableCondition" load_steps=3 format=3 uid="uid://dijidskeacfr2"]
+[gd_resource type="Resource" script_class="ConditionItem" load_steps=3 format=3 uid="uid://dijidskeacfr2"]
 
-[ext_resource type="Resource" uid="uid://b8y6m5rktsnev" path="res://Assets/Resources/Interactable/InteractableAllyFaction.tres" id="1_w05m4"]
-[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractionCondition.gd" id="1_xyfhb"]
+[ext_resource type="Resource" uid="uid://h266x3ugdxyc" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="1_hm6g4"]
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/Conditions/GD_ConditionItem.gd" id="2_hx85b"]
 
 [resource]
-script = ExtResource("1_xyfhb")
+script = ExtResource("2_hx85b")
+item = ExtResource("1_hm6g4")
 require_faction = false
-faction = ExtResource("1_w05m4")
 require_collision = false

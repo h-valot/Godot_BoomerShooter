@@ -12,6 +12,7 @@
 script = ExtResource("1_tgluv")
 inventory = NodePath("Inventory")
 item = ExtResource("2_44pot")
+quantity = 1
 interactable = NodePath("Interactable")
 
 [node name="Interactable" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("3_kl7ua")]

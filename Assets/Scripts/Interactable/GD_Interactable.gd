@@ -13,7 +13,7 @@ signal on_get_interactable_overlap(other: Node)
 @export var inventory: Inventory;
 @export var interactable_index: InteractableIndex
 @export var require_condition: bool = false
-@export var condition_array: Array = []
+@export var condition_array: Array[Resource] = []
 @export var interactable_faction: InteractableFaction
 @export var interact_on_overlap: bool = false
 
@@ -33,10 +33,12 @@ func _ready():
 func _on_get_interaction(other: Interactable):
 	assert(other != null, "Other is null when get interaction.")
 	
-	# Skip if any condition failed
-	for condition in other.condition_array:
-		if (!condition.compare(other, self)):
-			return
+	if require_condition:
+		# Skip if any condition failed
+		for condition in condition_array:
+			if (!condition.compare(other, self)):
+				return
+
 	on_interact.emit(other)
 
 func reset():
@@ -56,8 +58,6 @@ func _on_overlap(other: Node):
 func interact():
 	if (current_other_interactable != null):
 		current_other_interactable.on_get_interaction.emit(self)
-	else:
-		print("current other is not valid")
 
 func _enter_tree():
 	interactable_index.nodes.append(self)

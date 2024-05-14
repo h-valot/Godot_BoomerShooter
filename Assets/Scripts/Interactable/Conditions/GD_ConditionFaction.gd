@@ -3,9 +3,6 @@ extends InteractableCondition
 ## Valid an interaction if both object have the same [InteractableFaction].
 class_name ConditionFaction
 
-func _ready():
-    OnCompare.connect(self.on_compare)
-
 ## Called when a comparaison happend,
 ## you can refuse the interaction to using result.to_false()
 func on_compare(node_a, node_b, result: BoolObject):

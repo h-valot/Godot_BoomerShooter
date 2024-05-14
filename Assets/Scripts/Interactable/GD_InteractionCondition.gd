@@ -7,8 +7,8 @@ class_name InteractableCondition
 @export var faction: InteractableFaction
 @export var require_collision: bool = false
 
-## Called when a comparation is done to add more check.
-signal OnCompare(node_a: Node, node_b: Node, result: BoolObject)
+func on_compare(_node_a: Node, _node_b: Node, _result: BoolObject):
+	pass
 
 ## Compare two node to know if they can interact.
 func compare(node_a: Node, node_b: Node) -> bool:
@@ -17,7 +17,7 @@ func compare(node_a: Node, node_b: Node) -> bool:
 
 	var result = BoolObject.new(true)
 
-	OnCompare.emit(node_a, node_b, result)
+	on_compare(node_a, node_b, result)
 	
 	# All checks should succeed to be able to interact
 	return result.out()
