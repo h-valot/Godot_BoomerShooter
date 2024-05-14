@@ -61,6 +61,7 @@ extends Control
 @onready var consumable_name : TextEdit = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name/TextEdit_Name as TextEdit
 @onready var consumable_item_mesh : OptionButton = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem/OptionButton_Mesh as OptionButton
 @onready var consumable_icon : TextureRect = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon/TextureRect_Icon as TextureRect
+@onready var consumable_icon_selector: OptionButton = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon/OptionButton_Icon as OptionButton
 @onready var consumable_quantity : SpinBox = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Quantity/SpinBox_Quantity as SpinBox
 @onready var consumable_max_stack : SpinBox = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MaxStack/SpinBox_MaxStack as SpinBox
 @onready var consumable_stackable : CheckBox = $TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Stackable/CheckBox_Stackable as CheckBox
@@ -338,7 +339,6 @@ func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.name = weapon_name.text 
 	var item_mesh_path = weapon_item_mesh.get_item_text(weapon_item_mesh.get_selected_id())
 	var bullet_mesh_path = weapon_bullet_mesh.get_item_text(weapon_bullet_mesh.get_selected_id())
-	
 	if item_mesh_path != "NONE":
 		weapon_config.item_mesh = load(item_mesh_path) as PackedScene
 	else:
@@ -475,7 +475,10 @@ func _on_b_show_details_consumable_pressed(consumable_config : ConsumableConfig)
 		consumable_save_button.disconnect("pressed", _on_save_consumable_config_button_pressed.bind(consumable_config))
 	consumable_save_button.connect("pressed", _on_save_consumable_config_button_pressed.bind(consumable_config))
 	consumable_name.text = consumable_config.name
-	#consumable_item_mesh
+	if(consumable_item_mesh.item_mesh != null):
+		consumable_item_mesh.text = consumable_config.item_mesh.resource_path
+	else:
+		consumable_item_mesh.text = "NONE"
 	consumable_icon.texture = consumable_config.icon
 	consumable_quantity.value = consumable_config.quantity
 	consumable_max_stack.value = consumable_config.max_stack
@@ -503,7 +506,7 @@ func _on_b_show_details_consumable_pressed(consumable_config : ConsumableConfig)
 	consumable_use_impact_size.button_pressed = consumable_config.use_impact_size
 	consumable_impact_size.value = consumable_config.impact_size
 	consumable_use_range.button_pressed = consumable_config.use_range
-	consumable_range.value = consumable_config.range
+	consumable_range.value = consumable_config.throw_range
 
 
 func _on_b_delete_consumable_pressed(consumable_config: ConsumableConfig, consumable_item_instance: Node, file_path: String):
@@ -591,8 +594,12 @@ func _on_save_consumable_config_button_pressed(consumable_config: ConsumableConf
 
 func update_consumable_config(consumable_config: ConsumableConfig):
 	consumable_config.name = consumable_name.text
-	#consumable_item_mesh
-	consumable_config.icon = consumable_icon.texture 
+	var consumable_mesh_path = consumable_item_mesh.get_item_text(consumable_item_mesh.get_selected_id())
+	if consumable_mesh_path != "NONE":
+		consumable_config.item_mesh = load(consumable_mesh_path) as PackedScene
+	else:
+		consumable_config.item_mesh = null
+	consumable_config.icon = consumable_icon_selector.icon 
 	consumable_config.quantity = consumable_quantity.value
 	consumable_config.max_stack = consumable_max_stack.value 
 	consumable_config.stackable = consumable_stackable.button_pressed
@@ -619,4 +626,4 @@ func update_consumable_config(consumable_config: ConsumableConfig):
 	consumable_config.use_impact_size = consumable_use_impact_size.button_pressed
 	consumable_config.impact_size = consumable_impact_size.value 
 	consumable_config.use_range = consumable_use_range.button_pressed
-	consumable_config.range = consumable_range.value
+	consumable_config.throw_range = consumable_range.value
