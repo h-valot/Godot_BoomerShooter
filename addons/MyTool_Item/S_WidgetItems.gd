@@ -354,13 +354,6 @@ func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.bullet_gravity_scale = weapon_bullet_gravity.value 
 	#weapon_config.impact_size = weapon_impact_size.value 
 	
-func _find_item_by_text(option_button: OptionButton, text: String):
-	print("Hello, World!")
-	for i in range(option_button.item_count):
-		print(str(option_button.get_item_text(i)) + " == " + text)
-		if option_button.get_item_text(i) == text:
-			return i
-	return -1
 
 # Load all details of the Weapon Config
 func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
@@ -372,18 +365,7 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	if(weapon_config.item_mesh != null):
 		weapon_item_mesh.text = weapon_config.item_mesh.resource_path
 	else:
-		weapon_item_mesh.text = "NONE" 
-		
-		
-		
-	
-	#if(weapon_config.icon == null):
-		#icon_selector.icon = null
-	#else:
-		#icon_selector.icon = weapon_config.icon
-		#var item_index = _find_item_by_text(icon_selector, weapon_config.icon.resource_path)
-		#if (item_index > -1):
-			#icon_selector.select(item_index)
+		weapon_item_mesh.text = "NONE"
 	weapon_quantity.value = weapon_config.quantity
 	weapon_max_stack.value = weapon_config.max_stack
 	weapon_stackable.button_pressed = weapon_config.stackable
