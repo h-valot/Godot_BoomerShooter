@@ -26,17 +26,25 @@ extends Control
 @onready var weapon_mag_size : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MagSize/SpinBox_MagSize as SpinBox
 @onready var weapon_starting_mag_amount : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_StartingMagAmount/SpinBox_StartingMagAmount as SpinBox
 @onready var weapon_reload_time : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ReloadTime/SpinBox_ReloadTime as SpinBox
-@onready var weapon_scalar : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar/SpinBox_RecoilScalar as SpinBox
+@onready var weapon_recoil_scalar : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar/SpinBox_RecoilScalar as SpinBox
+@onready var weapon_camera_shake_strength : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar/SpinBox_RecoilScalar as SpinBox
+@onready var weapon_camera_shake_fade : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar/SpinBox_RecoilScalar as SpinBox
 @onready var weapon_bullet_amount_per_shot : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Amount_Per_Shot/SpinBox_Bullet_Amount_Per_Shot as SpinBox
 @onready var weapon_spread : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Spread/SpinBox_Spread as SpinBox
+@onready var weapon_raycast_lenght : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Amount_Per_Shot/SpinBox_Bullet_Amount_Per_Shot as SpinBox
 @onready var weapon_fire_rate : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_FireRate/SpinBox_FireRate as SpinBox
 @onready var weapon_bullet_mesh : OptionButton = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletMesh/OptionButton_BulletMesh as OptionButton
 @onready var weapon_hit_scan : CheckBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_HitScan/CheckBox_HitScan as CheckBox
 @onready var weapon_interrupts_npc_attacks : CheckBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_InterruptsNpcAttacks/CheckBox_InterruptsNpcAttacks as CheckBox
 @onready var weapon_bullet_damage : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletDamage/SpinBox_BulletDamage as SpinBox
-@onready var weapon_bullet_life : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletLifetime/SpinBox_BulletLifetime as SpinBox
+@onready var weapon_bullet_start_speed : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletDamage/SpinBox_BulletDamage as SpinBox
+@onready var weapon_bullet_lifetime : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletLifetime/SpinBox_BulletLifetime as SpinBox
 @onready var weapon_bullet_gravity : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletGravityScale/SpinBox_BulletGravityScale as SpinBox
-@onready var weapon_impact_size : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ImpactSize/SpinBox_ImpactSize as SpinBox
+@onready var weapon_create_zone_on_impact : CheckBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Create_Zone_On_Impact/CheckBox_Create_Zone_On_Impact as CheckBox
+@onready var weapon_zone_radius : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Radius/SpinBox_Zone_Radius as SpinBox
+@onready var weapon_zone_lifetime : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Lifetime/SpinBox_Zone_Lifetime as SpinBox
+@onready var weapon_zone_damage_per_tick : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Damage_Per_Tick/SpinBox_Zone_Damage_Per_Tick as SpinBox
+@onready var weapon_zone_tick_duration : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Tick_Duration/SpinBox_Zone_Tick_Duration as SpinBox
 
 #endregion
 #region InitializeConsumable
@@ -123,6 +131,21 @@ func get_all_skeletal_meshes_in_project(directory_path="res://"):
 		dir.list_dir_end()
 	return mesh_paths
 
+func get_all_bullet_meshes_in_project(directory_path="res://"):
+	var mesh_paths = []
+	var dir = DirAccess.open(directory_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".blend") or file_name.ends_with(".fbx") or file_name.ends_with(".obj"):
+				mesh_paths.append(directory_path + file_name)
+			elif dir.current_is_dir():
+				mesh_paths += get_all_bullet_meshes_in_project(directory_path + file_name + "/")
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	return mesh_paths
+
 func _ready() -> void:
 	_check_weapon_instance_template_exist()
 	_check_consumable_instance_template_exist()
@@ -135,8 +158,10 @@ func _ready() -> void:
 	
 	weapon_item_mesh.connect("item_selected", _on_mesh_selected)
 	icon_selector.connect("item_selected", _on_image_selected)
+	weapon_bullet_mesh.connect("item_selected", _on_bullet_mesh_selected)
 	populate_images()
 	populate_meshes()
+	populate_bullet_meshes()
 
 func _on_mesh_selected(index: int):
 	var mesh_path = weapon_item_mesh.get_item_text(index)
@@ -148,25 +173,15 @@ func populate_meshes():
 	for mesh_path in meshes:
 		print(mesh_path)
 		weapon_item_mesh.add_item(mesh_path)
-
-#func populate_images():
-	#icon_selector.clear()
-	#var images = get_all_images_in_project()
-	#icon_selector.add_item("NONE")
-	#for image_path in images:
-		#var texture = load(str(image_path))
-		#icon_selector.add_icon_item(texture, image_path.get_file())
-#
-#func _on_image_selected(index: int):
-	#var selected_image_path = icon_selector.get_item_icon(index)
-	#if(icon_selector.get_item_text(index) == "NONE"):
-		#icon_selector.icon = null
-		#print("NONE")
-	#else:
-		#var texture = load(selected_image_path.resource_path)
-		#icon_selector.icon = texture 
-#@onready var icon_selector: OptionButton = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon/OptionButton_Icon as OptionButton
-
+		
+func populate_bullet_meshes():
+	weapon_bullet_mesh.clear()
+	var meshes = get_all_skeletal_meshes_in_project()
+	weapon_bullet_mesh.add_item("NONE")
+	for mesh_path in meshes:
+		print(mesh_path)
+		weapon_bullet_mesh.add_item(mesh_path)
+		
 func populate_images():
 	icon_selector.clear()
 	icon_selector.add_item("NONE")
@@ -186,6 +201,10 @@ func _on_image_selected(index: int):
 		var texture = load(selected_image_path)
 		icon_selector.icon = texture
 		print("Selected image: ", selected_image_path)
+
+func _on_bullet_mesh_selected(index: int):
+	var mesh_path = weapon_bullet_mesh.get_item_text(index)
+	print("Selected bullet mesh: ", mesh_path)
 
 
 
@@ -332,7 +351,17 @@ func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 
 func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.name = weapon_name.text 
-	weapon_config.item_mesh = load(weapon_item_mesh.get_item_text(weapon_item_mesh.get_item_index(weapon_item_mesh.get_selected_id())))
+	var item_mesh_path = weapon_item_mesh.get_item_text(weapon_item_mesh.get_selected_id())
+	var bullet_mesh_path = weapon_bullet_mesh.get_item_text(weapon_bullet_mesh.get_selected_id())
+	
+	if item_mesh_path != "NONE":
+		weapon_config.item_mesh = load(item_mesh_path) as PackedScene
+	else:
+		weapon_config.item_mesh = null
+	if bullet_mesh_path != "NONE":
+		weapon_config.bullet_mesh = load(bullet_mesh_path) as PackedScene
+	else:
+		weapon_config.bullet_mesh = null
 	weapon_config.icon = icon_selector.icon 
 	weapon_config.quantity = weapon_quantity.value 
 	weapon_config.max_stack = weapon_max_stack.value 
@@ -341,18 +370,27 @@ func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.mag_size = weapon_mag_size.value 
 	weapon_config.starting_mag_amount = weapon_starting_mag_amount.value 
 	weapon_config.reload_time = weapon_reload_time.value 
-	weapon_config.recoil_scalar = weapon_scalar.value 
+	weapon_config.recoil_scalar = weapon_recoil_scalar.value 
 	#weapon_config.recoil_curve = weapon_scalar.value 
+	weapon_config.camera_shake_strength = weapon_camera_shake_strength.value
+	weapon_config.camera_shake_fade = weapon_camera_shake_fade.value
 	weapon_config.bullet_amount_per_shot = weapon_bullet_amount_per_shot.value 
 	weapon_config.spread = weapon_spread.value 
+	weapon_config.raycast_length = weapon_raycast_lenght.value
 	weapon_config.fire_rate = weapon_fire_rate.value 
 	#weapon_bullet_mesh
 	weapon_config.hit_scan = weapon_hit_scan.button_pressed 
 	weapon_config.interrupts_npc_attack = weapon_interrupts_npc_attacks.button_pressed 
 	weapon_config.bullet_damage = weapon_bullet_damage.value 
-	weapon_config.bullet_lifetime = weapon_bullet_life.value 
+	weapon_config.bullet_start_speed = weapon_bullet_start_speed.value
+	weapon_config.bullet_lifetime = weapon_bullet_lifetime.value 
 	weapon_config.bullet_gravity_scale = weapon_bullet_gravity.value 
-	#weapon_config.impact_size = weapon_impact_size.value 
+	weapon_config.create_zone_on_impact = weapon_create_zone_on_impact.button_pressed
+	weapon_config.zone_radius = weapon_zone_radius.value
+	weapon_config.zone_lifetime = weapon_zone_lifetime.value
+	weapon_config.zone_damage_per_tick = weapon_zone_tick_duration.value
+	weapon_config.zone_tick_duration = weapon_zone_tick_duration.value
+	
 	
 
 # Load all details of the Weapon Config
@@ -366,6 +404,11 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 		weapon_item_mesh.text = weapon_config.item_mesh.resource_path
 	else:
 		weapon_item_mesh.text = "NONE"
+		
+	if(weapon_config.bullet_mesh != null):
+		weapon_bullet_mesh.text = weapon_config.bullet_mesh.resource_path
+	else:
+		weapon_bullet_mesh.text = "NONE"
 	weapon_quantity.value = weapon_config.quantity
 	weapon_max_stack.value = weapon_config.max_stack
 	weapon_stackable.button_pressed = weapon_config.stackable
@@ -373,18 +416,27 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	weapon_mag_size.value = weapon_config.mag_size
 	weapon_starting_mag_amount.value = weapon_config.starting_mag_amount
 	weapon_reload_time.value = weapon_config.reload_time
-	weapon_scalar.value = weapon_config.recoil_scalar
+	weapon_recoil_scalar.value = weapon_config.recoil_scalar
 	#weapon_scalar.value = weapon_config.recoil_curve
+	weapon_camera_shake_strength.value = weapon_config.camera_shake_strength 
+	weapon_camera_shake_fade.value = weapon_config.camera_shake_fade 
 	weapon_bullet_amount_per_shot.value = weapon_config.bullet_amount_per_shot
 	weapon_spread.value = weapon_config.spread
+	weapon_raycast_lenght.value = weapon_config.raycast_length
 	weapon_fire_rate.value = weapon_config.fire_rate
 	#weapon_bullet_mesh
 	weapon_hit_scan.button_pressed = weapon_config.hit_scan
 	weapon_interrupts_npc_attacks.button_pressed = weapon_config.interrupts_npc_attack
 	weapon_bullet_damage.value = weapon_config.bullet_damage
-	weapon_bullet_life.value = weapon_config.bullet_lifetime
+	weapon_bullet_start_speed.value = weapon_config.bullet_start_speed
+	weapon_bullet_lifetime.value = weapon_config.bullet_lifetime
 	weapon_bullet_gravity.value = weapon_config.bullet_gravity_scale
-	#weapon_impact_size.value = weapon_config.impact_size
+
+	weapon_create_zone_on_impact.button_pressed = weapon_config.create_zone_on_impact
+	weapon_zone_radius.value = weapon_config.zone_radius
+	weapon_zone_lifetime.value = weapon_config.zone_lifetime
+	weapon_zone_tick_duration.value = weapon_config.zone_damage_per_tick
+	weapon_zone_tick_duration.value = weapon_config.zone_tick_duration
 	print("Details shown for: ", weapon_config.name)
 	if weapon_config and weapon_config.icon and weapon_config.icon is Texture:
 		var weapon_icon_path = weapon_config.icon.resource_path
@@ -409,8 +461,7 @@ func _initialize_consumable_item_instance(consumable_config: ConsumableConfig, f
 	consumable_item_instance.visible = true
 	consumable_item_instance.get_node("B_ShowDetailsConsumable/L_NameConsumable").text = consumable_config.name
 	consumable_item_instance.get_node("B_ShowDetailsConsumable").connect("pressed", _on_b_show_details_consumable_pressed.bind(consumable_config))
-		
-	# Configurer le bouton de suppression
+	
 	var delete_button = consumable_item_instance.get_node("B_DeleteConsumable")
 	if delete_button:
 		delete_button.connect("pressed", _on_b_delete_consumable_pressed.bind(consumable_config, consumable_item_instance, file_path))
