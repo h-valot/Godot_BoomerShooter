@@ -17,6 +17,7 @@ extends Control
 
 @onready var weapon_name : TextEdit = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Name/TextEdit_Name as TextEdit
 @onready var weapon_item_mesh : OptionButton = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem/OptionButton_Mesh as OptionButton
+@onready var icon_selector: OptionButton = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon/OptionButton_Icon as OptionButton
 @onready var weapon_icon : TextureRect = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon/TextureRect_Icon as TextureRect
 @onready var weapon_quantity : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Quantity/SpinBox_Quantity as SpinBox
 @onready var weapon_max_stack : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MaxStack/SpinBox_MaxStack as SpinBox
@@ -25,7 +26,7 @@ extends Control
 @onready var weapon_mag_size : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_MagSize/SpinBox_MagSize as SpinBox
 @onready var weapon_starting_mag_amount : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_StartingMagAmount/SpinBox_StartingMagAmount as SpinBox
 @onready var weapon_reload_time : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ReloadTime/SpinBox_ReloadTime as SpinBox
-@onready var weapon_recoil_strength : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilStrength/SpinBox_RecoilStrength as SpinBox
+@onready var weapon_scalar : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar/SpinBox_RecoilScalar as SpinBox
 @onready var weapon_bullet_amount_per_shot : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Amount_Per_Shot/SpinBox_Bullet_Amount_Per_Shot as SpinBox
 @onready var weapon_spread : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Spread/SpinBox_Spread as SpinBox
 @onready var weapon_fire_rate : SpinBox = $TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_FireRate/SpinBox_FireRate as SpinBox
@@ -91,6 +92,22 @@ var items_data: Dictionary = {
 
 func _generate_guid() -> int:
 	return randi()
+	
+func get_all_images_in_project(directory_path="res://"):
+	var image_paths = []
+	var dir = DirAccess.open(directory_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".svg"):
+				image_paths.append(directory_path + file_name)
+			elif dir.current_is_dir():
+				image_paths += get_all_images_in_project(directory_path + file_name + "/")
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	return image_paths
+
 
 func _ready() -> void:
 	_check_weapon_instance_template_exist()
@@ -101,6 +118,21 @@ func _ready() -> void:
 	_list_weapons_files_in_directory("res://Assets/Resources/Items/Weapons/")
 	_list_consumable_files_in_directory("res://Assets/Resources/Items/Consumables/")
 	_init_ui(tab_container.current_tab)
+	
+	icon_selector.connect("item_selected", _on_image_selected)
+	populate_images()
+	
+func populate_images():
+	var images = get_all_images_in_project()
+	for image_path in images:
+		var texture = load(str(image_path))
+		icon_selector.add_icon_item(texture, image_path.get_file())
+
+func _on_image_selected(index: int):
+	var selected_image_path = icon_selector.get_item_icon(index)
+	
+	var texture = load(selected_image_path.resource_path)
+	icon_selector.icon = texture 
 
 
 func _check_weapon_instance_template_exist():
@@ -241,10 +273,13 @@ func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 		EditorInterface.get_resource_filesystem().scan()
 		is_renamed = false
 
+
+
+
 func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.name = weapon_name.text 
 	#weapon_item_mesh
-	weapon_config.icon = weapon_icon.texture 
+	weapon_config.icon = icon_selector.icon 
 	weapon_config.quantity = weapon_quantity.value 
 	weapon_config.max_stack = weapon_max_stack.value 
 	weapon_config.stackable = weapon_stackable.button_pressed
@@ -252,7 +287,8 @@ func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.mag_size = weapon_mag_size.value 
 	weapon_config.starting_mag_amount = weapon_starting_mag_amount.value 
 	weapon_config.reload_time = weapon_reload_time.value 
-	weapon_config.recoil_strength = weapon_recoil_strength.value 
+	weapon_config.recoil_scalar = weapon_scalar.value 
+	#weapon_config.recoil_curve = weapon_scalar.value 
 	weapon_config.bullet_amount_per_shot = weapon_bullet_amount_per_shot.value 
 	weapon_config.spread = weapon_spread.value 
 	weapon_config.fire_rate = weapon_fire_rate.value 
@@ -262,7 +298,7 @@ func update_weapon_config(weapon_config: WeaponConfig):
 	weapon_config.bullet_damage = weapon_bullet_damage.value 
 	weapon_config.bullet_lifetime = weapon_bullet_life.value 
 	weapon_config.bullet_gravity_scale = weapon_bullet_gravity.value 
-	weapon_config.impact_size = weapon_impact_size.value 
+	#weapon_config.impact_size = weapon_impact_size.value 
 	
 # Load all details of the Weapon Config
 func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
@@ -271,7 +307,7 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	weapon_save_button.connect("pressed", _on_save_weapon_config_button_pressed.bind(weapon_config))
 	weapon_name.text = weapon_config.name
 	#weapon_item_mesh
-	weapon_icon.texture = weapon_config.icon
+	icon_selector.icon = weapon_config.icon
 	weapon_quantity.value = weapon_config.quantity
 	weapon_max_stack.value = weapon_config.max_stack
 	weapon_stackable.button_pressed = weapon_config.stackable
@@ -279,7 +315,8 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	weapon_mag_size.value = weapon_config.mag_size
 	weapon_starting_mag_amount.value = weapon_config.starting_mag_amount
 	weapon_reload_time.value = weapon_config.reload_time
-	weapon_recoil_strength.value = weapon_config.recoil_strength
+	weapon_scalar.value = weapon_config.recoil_scalar
+	#weapon_scalar.value = weapon_config.recoil_curve
 	weapon_bullet_amount_per_shot.value = weapon_config.bullet_amount_per_shot
 	weapon_spread.value = weapon_config.spread
 	weapon_fire_rate.value = weapon_config.fire_rate
@@ -289,7 +326,7 @@ func _on_b_show_details_weapon_pressed(weapon_config: WeaponConfig):
 	weapon_bullet_damage.value = weapon_config.bullet_damage
 	weapon_bullet_life.value = weapon_config.bullet_lifetime
 	weapon_bullet_gravity.value = weapon_config.bullet_gravity_scale
-	weapon_impact_size.value = weapon_config.impact_size
+	#weapon_impact_size.value = weapon_config.impact_size
 	print("Details shown for: ", weapon_config.name)
 
 
