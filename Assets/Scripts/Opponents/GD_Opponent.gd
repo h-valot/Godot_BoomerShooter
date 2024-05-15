@@ -141,7 +141,7 @@ func _process_ai_behaviour(delta):
 	_process_ai_behaviour_timer -= 0.1
 
 	# Get distance from opponent to target
-	_distance_from_target = (_navigation_agent_3d.target_position - global_transform.origin).length()
+	_distance_from_target = (rso_player_position.value - global_transform.origin).length()
 	
 	_handle_sight()
 	_handle_aggro()
