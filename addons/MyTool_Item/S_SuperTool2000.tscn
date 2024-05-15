@@ -1,6 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://7yoi0lr8mqxy"]
+[gd_scene load_steps=56 format=3 uid="uid://7yoi0lr8mqxy"]
 
 [ext_resource type="Script" path="res://addons/MyTool_Item/S_WidgetItems.gd" id="1_sl4b4"]
+[ext_resource type="Texture2D" uid="uid://4b5omhqslotq" path="res://addons/cyclops_level_builder/art/cyclops.svg" id="2_jbs5r"]
+[ext_resource type="Texture2D" uid="uid://6wra5rxmfsrl" path="res://addons/gut/gui/arrow.png" id="2_m2wts"]
+[ext_resource type="Texture2D" uid="uid://cr6tvdv0ve6cv" path="res://addons/gut/gui/play.png" id="3_04c1m"]
+[ext_resource type="Texture2D" uid="uid://bqu1naafrtln" path="res://addons/cyclops_level_builder/art/cyclops1.png" id="3_gxcw6"]
+[ext_resource type="Texture2D" uid="uid://b1mvjfuet5w8e" path="res://addons/cyclops_level_builder/art/cyclops2.png" id="4_i7nfm"]
+[ext_resource type="Texture2D" uid="uid://bvo0uao7deu0q" path="res://addons/gut/icon.png" id="4_uf3s8"]
+[ext_resource type="Texture2D" uid="uid://dhvl14hls3y2j" path="res://addons/gut/images/Folder.svg" id="5_3g2c8"]
+[ext_resource type="Texture2D" uid="uid://djl3r38827o7n" path="res://addons/cyclops_level_builder/art/cyclops_16.png" id="5_uvtwn"]
+[ext_resource type="Texture2D" uid="uid://bvrnfjkcmpr8s" path="res://addons/gut/images/green.png" id="6_dl7tn"]
+[ext_resource type="Texture2D" uid="uid://b7bogax4ablxm" path="res://addons/cyclops_level_builder/art/cyclops_17.png" id="6_ryi8x"]
+[ext_resource type="Texture2D" uid="uid://ba2sgost7my3x" path="res://addons/gut/images/red.png" id="7_rhs06"]
+[ext_resource type="Texture2D" uid="uid://c3n46bkjqomy4" path="res://addons/cyclops_level_builder/art/cyclops_3.png" id="7_t0e06"]
+[ext_resource type="Texture2D" uid="uid://cavojn74qp7ij" path="res://addons/gut/images/Script.svg" id="8_kll06"]
+[ext_resource type="Texture2D" uid="uid://de5rvq3rhrdlk" path="res://addons/cyclops_level_builder/art/cyclops_4.png" id="8_q8p8g"]
+[ext_resource type="Texture2D" uid="uid://o4mo2w2ftx1v" path="res://addons/gut/images/yellow.png" id="9_6h2ah"]
+[ext_resource type="Texture2D" uid="uid://bjoh6ojufymxx" path="res://addons/cyclops_level_builder/art/cyclops_closed.png" id="9_wc1cw"]
+[ext_resource type="Texture2D" uid="uid://dka35f5echdke" path="res://addons/cyclops_level_builder/art/cyclops_open.png" id="10_y43ym"]
+[ext_resource type="Texture2D" uid="uid://dfelwj8fuqu02" path="res://Assets/Graphics/Sprites/S_Crosshair.png" id="10_yu4q4"]
+[ext_resource type="Texture2D" uid="uid://bcvqcixpcrum7" path="res://addons/cyclops_level_builder/art/icons/arrow_down.svg" id="11_44a2h"]
+[ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="11_lml76"]
+[ext_resource type="Texture2D" uid="uid://dpgrowyon1a5d" path="res://addons/cyclops_level_builder/art/icons/arrow_left.svg" id="12_55ewq"]
+[ext_resource type="Texture2D" uid="uid://d1qqesujgbh42" path="res://Assets/Graphics/Textures/Prototype/T_Dark.png" id="12_ppquf"]
+[ext_resource type="Texture2D" uid="uid://4wf2x5df6j8q" path="res://Assets/Graphics/Textures/Prototype/T_Green.png" id="13_4nw1x"]
+[ext_resource type="Texture2D" uid="uid://cwmjno5f2se7c" path="res://addons/cyclops_level_builder/art/icons/arrow_right.svg" id="13_6455h"]
+[ext_resource type="Texture2D" uid="uid://c2ei5qahp7qws" path="res://addons/cyclops_level_builder/art/icons/arrow_up.svg" id="14_jkmch"]
+[ext_resource type="Texture2D" uid="uid://bhjufmo4xrr4m" path="res://Assets/Graphics/Textures/Prototype/T_LightGrey.png" id="14_s7gei"]
+[ext_resource type="Texture2D" uid="uid://booi4k1n2otkd" path="res://Assets/Graphics/Textures/Prototype/T_Orange.png" id="15_3nyxs"]
+[ext_resource type="Texture2D" uid="uid://cdpd5qd3jp76n" path="res://addons/cyclops_level_builder/art/icons/block.svg" id="15_gwn61"]
+[ext_resource type="Texture2D" uid="uid://bljxcpp46ebe8" path="res://addons/cyclops_level_builder/art/icons/create_cylinder.svg" id="16_1cg6c"]
+[ext_resource type="Texture2D" uid="uid://dbgwwpilltje7" path="res://Assets/Graphics/Textures/Prototype/T_Purple.png" id="16_vyr0p"]
+[ext_resource type="Texture2D" uid="uid://4d5wcl8ejqwa" path="res://Assets/Graphics/Textures/Prototype/T_Red.png" id="17_46xqh"]
+[ext_resource type="Texture2D" uid="uid://mpmp8ebsf417" path="res://addons/cyclops_level_builder/art/icons/create_prism.svg" id="17_oen42"]
+[ext_resource type="Texture2D" uid="uid://lxlav5erpn5t" path="res://addons/cyclops_level_builder/art/icons/create_stairs.svg" id="18_idg7o"]
+[ext_resource type="Texture2D" uid="uid://drw6bn67e75fb" path="res://addons/cyclops_level_builder/art/icons/edit_clip.svg" id="19_3s0kf"]
+[ext_resource type="Texture2D" uid="uid://cyan2ra6q6w1l" path="res://addons/cyclops_level_builder/art/icons/eye_closed.svg" id="20_dty2m"]
+[ext_resource type="Texture2D" uid="uid://doilq3h4mqtqo" path="res://addons/cyclops_level_builder/art/icons/eye_open.svg" id="21_76484"]
+[ext_resource type="Texture2D" uid="uid://dr6ftr3qwth8q" path="res://addons/cyclops_level_builder/art/icons/material_brush.svg" id="22_rv1ra"]
+[ext_resource type="Texture2D" uid="uid://c6gs8tjqedu31" path="res://addons/cyclops_level_builder/art/icons/move.svg" id="23_els1d"]
+[ext_resource type="Texture2D" uid="uid://d31ij628qb3ge" path="res://addons/cyclops_level_builder/art/icons/rotate.svg" id="24_liwn6"]
+[ext_resource type="Texture2D" uid="uid://bl2ehivif24w3" path="res://addons/cyclops_level_builder/art/icons/select_edge.svg" id="25_m8usi"]
+[ext_resource type="Texture2D" uid="uid://bevlwn4ft6n1s" path="res://addons/cyclops_level_builder/art/icons/select_face.svg" id="26_ioqgq"]
+[ext_resource type="Texture2D" uid="uid://dm6ebkhccs8jl" path="res://addons/cyclops_level_builder/art/icons/select_vertex.svg" id="27_hoa8f"]
+[ext_resource type="Texture2D" uid="uid://dp6navwfd14o" path="res://addons/cyclops_level_builder/art/icons/snap.svg" id="28_5pgdq"]
+[ext_resource type="Texture2D" uid="uid://bawlyeb5l4pov" path="res://addons/cyclops_level_builder/art/icons/snap_grid.svg" id="29_tfct8"]
+[ext_resource type="Texture2D" uid="uid://dbywk3y2krsci" path="res://addons/cyclops_level_builder/art/icons/snap_vertex.svg" id="30_qxxu1"]
+[ext_resource type="Texture2D" uid="uid://dsat1t1jibvxy" path="res://addons/cyclops_level_builder/art/icons/uv_lock.svg" id="31_2jv2x"]
+[ext_resource type="Texture2D" uid="uid://bwiwhbwpl6s6c" path="res://addons/cyclops_level_builder/art/icons/vertex_color_brush.svg" id="32_ss86j"]
+[ext_resource type="Texture2D" uid="uid://bra34yp08t1yl" path="res://addons/cyclops_level_builder/art/icons/xray_normal.svg" id="33_dm05r"]
+[ext_resource type="Texture2D" uid="uid://cy08m8bsuy5fe" path="res://addons/cyclops_level_builder/art/textures/checkerboard.png" id="34_o40ii"]
+[ext_resource type="Texture2D" uid="uid://ca0o8qx71g8ac" path="res://addons/cyclops_level_builder/art/textures/grid_cell.png" id="35_yo3h0"]
+[ext_resource type="Texture2D" uid="uid://bdycg8e4b7gg5" path="res://addons/cyclops_level_builder/art/textures/grid_cell2.png" id="36_qaugx"]
+[ext_resource type="Texture2D" uid="uid://dnp4ufoxm0xf1" path="res://addons/cyclops_level_builder/art/textures/vertex.png" id="37_vl7kp"]
+[ext_resource type="Texture2D" uid="uid://b576r2vyp05jl" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks_icon.png" id="38_nigq7"]
+[ext_resource type="Texture2D" uid="uid://caarem3w77c6d" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks_icon.svg" id="39_d5ydk"]
 
 [node name="SSuperTool2000" type="Control"]
 layout_mode = 3
@@ -88,7 +142,7 @@ text = "Select Item :"
 vertical_alignment = 1
 
 [node name="OptionButton_Mesh" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
-custom_minimum_size = Vector2(460, 0)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 
 [node name="HBoxContainer_IconWeapon" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
@@ -100,8 +154,181 @@ text = "Icon Weapon :"
 vertical_alignment = 1
 
 [node name="TextureRect_Icon" type="TextureRect" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+visible = false
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
+
+[node name="OptionButton_Icon" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_icon = true
+item_count = 55
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+popup/item_1/text = "cyclops.svg"
+popup/item_1/icon = ExtResource("2_jbs5r")
+popup/item_1/id = 1
+popup/item_2/text = "cyclops1.png"
+popup/item_2/icon = ExtResource("3_gxcw6")
+popup/item_2/id = 2
+popup/item_3/text = "cyclops2.png"
+popup/item_3/icon = ExtResource("4_i7nfm")
+popup/item_3/id = 3
+popup/item_4/text = "cyclops_16.png"
+popup/item_4/icon = ExtResource("5_uvtwn")
+popup/item_4/id = 4
+popup/item_5/text = "cyclops_17.png"
+popup/item_5/icon = ExtResource("6_ryi8x")
+popup/item_5/id = 5
+popup/item_6/text = "cyclops_3.png"
+popup/item_6/icon = ExtResource("7_t0e06")
+popup/item_6/id = 6
+popup/item_7/text = "cyclops_4.png"
+popup/item_7/icon = ExtResource("8_q8p8g")
+popup/item_7/id = 7
+popup/item_8/text = "cyclops_closed.png"
+popup/item_8/icon = ExtResource("9_wc1cw")
+popup/item_8/id = 8
+popup/item_9/text = "cyclops_open.png"
+popup/item_9/icon = ExtResource("10_y43ym")
+popup/item_9/id = 9
+popup/item_10/text = "arrow_down.svg"
+popup/item_10/icon = ExtResource("11_44a2h")
+popup/item_10/id = 10
+popup/item_11/text = "arrow_left.svg"
+popup/item_11/icon = ExtResource("12_55ewq")
+popup/item_11/id = 11
+popup/item_12/text = "arrow_right.svg"
+popup/item_12/icon = ExtResource("13_6455h")
+popup/item_12/id = 12
+popup/item_13/text = "arrow_up.svg"
+popup/item_13/icon = ExtResource("14_jkmch")
+popup/item_13/id = 13
+popup/item_14/text = "block.svg"
+popup/item_14/icon = ExtResource("15_gwn61")
+popup/item_14/id = 14
+popup/item_15/text = "create_cylinder.svg"
+popup/item_15/icon = ExtResource("16_1cg6c")
+popup/item_15/id = 15
+popup/item_16/text = "create_prism.svg"
+popup/item_16/icon = ExtResource("17_oen42")
+popup/item_16/id = 16
+popup/item_17/text = "create_stairs.svg"
+popup/item_17/icon = ExtResource("18_idg7o")
+popup/item_17/id = 17
+popup/item_18/text = "edit_clip.svg"
+popup/item_18/icon = ExtResource("19_3s0kf")
+popup/item_18/id = 18
+popup/item_19/text = "eye_closed.svg"
+popup/item_19/icon = ExtResource("20_dty2m")
+popup/item_19/id = 19
+popup/item_20/text = "eye_open.svg"
+popup/item_20/icon = ExtResource("21_76484")
+popup/item_20/id = 20
+popup/item_21/text = "material_brush.svg"
+popup/item_21/icon = ExtResource("22_rv1ra")
+popup/item_21/id = 21
+popup/item_22/text = "move.svg"
+popup/item_22/icon = ExtResource("23_els1d")
+popup/item_22/id = 22
+popup/item_23/text = "rotate.svg"
+popup/item_23/icon = ExtResource("24_liwn6")
+popup/item_23/id = 23
+popup/item_24/text = "select_edge.svg"
+popup/item_24/icon = ExtResource("25_m8usi")
+popup/item_24/id = 24
+popup/item_25/text = "select_face.svg"
+popup/item_25/icon = ExtResource("26_ioqgq")
+popup/item_25/id = 25
+popup/item_26/text = "select_vertex.svg"
+popup/item_26/icon = ExtResource("27_hoa8f")
+popup/item_26/id = 26
+popup/item_27/text = "snap.svg"
+popup/item_27/icon = ExtResource("28_5pgdq")
+popup/item_27/id = 27
+popup/item_28/text = "snap_grid.svg"
+popup/item_28/icon = ExtResource("29_tfct8")
+popup/item_28/id = 28
+popup/item_29/text = "snap_vertex.svg"
+popup/item_29/icon = ExtResource("30_qxxu1")
+popup/item_29/id = 29
+popup/item_30/text = "uv_lock.svg"
+popup/item_30/icon = ExtResource("31_2jv2x")
+popup/item_30/id = 30
+popup/item_31/text = "vertex_color_brush.svg"
+popup/item_31/icon = ExtResource("32_ss86j")
+popup/item_31/id = 31
+popup/item_32/text = "xray_normal.svg"
+popup/item_32/icon = ExtResource("33_dm05r")
+popup/item_32/id = 32
+popup/item_33/text = "checkerboard.png"
+popup/item_33/icon = ExtResource("34_o40ii")
+popup/item_33/id = 33
+popup/item_34/text = "grid_cell.png"
+popup/item_34/icon = ExtResource("35_yo3h0")
+popup/item_34/id = 34
+popup/item_35/text = "grid_cell2.png"
+popup/item_35/icon = ExtResource("36_qaugx")
+popup/item_35/id = 35
+popup/item_36/text = "vertex.png"
+popup/item_36/icon = ExtResource("37_vl7kp")
+popup/item_36/id = 36
+popup/item_37/text = "cyclops_blocks_icon.png"
+popup/item_37/icon = ExtResource("38_nigq7")
+popup/item_37/id = 37
+popup/item_38/text = "cyclops_blocks_icon.svg"
+popup/item_38/icon = ExtResource("39_d5ydk")
+popup/item_38/id = 38
+popup/item_39/text = "arrow.png"
+popup/item_39/icon = ExtResource("2_m2wts")
+popup/item_39/id = 39
+popup/item_40/text = "play.png"
+popup/item_40/icon = ExtResource("3_04c1m")
+popup/item_40/id = 40
+popup/item_41/text = "icon.png"
+popup/item_41/icon = ExtResource("4_uf3s8")
+popup/item_41/id = 41
+popup/item_42/text = "Folder.svg"
+popup/item_42/icon = ExtResource("5_3g2c8")
+popup/item_42/id = 42
+popup/item_43/text = "green.png"
+popup/item_43/icon = ExtResource("6_dl7tn")
+popup/item_43/id = 43
+popup/item_44/text = "red.png"
+popup/item_44/icon = ExtResource("7_rhs06")
+popup/item_44/id = 44
+popup/item_45/text = "Script.svg"
+popup/item_45/icon = ExtResource("8_kll06")
+popup/item_45/id = 45
+popup/item_46/text = "yellow.png"
+popup/item_46/icon = ExtResource("9_6h2ah")
+popup/item_46/id = 46
+popup/item_47/text = "S_Crosshair.png"
+popup/item_47/icon = ExtResource("10_yu4q4")
+popup/item_47/id = 47
+popup/item_48/text = "T_icon.svg"
+popup/item_48/icon = ExtResource("11_lml76")
+popup/item_48/id = 48
+popup/item_49/text = "T_Dark.png"
+popup/item_49/icon = ExtResource("12_ppquf")
+popup/item_49/id = 49
+popup/item_50/text = "T_Green.png"
+popup/item_50/icon = ExtResource("13_4nw1x")
+popup/item_50/id = 50
+popup/item_51/text = "T_LightGrey.png"
+popup/item_51/icon = ExtResource("14_s7gei")
+popup/item_51/id = 51
+popup/item_52/text = "T_Orange.png"
+popup/item_52/icon = ExtResource("15_3nyxs")
+popup/item_52/id = 52
+popup/item_53/text = "T_Purple.png"
+popup/item_53/icon = ExtResource("16_vyr0p")
+popup/item_53/id = 53
+popup/item_54/text = "T_Red.png"
+popup/item_54/icon = ExtResource("17_46xqh")
+popup/item_54/id = 54
 
 [node name="HBoxContainer_Quantity" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -195,15 +422,50 @@ custom_minimum_size = Vector2(485, 0)
 layout_mode = 2
 max_value = 2.14748e+09
 
-[node name="HBoxContainer_RecoilStrength" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer_RecoilScalar" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="L_RecoilStrength" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilStrength"]
+[node name="L_RecoilScalar" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar"]
 layout_mode = 2
-text = "Recoil Strength :"
+text = "Recoil Scalar :"
 vertical_alignment = 1
 
-[node name="SpinBox_RecoilStrength" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilStrength"]
+[node name="SpinBox_RecoilScalar" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_RecoilScalar"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
+[node name="HBoxContainer_Recoil_Curve" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="L_RecoilCurve" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Recoil_Curve"]
+layout_mode = 2
+text = "Recoil Curve :"
+vertical_alignment = 1
+
+[node name="HBoxContainer_Camera_Shake_Strength" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Camera_Shake_Strength" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Camera_Shake_Strength"]
+layout_mode = 2
+text = "Camera Shake Strength :"
+vertical_alignment = 1
+
+[node name="SpinBox_Camera_Shake_Strength" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Camera_Shake_Strength"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
+[node name="HBoxContainer_Camera_Shake_Fade" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Camera_Shake_Fade" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Camera_Shake_Fade"]
+layout_mode = 2
+text = "Camera Shake Fade :"
+vertical_alignment = 1
+
+[node name="SpinBox_Camera_Shake_Fade" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Camera_Shake_Fade"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
@@ -234,6 +496,19 @@ custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
 
+[node name="HBoxContainer_Raycast_Lenght" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Raycast_Lenght" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Raycast_Lenght"]
+layout_mode = 2
+text = "Raycast Lenght :"
+vertical_alignment = 1
+
+[node name="SpinBox_Raycast_Lenght" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Raycast_Lenght"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
 [node name="HBoxContainer_FireRate" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -257,6 +532,176 @@ vertical_alignment = 1
 
 [node name="OptionButton_BulletMesh" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletMesh"]
 layout_mode = 2
+item_count = 84
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+popup/item_1/text = "res://addons/cyclops_level_builder/controls/enum_line_edit.tscn"
+popup/item_1/id = 1
+popup/item_2/text = "res://addons/cyclops_level_builder/controls/fold_out_panel.tscn"
+popup/item_2/id = 2
+popup/item_3/text = "res://addons/cyclops_level_builder/controls/numeric_line_edit.tscn"
+popup/item_3/id = 3
+popup/item_4/text = "res://addons/cyclops_level_builder/controls/resource_inspector/line_editor_bool.tscn"
+popup/item_4/id = 4
+popup/item_5/text = "res://addons/cyclops_level_builder/controls/resource_inspector/line_editor_float.tscn"
+popup/item_5/id = 5
+popup/item_6/text = "res://addons/cyclops_level_builder/controls/resource_inspector/line_editor_int.tscn"
+popup/item_6/id = 6
+popup/item_7/text = "res://addons/cyclops_level_builder/controls/resource_inspector/resource_inspector.tscn"
+popup/item_7/id = 7
+popup/item_8/text = "res://addons/cyclops_level_builder/controls/test_line_edit.tscn"
+popup/item_8/id = 8
+popup/item_9/text = "res://addons/cyclops_level_builder/controls/tree/cyclops_tree.tscn"
+popup/item_9/id = 9
+popup/item_10/text = "res://addons/cyclops_level_builder/controls/tree/TreeTextComponent.tscn"
+popup/item_10/id = 10
+popup/item_11/text = "res://addons/cyclops_level_builder/controls/tree/tree_tier_component.tscn"
+popup/item_11/id = 11
+popup/item_12/text = "res://addons/cyclops_level_builder/controls/vector3_edit.tscn"
+popup/item_12/id = 12
+popup/item_13/text = "res://addons/cyclops_level_builder/controls/vertex_billboard.tscn"
+popup/item_13/id = 13
+popup/item_14/text = "res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
+popup/item_14/id = 14
+popup/item_15/text = "res://addons/cyclops_level_builder/docks/convex_face_editor/convex_face_editor_preview.tscn"
+popup/item_15/id = 15
+popup/item_16/text = "res://addons/cyclops_level_builder/docks/convex_face_editor/convex_face_editor_preview_studio.tscn"
+popup/item_16/id = 16
+popup/item_17/text = "res://addons/cyclops_level_builder/docks/convex_face_editor/convex_face_editor_viewport.tscn"
+popup/item_17/id = 17
+popup/item_18/text = "res://addons/cyclops_level_builder/docks/cyclops_console/cyclops_console.tscn"
+popup/item_18/id = 18
+popup/item_19/text = "res://addons/cyclops_level_builder/docks/material_palette/material_palette_viewport.tscn"
+popup/item_19/id = 19
+popup/item_20/text = "res://addons/cyclops_level_builder/docks/material_palette/material_viewer/create_material_dialog.tscn"
+popup/item_20/id = 20
+popup/item_21/text = "res://addons/cyclops_level_builder/docks/material_palette/material_viewer/line_input.tscn"
+popup/item_21/id = 21
+popup/item_22/text = "res://addons/cyclops_level_builder/docks/material_palette/material_viewer/material_button.tscn"
+popup/item_22/id = 22
+popup/item_23/text = "res://addons/cyclops_level_builder/docks/material_palette/material_viewer/material_groups_tree.tscn"
+popup/item_23/id = 23
+popup/item_24/text = "res://addons/cyclops_level_builder/docks/material_palette/material_viewer/material_viewer.tscn"
+popup/item_24/id = 24
+popup/item_25/text = "res://addons/cyclops_level_builder/docks/snapping_properties/snapping_properties_dock.tscn"
+popup/item_25/id = 25
+popup/item_26/text = "res://addons/cyclops_level_builder/docks/tool_properties/tool_properties_dock.tscn"
+popup/item_26/id = 26
+popup/item_27/text = "res://addons/cyclops_level_builder/exporter/exporter_gltf_wizard.tscn"
+popup/item_27/id = 27
+popup/item_28/text = "res://addons/cyclops_level_builder/exporter/exporter_godot_scene_wizard.tscn"
+popup/item_28/id = 28
+popup/item_29/text = "res://addons/cyclops_level_builder/materials/test_materials.tscn"
+popup/item_29/id = 29
+popup/item_30/text = "res://addons/cyclops_level_builder/menu/editor_toolbar.tscn"
+popup/item_30/id = 30
+popup/item_31/text = "res://addons/cyclops_level_builder/menu/sticky_toolbar.tscn"
+popup/item_31/id = 31
+popup/item_32/text = "res://addons/cyclops_level_builder/menu/upgrade_cyclops_blocks_toolbar.tscn"
+popup/item_32/id = 32
+popup/item_33/text = "res://addons/cyclops_level_builder/snapping/snapping_system_grid_properties_editor.tscn"
+popup/item_33/id = 33
+popup/item_34/text = "res://addons/cyclops_level_builder/snapping/snapping_system_vertex_properties_editor.tscn"
+popup/item_34/id = 34
+popup/item_35/text = "res://addons/cyclops_level_builder/tools/gizmos/gizmo_rotate.tscn"
+popup/item_35/id = 35
+popup/item_36/text = "res://addons/cyclops_level_builder/tools/gizmos/gizmo_test.tscn"
+popup/item_36/id = 36
+popup/item_37/text = "res://addons/cyclops_level_builder/tools/gizmos/gizmo_translate.tscn"
+popup/item_37/id = 37
+popup/item_38/text = "res://addons/cyclops_level_builder/tools/tool_block_settings_editor.tscn"
+popup/item_38/id = 38
+popup/item_39/text = "res://addons/cyclops_level_builder/tools/tool_cylinder_settings_editor.tscn"
+popup/item_39/id = 39
+popup/item_40/text = "res://addons/cyclops_level_builder/tools/tool_material_brush_settings_editor.tscn"
+popup/item_40/id = 40
+popup/item_41/text = "res://addons/cyclops_level_builder/tools/tool_prism_settings_editor.tscn"
+popup/item_41/id = 41
+popup/item_42/text = "res://addons/cyclops_level_builder/tools/tool_stairs_settings_editor.tscn"
+popup/item_42/id = 42
+popup/item_43/text = "res://addons/cyclops_level_builder/tools/tool_vertex_color_brush_settings_editor.tscn"
+popup/item_43/id = 43
+popup/item_44/text = "res://addons/gut/gui/BottomPanelShortcuts.tscn"
+popup/item_44/id = 44
+popup/item_45/text = "res://addons/gut/gui/GutBottomPanel.tscn"
+popup/item_45/id = 45
+popup/item_46/text = "res://addons/gut/gui/GutControl.tscn"
+popup/item_46/id = 46
+popup/item_47/text = "res://addons/gut/gui/GutRunner.tscn"
+popup/item_47/id = 47
+popup/item_48/text = "res://addons/gut/gui/MinGui.tscn"
+popup/item_48/id = 48
+popup/item_49/text = "res://addons/gut/gui/NormalGui.tscn"
+popup/item_49/id = 49
+popup/item_50/text = "res://addons/gut/gui/OutputText.tscn"
+popup/item_50/id = 50
+popup/item_51/text = "res://addons/gut/gui/ResizeHandle.tscn"
+popup/item_51/id = 51
+popup/item_52/text = "res://addons/gut/gui/ResultsTree.tscn"
+popup/item_52/id = 52
+popup/item_53/text = "res://addons/gut/gui/RunAtCursor.tscn"
+popup/item_53/id = 53
+popup/item_54/text = "res://addons/gut/gui/RunResults.tscn"
+popup/item_54/id = 54
+popup/item_55/text = "res://addons/gut/gui/Settings.tscn"
+popup/item_55/id = 55
+popup/item_56/text = "res://addons/gut/gui/ShortcutButton.tscn"
+popup/item_56/id = 56
+popup/item_57/text = "res://addons/gut/GutScene.tscn"
+popup/item_57/id = 57
+popup/item_58/text = "res://addons/gut/UserFileViewer.tscn"
+popup/item_58/id = 58
+popup/item_59/text = "res://addons/MyTool_Item/h_box_consumable_container.tscn"
+popup/item_59/id = 59
+popup/item_60/text = "res://addons/MyTool_Item/h_box_weapon_container.tscn"
+popup/item_60/id = 60
+popup/item_61/text = "res://addons/MyTool_Item/S_SuperTool2000.tscn"
+popup/item_61/id = 61
+popup/item_62/text = "res://addons/tool_player/S_PlayerTool.tscn"
+popup/item_62/id = 62
+popup/item_63/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
+popup/item_63/id = 63
+popup/item_64/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
+popup/item_64/id = 64
+popup/item_65/text = "res://Assets/Prefabs/PF_Bullet.tscn"
+popup/item_65/id = 65
+popup/item_66/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
+popup/item_66/id = 66
+popup/item_67/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
+popup/item_67/id = 67
+popup/item_68/text = "res://Assets/Prefabs/PF_Door.tscn"
+popup/item_68/id = 68
+popup/item_69/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
+popup/item_69/id = 69
+popup/item_70/text = "res://Assets/Prefabs/PF_Interactable.tscn"
+popup/item_70/id = 70
+popup/item_71/text = "res://Assets/Prefabs/PF_Inventory.tscn"
+popup/item_71/id = 71
+popup/item_72/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
+popup/item_72/id = 72
+popup/item_73/text = "res://Assets/Prefabs/PF_Opponent.tscn"
+popup/item_73/id = 73
+popup/item_74/text = "res://Assets/Prefabs/PF_PickUp.tscn"
+popup/item_74/id = 74
+popup/item_75/text = "res://Assets/Prefabs/PF_Player.tscn"
+popup/item_75/id = 75
+popup/item_76/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
+popup/item_76/id = 76
+popup/item_77/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
+popup/item_77/id = 77
+popup/item_78/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
+popup/item_78/id = 78
+popup/item_79/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_79/id = 79
+popup/item_80/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_80/id = 80
+popup/item_81/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_81/id = 81
+popup/item_82/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_82/id = 82
+popup/item_83/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_83/id = 83
 
 [node name="HBoxContainer_HitScan" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -294,6 +739,19 @@ custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
 
+[node name="HBoxContainer_Bullet_Start_Speed" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Bullet_Start_Speed" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Start_Speed"]
+layout_mode = 2
+text = "Bullet Start Speed :"
+vertical_alignment = 1
+
+[node name="SpinBox_Bullet_Start_Speed" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Bullet_Start_Speed"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
 [node name="HBoxContainer_BulletLifetime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -320,15 +778,65 @@ custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
 
-[node name="HBoxContainer_ImpactSize" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer_Create_Zone_On_Impact" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="L_ImpactSize" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ImpactSize"]
+[node name="L_Create_Zone_On_Impact" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Create_Zone_On_Impact"]
 layout_mode = 2
-text = "Impact Size :"
+text = "Create Zone On Impact :"
 vertical_alignment = 1
 
-[node name="SpinBox_ImpactSize" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_ImpactSize"]
+[node name="CheckBox_Create_Zone_On_Impact" type="CheckBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Create_Zone_On_Impact"]
+layout_mode = 2
+
+[node name="HBoxContainer_Zone_Radius" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Zone_Radius" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Radius"]
+layout_mode = 2
+text = "Zone Radius :"
+vertical_alignment = 1
+
+[node name="SpinBox_Zone_Radius" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Radius"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
+[node name="HBoxContainer_Zone_Lifetime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Zone_Lifetime" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Lifetime"]
+layout_mode = 2
+text = "Zone Lifetime :"
+vertical_alignment = 1
+
+[node name="SpinBox_Zone_Lifetime" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Lifetime"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
+[node name="HBoxContainer_Zone_Damage_Per_Tick" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Zone_Damage_Per_Tick" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Damage_Per_Tick"]
+layout_mode = 2
+text = "Zone Damage Per Tick :"
+vertical_alignment = 1
+
+[node name="SpinBox_Zone_Damage_Per_Tick" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Damage_Per_Tick"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+max_value = 2.14748e+09
+
+[node name="HBoxContainer_Zone_Tick_Duration" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="L_Zone_Tick_Duration" type="Label" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Tick_Duration"]
+layout_mode = 2
+text = "Zone Tick Duration :"
+vertical_alignment = 1
+
+[node name="SpinBox_Zone_Tick_Duration" type="SpinBox" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Zone_Tick_Duration"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
@@ -420,7 +928,7 @@ text = "Select Item :"
 vertical_alignment = 1
 
 [node name="OptionButton_Mesh" type="OptionButton" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
-custom_minimum_size = Vector2(460, 0)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 
 [node name="HBoxContainer_IconWeapon" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
@@ -432,8 +940,181 @@ text = "Icon Weapon :"
 vertical_alignment = 1
 
 [node name="TextureRect_Icon" type="TextureRect" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+visible = false
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
+
+[node name="OptionButton_Icon" type="OptionButton" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_IconWeapon"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_icon = true
+item_count = 55
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+popup/item_1/text = "cyclops.svg"
+popup/item_1/icon = ExtResource("2_jbs5r")
+popup/item_1/id = 1
+popup/item_2/text = "cyclops1.png"
+popup/item_2/icon = ExtResource("3_gxcw6")
+popup/item_2/id = 2
+popup/item_3/text = "cyclops2.png"
+popup/item_3/icon = ExtResource("4_i7nfm")
+popup/item_3/id = 3
+popup/item_4/text = "cyclops_16.png"
+popup/item_4/icon = ExtResource("5_uvtwn")
+popup/item_4/id = 4
+popup/item_5/text = "cyclops_17.png"
+popup/item_5/icon = ExtResource("6_ryi8x")
+popup/item_5/id = 5
+popup/item_6/text = "cyclops_3.png"
+popup/item_6/icon = ExtResource("7_t0e06")
+popup/item_6/id = 6
+popup/item_7/text = "cyclops_4.png"
+popup/item_7/icon = ExtResource("8_q8p8g")
+popup/item_7/id = 7
+popup/item_8/text = "cyclops_closed.png"
+popup/item_8/icon = ExtResource("9_wc1cw")
+popup/item_8/id = 8
+popup/item_9/text = "cyclops_open.png"
+popup/item_9/icon = ExtResource("10_y43ym")
+popup/item_9/id = 9
+popup/item_10/text = "arrow_down.svg"
+popup/item_10/icon = ExtResource("11_44a2h")
+popup/item_10/id = 10
+popup/item_11/text = "arrow_left.svg"
+popup/item_11/icon = ExtResource("12_55ewq")
+popup/item_11/id = 11
+popup/item_12/text = "arrow_right.svg"
+popup/item_12/icon = ExtResource("13_6455h")
+popup/item_12/id = 12
+popup/item_13/text = "arrow_up.svg"
+popup/item_13/icon = ExtResource("14_jkmch")
+popup/item_13/id = 13
+popup/item_14/text = "block.svg"
+popup/item_14/icon = ExtResource("15_gwn61")
+popup/item_14/id = 14
+popup/item_15/text = "create_cylinder.svg"
+popup/item_15/icon = ExtResource("16_1cg6c")
+popup/item_15/id = 15
+popup/item_16/text = "create_prism.svg"
+popup/item_16/icon = ExtResource("17_oen42")
+popup/item_16/id = 16
+popup/item_17/text = "create_stairs.svg"
+popup/item_17/icon = ExtResource("18_idg7o")
+popup/item_17/id = 17
+popup/item_18/text = "edit_clip.svg"
+popup/item_18/icon = ExtResource("19_3s0kf")
+popup/item_18/id = 18
+popup/item_19/text = "eye_closed.svg"
+popup/item_19/icon = ExtResource("20_dty2m")
+popup/item_19/id = 19
+popup/item_20/text = "eye_open.svg"
+popup/item_20/icon = ExtResource("21_76484")
+popup/item_20/id = 20
+popup/item_21/text = "material_brush.svg"
+popup/item_21/icon = ExtResource("22_rv1ra")
+popup/item_21/id = 21
+popup/item_22/text = "move.svg"
+popup/item_22/icon = ExtResource("23_els1d")
+popup/item_22/id = 22
+popup/item_23/text = "rotate.svg"
+popup/item_23/icon = ExtResource("24_liwn6")
+popup/item_23/id = 23
+popup/item_24/text = "select_edge.svg"
+popup/item_24/icon = ExtResource("25_m8usi")
+popup/item_24/id = 24
+popup/item_25/text = "select_face.svg"
+popup/item_25/icon = ExtResource("26_ioqgq")
+popup/item_25/id = 25
+popup/item_26/text = "select_vertex.svg"
+popup/item_26/icon = ExtResource("27_hoa8f")
+popup/item_26/id = 26
+popup/item_27/text = "snap.svg"
+popup/item_27/icon = ExtResource("28_5pgdq")
+popup/item_27/id = 27
+popup/item_28/text = "snap_grid.svg"
+popup/item_28/icon = ExtResource("29_tfct8")
+popup/item_28/id = 28
+popup/item_29/text = "snap_vertex.svg"
+popup/item_29/icon = ExtResource("30_qxxu1")
+popup/item_29/id = 29
+popup/item_30/text = "uv_lock.svg"
+popup/item_30/icon = ExtResource("31_2jv2x")
+popup/item_30/id = 30
+popup/item_31/text = "vertex_color_brush.svg"
+popup/item_31/icon = ExtResource("32_ss86j")
+popup/item_31/id = 31
+popup/item_32/text = "xray_normal.svg"
+popup/item_32/icon = ExtResource("33_dm05r")
+popup/item_32/id = 32
+popup/item_33/text = "checkerboard.png"
+popup/item_33/icon = ExtResource("34_o40ii")
+popup/item_33/id = 33
+popup/item_34/text = "grid_cell.png"
+popup/item_34/icon = ExtResource("35_yo3h0")
+popup/item_34/id = 34
+popup/item_35/text = "grid_cell2.png"
+popup/item_35/icon = ExtResource("36_qaugx")
+popup/item_35/id = 35
+popup/item_36/text = "vertex.png"
+popup/item_36/icon = ExtResource("37_vl7kp")
+popup/item_36/id = 36
+popup/item_37/text = "cyclops_blocks_icon.png"
+popup/item_37/icon = ExtResource("38_nigq7")
+popup/item_37/id = 37
+popup/item_38/text = "cyclops_blocks_icon.svg"
+popup/item_38/icon = ExtResource("39_d5ydk")
+popup/item_38/id = 38
+popup/item_39/text = "arrow.png"
+popup/item_39/icon = ExtResource("2_m2wts")
+popup/item_39/id = 39
+popup/item_40/text = "play.png"
+popup/item_40/icon = ExtResource("3_04c1m")
+popup/item_40/id = 40
+popup/item_41/text = "icon.png"
+popup/item_41/icon = ExtResource("4_uf3s8")
+popup/item_41/id = 41
+popup/item_42/text = "Folder.svg"
+popup/item_42/icon = ExtResource("5_3g2c8")
+popup/item_42/id = 42
+popup/item_43/text = "green.png"
+popup/item_43/icon = ExtResource("6_dl7tn")
+popup/item_43/id = 43
+popup/item_44/text = "red.png"
+popup/item_44/icon = ExtResource("7_rhs06")
+popup/item_44/id = 44
+popup/item_45/text = "Script.svg"
+popup/item_45/icon = ExtResource("8_kll06")
+popup/item_45/id = 45
+popup/item_46/text = "yellow.png"
+popup/item_46/icon = ExtResource("9_6h2ah")
+popup/item_46/id = 46
+popup/item_47/text = "S_Crosshair.png"
+popup/item_47/icon = ExtResource("10_yu4q4")
+popup/item_47/id = 47
+popup/item_48/text = "T_icon.svg"
+popup/item_48/icon = ExtResource("11_lml76")
+popup/item_48/id = 48
+popup/item_49/text = "T_Dark.png"
+popup/item_49/icon = ExtResource("12_ppquf")
+popup/item_49/id = 49
+popup/item_50/text = "T_Green.png"
+popup/item_50/icon = ExtResource("13_4nw1x")
+popup/item_50/id = 50
+popup/item_51/text = "T_LightGrey.png"
+popup/item_51/icon = ExtResource("14_s7gei")
+popup/item_51/id = 51
+popup/item_52/text = "T_Orange.png"
+popup/item_52/icon = ExtResource("15_3nyxs")
+popup/item_52/id = 52
+popup/item_53/text = "T_Purple.png"
+popup/item_53/icon = ExtResource("16_vyr0p")
+popup/item_53/id = 53
+popup/item_54/text = "T_Red.png"
+popup/item_54/icon = ExtResource("17_46xqh")
+popup/item_54/id = 54
 
 [node name="HBoxContainer_Quantity" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
