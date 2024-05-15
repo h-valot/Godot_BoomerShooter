@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="ConsumableConfig" load_steps=3 format=3 uid="uid://c2bj3ump3khrx"]
+
+[ext_resource type="Texture2D" uid="uid://cdpd5qd3jp76n" path="res://addons/cyclops_level_builder/art/icons/block.svg" id="1_gpfj4"]
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_ConsumableConfig.gd" id="2_w18lt"]
+
+[resource]
+script = ExtResource("2_w18lt")
+use_heal_damage = false
+heal_damage = 0.0
+use_armor = false
+armor = 0.0
+use_stun_duration = false
+stun_duration = 0.0
+use_speed_boost = false
+speed_boost = 0.0
+use_invisibility_duration = false
+invisibility_duration = 0.0
+use_jump_force_boost = false
+jump_force_boost = 0.0
+use_damage_boost = false
+damage_boost = 0.0
+use_speed = false
+speeed = 0.0
+use_trajectory = false
+trajectory = 0.0
+use_lifetime = false
+lifetime = 0.0
+use_impact_size = false
+impact_size = 0.0
+use_range = false
+throw_range = 0.0
+GUID = 0
+name = "Consumable"
+icon = ExtResource("1_gpfj4")
+quantity = 1.0
+max_stack = -1.0
+stackable = true

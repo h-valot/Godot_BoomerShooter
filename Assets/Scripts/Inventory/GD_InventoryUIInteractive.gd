@@ -5,6 +5,7 @@ class_name InventoryUIInteractive
 
 signal on_show(other: InventoryUI)
 signal on_hide(other: InventoryUI)
+signal on_use_item(item: ConsumableConfig)
 
 @export var interactable: Interactable
 
@@ -14,9 +15,14 @@ var _ui_open: bool = false
 
 func _ready():
 	on_show.connect(_on_show)
+	on_hide.connect(_on_hide)
+
+	on_action_item.connect(_on_self_item_action)
 
 	assert(interactable != null, "Missing interactable")
 	interactable.on_interact.connect(_on_interact)
+
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _on_interact(other: Interactable):
 	var other_inventory_buffer = InventoryUtils.get_child_of_type(other, typeof(InventoryUI)) as InventoryUI
@@ -26,11 +32,13 @@ func _on_interact(other: Interactable):
 func _on_show(_other):
 	_ui_open = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().paused = true
 
 func _on_hide(_other):
 	_ui_open = false
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	_other_inventory = null
+	get_tree().paused = false
 
 ## Show the UI of the current inventory
 func show_ui_standalone():
@@ -53,7 +61,6 @@ func show_ui_compare(other: InventoryUI):
 	other._update_ui()
 	_update_ui()
 
-	on_action_item.connect(_on_self_item_action)
 	other.on_action_item.connect(_on_other_item_action)
 
 func _on_other_item_action(item):
@@ -61,10 +68,15 @@ func _on_other_item_action(item):
 	inventory.add_item(item);
 
 func _on_self_item_action(item):
-	assert(_other_inventory != null, "Other inventory must not be null")
-
-	inventory.add_item(item, -1)
-	_other_inventory.add_item(item)
+	if _other_inventory != null:
+		inventory.add_item(item, -1)
+		_other_inventory.add_item(item)
+	else:
+		var consumable = item as ConsumableConfig
+		if consumable != null:
+			on_use_item.emit(consumable)
+			inventory.add_item(consumable, -1)
+			_update_ui()
 
 ## Hide the UI
 func hide_ui_compare(other: InventoryUI):
@@ -79,8 +91,6 @@ func hide_ui_compare(other: InventoryUI):
 func toogle_ui_standalone():
 	if !_ui_open:
 		show_ui_standalone()
-		_ui_open = true
 	else:
 		hide_ui_standalone()
-		_ui_open = false
 	return _ui_open

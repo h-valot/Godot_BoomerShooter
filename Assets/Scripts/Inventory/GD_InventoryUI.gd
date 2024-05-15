@@ -58,9 +58,13 @@ func _update_ui():
 		if !(inventory_item.quantity == 0 && hide_when_zero):
 			var itemButton = Button.new()
 			
-			itemButton.pressed.connect(func(): _on_action_item(inventory_item.config))
 			assert(inventory_item.config.icon != null, "Missing icon for " + inventory_item.config.name)
 			itemButton.icon = inventory_item.config.icon
+
+			if (inventory_item.config as ConsumableConfig) == null:
+				itemButton.set_process_input(false)
+			else:
+				itemButton.pressed.connect(func(): _on_action_item(inventory_item.config))
 
 			if (hide_quantity_when_one && inventory_item.quantity != 1) || !hide_quantity_when_one:
 				var text = Label.new()
