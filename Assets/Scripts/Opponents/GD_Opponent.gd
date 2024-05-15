@@ -5,8 +5,6 @@ class_name Opponent
 @export_category("References")
 @export var opponent_config : OpponentConfig
 @export var rso_player_position : WrapperVariable
-@export var _bullet_prefab : PackedScene
-@export var _zone_prefab : PackedScene
 
 var _direction = Vector3.ZERO
 var _idle_position : Vector3
@@ -395,7 +393,7 @@ func _shoot():
 
 func _fire_bullet():
 	
-	var new_bullet = _bullet_prefab.instantiate()
+	var new_bullet = opponent_config.weapon_used._bullet_prefab.instantiate()
 	
 	# Parent the bullet outside the player
 	# Otherwise, bullets moves with the player
@@ -403,6 +401,6 @@ func _fire_bullet():
 	
 	new_bullet.transform = _debug_head.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(opponent_config.weapon_used, _zone_prefab, _health_component.receiver_type)
+	new_bullet.initialize(opponent_config.weapon_used, opponent_config.weapon_used.zone_prefab, _health_component.receiver_type)
 #endregion
 #endregion

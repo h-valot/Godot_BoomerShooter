@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkxeeakuxr4ab"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_WeaponPrefab.gd" id="1_hkwuw"]
+
+[node name="PF_WeaponPrefab" type="Node3D" node_paths=PackedStringArray("muzzle")]
+script = ExtResource("1_hkwuw")
+muzzle = NodePath("Offset/Muzzle")
+
+[node name="Offset" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.348299, 0, 0)
+
+[node name="[REPLACE THIS BY THE WEAPON MESH]" type="CSGBox3D" parent="Offset"]
+transform = Transform3D(4, 0, 0, 0, 4.56005, 0, 0, 0, 1.00001, 0, 0, -0.5)
+size = Vector3(0.05, 0.05, 1)
+
+[node name="Muzzle" type="Node3D" parent="Offset"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)

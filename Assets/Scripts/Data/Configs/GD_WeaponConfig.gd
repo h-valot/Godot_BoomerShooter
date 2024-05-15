@@ -18,6 +18,7 @@ var current_bullet_amount: int = 0
 @export var camera_shake_fade : float = 5
 @export var bullet_amount_per_shot : int = 10
 @export var spread : float = 10
+@export var raycast_length : float = 100
 @export var fire_rate : float = 0.25
 
 
@@ -32,6 +33,7 @@ var current_bullet_amount: int = 0
 
 @export_subgroup("Zone")
 @export var create_zone_on_impact : bool = true
+@export var zone_prefab : PackedScene
 @export var zone_radius : float = 1
 @export var zone_lifetime : float = 1
 @export var zone_damage_per_tick : float = 1

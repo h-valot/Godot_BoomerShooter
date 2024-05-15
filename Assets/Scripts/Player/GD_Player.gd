@@ -3,7 +3,6 @@ class_name Player
 
 @export_category("References")
 @export var player_config : PlayerConfig
-@export var bullet_prefab : PackedScene
 @export var weapon_config : WeaponConfig
 @export var rso_player_position : WrapperVariable
 
@@ -11,10 +10,11 @@ var _current_movement_speed : float
 var _direction = Vector3.ZERO
 var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-@onready var _weapon = $Weapon
+@onready var _weapon: Weapon = $Weapon
 @onready var _head = $Head
 @onready var _health_component = $PF_Health
 @onready var _hud = $PF_PlayerHud
+@onready var _camera_3d = $"Head/Camera3D"
 
 
 func _ready():
@@ -27,6 +27,8 @@ func _ready():
 	_weapon.initialize()
 	weapon_config.initialize_mag()
 	_weapon.set_weapon(weapon_config)
+	_current_weapon_index = _weapon_inventory.get_index_by_item(weapon_config)
+	_instantiate_weapon()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
@@ -122,6 +124,7 @@ func _look(event):
 
 #region WEAPON
 var _current_weapon_index: int = 0
+var _current_weapon_prefab: WeaponPrefab = null
 
 @onready var _weapon_inventory : Inventory = $WeaponInventory
 
@@ -165,19 +168,6 @@ func _change_weapon():
 		_cycle_weapon(-1)
 
 
-func _set_weapon(index: int):
-
-	var weapon_at_index: WeaponConfig = _weapon_inventory.get_item_by_index((index))
-
-	if (weapon_at_index == null):
-		print("this weapon doesn't exists")
-		return;
-
-	_weapon.set_weapon(weapon_at_index)
-	_current_weapon_index = index
-	print(_current_weapon_index)
-
-
 func _cycle_weapon(direction: int):
 
 	var index: int = _current_weapon_index + direction
@@ -189,4 +179,29 @@ func _cycle_weapon(direction: int):
 		index = 0
 	
 	_set_weapon(index)
+
+
+func _set_weapon(index: int):
+
+	var weapon_at_index: WeaponConfig = _weapon_inventory.get_item_by_index((index))
+
+	if (weapon_at_index == null):
+		return;
+
+	_weapon.set_weapon(weapon_at_index)
+	_current_weapon_index = index
+	_instantiate_weapon()
+
+
+func _instantiate_weapon():
+
+	if (_current_weapon_prefab):
+
+		_current_weapon_prefab.queue_free()
+
+	_current_weapon_prefab = _weapon.weapon_config.item_mesh.instantiate()
+	_camera_3d.add_child(_current_weapon_prefab)
+
+	_weapon.set_muzzle(_current_weapon_prefab.muzzle)
+
 #endregion
