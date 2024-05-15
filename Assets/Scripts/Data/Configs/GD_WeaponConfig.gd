@@ -33,6 +33,7 @@ var current_bullet_amount: int = 0
 
 @export_subgroup("Zone")
 @export var create_zone_on_impact : bool = true
+@export var zone_prefab : PackedScene
 @export var zone_radius : float = 1
 @export var zone_lifetime : float = 1
 @export var zone_damage_per_tick : float = 1

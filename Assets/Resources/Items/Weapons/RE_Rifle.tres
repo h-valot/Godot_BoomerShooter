@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="WeaponConfig" load_steps=5 format=3 uid="uid://mh7u247v0q5j"]
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=7 format=3 uid="uid://mh7u247v0q5j"]
 
 [ext_resource type="PackedScene" uid="uid://d23duj43qnji1" path="res://Assets/Prefabs/PF_Bullet.tscn" id="1_ko6h3"]
 [ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="1_ym6d2"]
 [ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="2_kqu12"]
+[ext_resource type="PackedScene" uid="uid://bkxeeakuxr4ab" path="res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn" id="3_naadm"]
+[ext_resource type="PackedScene" uid="uid://n8fyongkeppa" path="res://Assets/Prefabs/PF_ImpactZone.tscn" id="4_yavgr"]
 
 [sub_resource type="Curve" id="Curve_s7srp"]
 _data = [Vector2(0.00514138, 0.0182626), 0.0, 0.0, 0, 0, Vector2(0.994859, 1), 0.0, 0.0, 0, 0]
@@ -30,12 +32,14 @@ bullet_start_speed = 30.0
 bullet_lifetime = 3.0
 bullet_gravity_scale = 1.0
 create_zone_on_impact = true
+zone_prefab = ExtResource("4_yavgr")
 zone_radius = 1.0
 zone_lifetime = 1.0
 zone_damage_per_tick = 1.0
 zone_tick_duration = 1.0
 GUID = 0
 name = ""
+item_mesh = ExtResource("3_naadm")
 icon = ExtResource("2_kqu12")
 quantity = 1.0
 max_stack = -1.0

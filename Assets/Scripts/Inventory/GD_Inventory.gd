@@ -63,6 +63,16 @@ func find_item(item: ItemConfig):
 			return _item
 	return null
 
+## Return the index at the given item
+func get_index_by_item(item: ItemConfig) -> int:
+	
+	var index: int = 0
+	for _item in content:
+		index += 1
+		if _item.config.name == item.name:
+			return index
+	return 0
+
 ## Return the item at the current index
 func get_item_by_index(index: int) -> ItemConfig:
 
