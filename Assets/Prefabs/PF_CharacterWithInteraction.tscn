@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://crv4uiyqbey8w"]
+[gd_scene load_steps=10 format=3 uid="uid://crv4uiyqbey8w"]
 
 [ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="1_tldtg"]
 [ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Player.tscn" id="1_wi5pq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="4_xvyim"]
 [ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="5_d1oom"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_PlayerInventory.gd" id="8_cca7e"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="9_33ilw"]
 
 [node name="PfCharacterWithInteraction" type="Node3D"]
 
@@ -71,6 +72,11 @@ interactable = NodePath("../../PF_Player/Head/Interactable")
 script = ExtResource("8_cca7e")
 inventoryUIInteractive = NodePath("../../PF_Player/Head/InteractiveInventory/UI")
 inventoryUI = NodePath("../../PF_Player/PF_PlayerHud/InventoryUI/UI")
+
+[node name="UseConsumable" type="Node" parent="." node_paths=PackedStringArray("health", "player")]
+script = ExtResource("9_33ilw")
+health = NodePath("../PF_Player/PF_Health")
+player = NodePath("../PF_Player")
 
 [editable path="PF_Player"]
 [editable path="PF_Player/PF_PlayerHud"]

@@ -1,7 +1,7 @@
 extends ItemConfig
 class_name ConsumableConfig
 
-@export_group("Heal/Damage")
+@export_subgroup("Heal or Damage")
 @export var use_heal_damage : bool = false
 @export var heal_damage : float = 0
 @export_subgroup("Armor")

@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx7ii0hjkccxf"]
+[gd_scene load_steps=11 format=3 uid="uid://dx7ii0hjkccxf"]
 
 [ext_resource type="Material" uid="uid://rhhcmqw3swmi" path="res://Assets/Graphics/Materials/M_GridDark.tres" id="1_3cbno"]
 [ext_resource type="PackedScene" uid="uid://crv4uiyqbey8w" path="res://Assets/Prefabs/PF_CharacterWithInteraction.tscn" id="2_wmjbu"]
 [ext_resource type="PackedScene" uid="uid://dsafwjmrbexat" path="res://Assets/Prefabs/PF_Door.tscn" id="3_5y824"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="3_syobt"]
 [ext_resource type="Resource" uid="uid://dijidskeacfr2" path="res://Assets/Resources/Interactable/InteractionDebugCondition.tres" id="4_5mpwu"]
 [ext_resource type="PackedScene" uid="uid://ccwpdfq6nw0g0" path="res://Assets/Prefabs/PF_PickUp.tscn" id="4_jrsqp"]
 [ext_resource type="Resource" uid="uid://c2bj3ump3khrx" path="res://Assets/Resources/Items/InventoryDebug/DebugConsumable.tres" id="6_72w32"]
+[ext_resource type="PackedScene" path="res://Assets/Prefabs/PF_Opponent.tscn" id="7_ncg3e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ha34v"]
 
@@ -81,6 +83,15 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="UI" parent="PfCharacterWithInteraction/PF_Player/Head/InteractiveInventory" index="0" node_paths=PackedStringArray("use_consumable")]
+use_consumable = NodePath("../../../../UseConsumable")
+
+[node name="Camera3D" parent="PfCharacterWithInteraction/PF_Player/Head" index="2"]
+current = false
+
+[node name="WeaponInventory" type="Node" parent="PfCharacterWithInteraction/PF_Player" index="7"]
+script = ExtResource("3_syobt")
+
 [node name="PfDoor" parent="." instance=ExtResource("3_5y824")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88933, 1.06677, -8.65309)
 
@@ -109,6 +120,9 @@ shadow_bias = 0.5
 shadow_normal_bias = 3.12
 shadow_opacity = 0.95
 shadow_blur = 4.6
+
+[node name="PF_Opponent" parent="." instance=ExtResource("7_ncg3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -7)
 
 [editable path="PfCharacterWithInteraction"]
 [editable path="PfCharacterWithInteraction/PF_Player"]

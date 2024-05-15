@@ -8,12 +8,15 @@ signal on_hide(other: InventoryUI)
 signal on_use_item(item: ConsumableConfig)
 
 @export var interactable: Interactable
+@export var use_consumable: UseConsumable
 
 var _other_inventory: Inventory;
 
 var _ui_open: bool = false
 
 func _ready():
+	assert(typeof(use_consumable) == typeof(UseConsumable), "Missing UseConsumable node.")
+
 	on_show.connect(_on_show)
 	on_hide.connect(_on_hide)
 
@@ -76,6 +79,7 @@ func _on_self_item_action(item):
 		if consumable != null:
 			on_use_item.emit(consumable)
 			inventory.add_item(consumable, -1)
+			use_consumable.use_consumable(consumable)
 			_update_ui()
 
 ## Hide the UI

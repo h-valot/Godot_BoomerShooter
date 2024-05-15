@@ -80,3 +80,9 @@ func update_current_health(amount : float, causer_type : int = 0):
 		on_health_reached_zero.emit()
 
 	on_health_changed.emit(current_health)
+
+
+func add_armor(amount: float):
+	current_armor += amount
+	if current_armor > _base_armor:
+		current_armor = _base_armor
