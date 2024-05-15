@@ -393,7 +393,7 @@ func _shoot():
 
 func _fire_bullet():
 	
-	var new_bullet = opponent_config.weapon_used._bullet_prefab.instantiate()
+	var new_bullet = opponent_config.weapon_used.bullet_mesh.instantiate()
 	
 	# Parent the bullet outside the player
 	# Otherwise, bullets moves with the player
