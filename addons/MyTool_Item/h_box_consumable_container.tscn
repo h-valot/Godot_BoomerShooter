@@ -10,7 +10,12 @@ layout_mode = 2
 layout_mode = 0
 offset_right = 323.0
 offset_bottom = 27.0
-text = "New Weapon"
+text = "New Consumable"
+
+[node name="L_NameConsumable" type="Label" parent="B_ShowDetailsConsumable/L_NameConsumable"]
+offset_right = 323.0
+offset_bottom = 27.0
+text = "New Consumable"
 
 [node name="B_DeleteConsumable" type="Button" parent="."]
 layout_mode = 2
