@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("2_hx85b")
 item = ExtResource("1_hm6g4")
+exceptedToHave = false
 require_faction = false
 require_collision = false
