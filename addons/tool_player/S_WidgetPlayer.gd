@@ -179,13 +179,11 @@ func _populate_opponent_meshes():
 		opponent_select_item.add_item(mesh_path)
 
 func _populate_weapon_files() -> int:
-	print(opponent_weapon_used.get_item_count())
 	opponent_weapon_used.clear()
 	var weapon_files = get_weapon_files("res://Assets/Resources/Items/Weapons/")
 	opponent_weapon_used.add_item("NONE")
 	for file_path in weapon_files:
 		opponent_weapon_used.add_item(file_path)
-	print(opponent_weapon_used.get_item_count())
 	return opponent_weapon_used.get_item_count()
 
 
@@ -330,13 +328,9 @@ func _on_b_show_details_opponent_pressed(opponent_config: OpponentConfig):
 	opponent_attack_range_y.value = opponent_config.attack_range.y
 	if !opponent_config.weapon_used.resource_path.is_empty():
 		var weapon_used_path = opponent_config.weapon_used.resource_path
-		print("Current weapon used path: " + weapon_used_path)
 		var count = _populate_weapon_files()
-		print("Weapon list count: " + str(opponent_weapon_used.get_item_count()))
 		for i in range(count):
-			print("Weapon item text: " + opponent_weapon_used.get_item_text(i))
 			if opponent_weapon_used.get_item_text(i) == weapon_used_path:
-				print("Weapon selected: " + weapon_used_path)
 				opponent_weapon_used.select(i)
 				break
 	else:
@@ -381,10 +375,7 @@ func _update_opponent_config(opponent_config: OpponentConfig):
 	
 	var weapon_used_path = opponent_weapon_used.get_item_text(opponent_weapon_used.get_selected_id())
 	if weapon_used_path != "NONE":
-		print("Why !")
-		opponent_config.weapon_used = ResourceLoader.load(weapon_used_path) as WeaponConfig # load(weapon_used_path) as WeaponConfig
-		if opponent_config.weapon_used == null:
-			print("Help !")
+		opponent_config.weapon_used = ResourceLoader.load(weapon_used_path) as WeaponConfig
 	else:
 		opponent_config.weapon_used = null
 	
