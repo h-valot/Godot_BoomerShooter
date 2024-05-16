@@ -622,12 +622,18 @@ layout_mode = 2
 
 [node name="L_Weapon_Used" type="Label" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Weapon_Used"]
 layout_mode = 2
-text = "Camera Shake Fade :"
+text = "Weapon Used :"
 vertical_alignment = 1
 
 [node name="OptionButton_Weapon_Used" type="OptionButton" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Weapon_Used"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+popup/item_1/text = "res://Assets/Resources/Items/Weapons/RE_Rifle.tres"
+popup/item_1/id = 1
 
 [node name="HBoxContainer_First_Charge_Time" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
