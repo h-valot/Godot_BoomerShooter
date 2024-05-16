@@ -69,7 +69,8 @@ extends Control
 #endregion
 func _ready():
 	_check_weapon_instance_template_exist()
-	populate_opponent_meshes()
+	_populate_weapon_files()
+	_populate_opponent_meshes()
 	opponent_item_list.connect("item_selected", Callable(self, "_on_item_selected"))
 	_load_player_motor("res://Assets/Resources/Player/RE_PlayerConfig.tres")
 	_list_opponents_files_in_directory("res://Assets/Resources/Opponents/")
@@ -146,8 +147,6 @@ func _update_ui_player_config(player_config : PlayerConfig):
 	player_vertical_mouse_sensitivity.value =  player_horizontal_mouse_sensitivity.value
 	player_max_vertical_aim.value = player_config.max_vertical_aim
 
-
-
 func _load_player_motor(file_path : String) -> PlayerConfig:
 	var dir = DirAccess.open("res://Assets/Resources/Player/")
 	var player_config
@@ -169,29 +168,58 @@ func _load_player_motor(file_path : String) -> PlayerConfig:
 		player_config = ResourceLoader.load(file_path) as PlayerConfig
 		return player_config
 
-
-func _on_save_consumable_config_button_pressed(player_config: PlayerConfig):
-	# Update player Config
-	_update_player_config(player_config)
-	var file_path = "res://Assets/Resources/Player/RE_PlayerConfig.tres"
-	var error_save = ResourceSaver.save(player_config, file_path)
-	if error_save != OK:
-		print("Error saving the resource: ", error_save)
-	else:
-		print("Resource successfully saved to: ", file_path)
-	
 	
 #region opponent
 
-func populate_opponent_meshes():
+func _populate_opponent_meshes():
 	opponent_select_item.clear()
 	var meshes = get_all_opponent_in_project()
 	opponent_select_item.add_item("NONE")
 	for mesh_path in meshes:
 		print(mesh_path)
 		opponent_select_item.add_item(mesh_path)
+func _populate_weapon_files():
+	opponent_weapon_used.clear()
+	var directory_path = "res://Assets/Resources/Items/Weapons/"
+	var dir = DirAccess.open(directory_path)
+	opponent_weapon_used.add_item("NONE")
+	if dir:
+		dir.list_dir_begin()
+		while true:
+			var file_name = dir.get_next()
+			if file_name == "":
+				break
+			if not dir.current_is_dir() and file_name.ends_with(".tres"):
+				var file_path = directory_path + file_name
+				opponent_weapon_used.add_item(file_path)
+				print("Added weapon file: " + file_path)  # Debugging line
+		dir.list_dir_end()
+	else:
+		print("Failed to open directory: " + directory_path)
+
+
+#func _populate_weapon_files():
+	#opponent_weapon_used.clear()
+	#var weapon_files = get_weapon_files("res://Assets/Resources/Items/Weapons/")
+	#opponent_select_item.add_item("NONE")
+	#for file_path in weapon_files:
+		#opponent_weapon_used.add_item(file_path.get_file())
 		
-		
+func get_weapon_files(directory_path: String) -> Array:
+	var file_paths = []
+	var dir = DirAccess.open(directory_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir() and file_name.ends_with(".tres"):
+				file_paths.append(directory_path + file_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		print("An error occurred when trying to access the path: ", directory_path)
+	return file_paths
+
 func _clear_opponent_list():
 	for child in opponent_list_container.get_children():
 		child.queue_free()
@@ -332,6 +360,23 @@ func _on_b_show_details_opponent_pressed(opponent_config: OpponentConfig):
 	opponent_attack_type.value = opponent_config.attack_type
 	opponent_attack_range_x.value = opponent_config.attack_range.x
 	opponent_attack_range_y.value = opponent_config.attack_range.y
+	# Select the current weapon used in the OptionButton
+	#_populate_weapon_files()
+	_populate_weapon_files()
+	
+	# Ensure the weapon list is populated before selection
+	print("Weapon list count: " + str(opponent_weapon_used.get_item_count()))  # Debugging line
+	if opponent_config.weapon_used != null:
+		var weapon_used_path = opponent_config.weapon_used.resource_path
+		print("Current weapon used path: " + weapon_used_path)  # Debugging line
+		for i in range(opponent_weapon_used.get_item_count()):
+			print("Weapon item text: " + opponent_weapon_used.get_item_text(i))  # Debugging line
+			if opponent_weapon_used.get_item_text(i) == weapon_used_path:
+				print("Weapon selected: " + weapon_used_path)  # Debugging line
+				opponent_weapon_used.select(i)
+				break
+	else:
+		opponent_weapon_used.select(0)
 	#opponent_weapon_used.select(opponent_config.weapon_used)
 	opponent_first_charge_time.value = opponent_config.first_charge_time
 	opponent_final_charge_time.value = opponent_config.final_charge_time
@@ -368,6 +413,11 @@ func _update_opponent_config(opponent_config: OpponentConfig):
 	opponent_config.base_armor = opponent_base_armor.value
 	opponent_config.attack_type = opponent_attack_type.value
 	opponent_config.attack_range = Vector2(opponent_attack_range_x.value, opponent_attack_range_y.value)
+	var weapon_used_path = opponent_weapon_used.get_item_text(opponent_weapon_used.get_selected_id())
+	if weapon_used_path != "NONE":
+		opponent_config.weapon_used = load(weapon_used_path) as WeaponConfig
+	else:
+		opponent_config.weapon_used = null
 	#opponent_config.weapon_used = opponent_weapon_used.get_selected_id()
 	opponent_config.first_charge_time = opponent_first_charge_time.value
 	opponent_config.final_charge_time = opponent_final_charge_time.value
