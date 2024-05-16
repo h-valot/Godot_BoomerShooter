@@ -334,8 +334,8 @@ func _confirm_delete_weapon(weapon_config: WeaponConfig, weapon_item_instance: N
 	else:
 		print("Failed to delete weapon configuration file: ", file_path)
 	items_data["weapons"].erase(weapon_config)
-	
-	
+
+
 func _on_save_weapon_config_button_pressed(weapon_config: WeaponConfig):
 	var is_renamed = false
 	var old_name = weapon_config.name
