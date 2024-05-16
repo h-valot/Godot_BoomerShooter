@@ -26,7 +26,7 @@ var _is_alive : bool = true
 @onready var _navigation_agent_3d = $NavigationAgent3D
 @onready var _capsule_collision = $CapsuleCollision
 @onready var _flight_offset = $FlightOffset
-@onready var _debug_head = $"FlightOffset/[DEBUG]Head"
+@onready var _attack_point = $"FlightOffset/AttackPoint"
 
 signal on_opponent_dies
 #endregion
@@ -167,12 +167,15 @@ func _check_target_in_sight():
 	_centered_player_position =  Vector3(rso_player_position.value.x, rso_player_position.value.y + 1.5, rso_player_position.value.z)
 
 	# Cast a ray3D toward the player position to verify if there is any obstacles
-	_result = _space_query.intersect_ray(PhysicsRayQueryParameters3D.create(_debug_head.global_position, _centered_player_position))
+	_result = _space_query.intersect_ray(PhysicsRayQueryParameters3D.create(_attack_point.global_position, _centered_player_position))
 	if (_result):
 		
 		if (_result.collider as Player):
 			
-			_getting_touched()
+			if (!_is_aggroed):
+
+				_is_aggroed = true
+				print("OPPONENT: Target aggroed")
 	
 
 func _check_target_out_of_sight():
@@ -190,13 +193,17 @@ func _check_target_out_of_sight():
 		_navigation_agent_3d.target_position = _idle_position
 
 
-func _getting_touched():
+func _getting_touched(new_amount: int = 0, delta: int = 0):
+
+	# Ignore healing
+	if (delta >= 0):
+		return
 
 	if (!_is_aggroed):
 
 		_is_aggroed = true
 		print("OPPONENT: Target aggroed")
-
+	
 	_handle_interruption()
 
 
@@ -247,14 +254,6 @@ func _on_ai_sight_area_entered(area):
 		_sight_enabled = true
 
 
-func _on_ai_sight_area_exited(area):
-
-	if (area.get_parent() as Player):
-
-		# Do nothing
-		pass
-
-
 func _update_target_position():
 
 	if (!_is_aggroed):
@@ -272,13 +271,15 @@ func _handle_interruption():
 		return
 
 	print("OPPONENT: Attack interrupted ")
-	_interrupted = true;
+	_interrupted = true
 	_move_funtion_enabled = false
 	_look_funtion_enabled = false
-	await _wait_for(opponent_config.interrupt_revorery_time)
+	await _wait_for(opponent_config.interrupt_recovery_time)
+	print("OPPONENT: Interrupt recovery delay passed")
+	_interrupted = false
+	_is_attacking = false
 	_move_funtion_enabled = true
 	_look_funtion_enabled = true
-	_interrupted = false;
 
 
 var _interrupted : bool = false
@@ -292,9 +293,15 @@ func _wait_for(delay : float, with_interruption : bool = false):
 		opponent_config.can_be_interrupted):
 
 			_interruptable = true
+
+			if (_interrupted):
+
+				_interruptable = false
+				return
 		
 		await get_tree().create_timer(0.1).timeout
 		_custom_timer -= 0.1
+		
 	
 	_interruptable = false
 
@@ -399,7 +406,7 @@ func _fire_bullet():
 	# Otherwise, bullets moves with the player
 	owner.get_parent().add_child(new_bullet)
 	
-	new_bullet.transform = _debug_head.global_transform
+	new_bullet.transform = _attack_point.global_transform
 	new_bullet = new_bullet as Bullet
 	new_bullet.initialize(opponent_config.weapon_used, opponent_config.weapon_used.zone_prefab, _health_component.receiver_type)
 #endregion

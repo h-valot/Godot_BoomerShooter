@@ -49,7 +49,7 @@ class_name OpponentConfig
 ## Delay while the opponent stops moving right after landing an attack
 @export var attack_recovery_time : float = 1
 ## TODO - Delay while the opponent stops moving after being interrupted
-@export var interrupt_revorery_time : float = 1
+@export var interrupt_recovery_time : float = 1
 
 
 @export_group("Behaviour")

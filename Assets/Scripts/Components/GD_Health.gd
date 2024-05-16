@@ -16,9 +16,9 @@ var _health_regeneration : float
 var _regeneration_timer : float
 
 signal on_health_reached_zero
-signal on_health_changed(new_health)
+signal on_health_changed(new_health, delta)
 signal on_armor_reached_zero
-signal on_armor_changed(new_armor)
+signal on_armor_changed(new_armor, delta)
 
 
 func initialize(base_health : float, health_regeneration : float, base_armor: float):
@@ -61,14 +61,14 @@ func update_current_health(amount : float, causer_type : int = 0):
 
 		if (current_armor <= 0):
 
-			amount = abs(current_armor)
 			current_armor = 0
-			on_armor_changed.emit(current_armor)
+			on_armor_changed.emit(current_armor, amount)
+			amount = abs(current_armor)
 			on_armor_reached_zero.emit()
 		
 		else:
 
-			on_armor_changed.emit(current_armor)
+			on_armor_changed.emit(current_armor, amount)
 			return
 
 	# Handle health
@@ -79,4 +79,4 @@ func update_current_health(amount : float, causer_type : int = 0):
 		current_health = 0
 		on_health_reached_zero.emit()
 
-	on_health_changed.emit(current_health)
+	on_health_changed.emit(current_health, amount)
