@@ -2,7 +2,9 @@ extends Resource
 class_name OpponentConfig
 
 @export var name : String = ""
+@export var id : int
 @export var opponent_mesh : PackedScene
+
 
 @export_group("Movement")
 @export var move_speed : float = 5
