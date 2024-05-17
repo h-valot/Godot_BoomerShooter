@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="1_ym6d2"]
 [ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="2_kqu12"]
 [ext_resource type="PackedScene" uid="uid://bkxeeakuxr4ab" path="res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn" id="3_naadm"]
-[ext_resource type="PackedScene" uid="uid://n8fyongkeppa" path="res://Assets/Prefabs/PF_ImpactZone.tscn" id="4_yavgr"]
+[ext_resource type="PackedScene" path="res://Assets/Prefabs/PF_ImpactZone.tscn" id="4_yavgr"]
 
 [sub_resource type="Curve" id="Curve_s7srp"]
 _data = [Vector2(0.00514138, 0.0182626), 0.0, 0.0, 0, 0, Vector2(0.994859, 1), 0.0, 0.0, 0, 0]
@@ -20,7 +20,7 @@ recoil_scalar = 10.0
 recoil_curve = SubResource("Curve_s7srp")
 camera_shake_strength = 0.25
 camera_shake_fade = 10.0
-bullet_amount_per_shot = 10
+bullet_amount_per_shot = 1
 spread = 10.0
 raycast_length = 100.0
 fire_rate = 0.25
