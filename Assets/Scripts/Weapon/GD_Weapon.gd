@@ -35,8 +35,8 @@ func set_weapon(new_weapon_config: WeaponConfig):
 
 
 func set_muzzle(muzzle: Node3D):
+	
 	_muzzle = muzzle
-	print("muzzle set")
 
 
 func _physics_process(delta):
@@ -275,8 +275,13 @@ var _successive_shot : int = 0
 func _recoil():
 
 	_successive_shot += 1
-	_head.rotate_x(deg_to_rad((weapon_config.recoil_curve.sample(_successive_shot)) * weapon_config.recoil_scalar))
 	_shake_strength = weapon_config.camera_shake_strength
+
+	# prevent head dislocation
+	if (_head.global_transform.basis.z.y <= -0.975):
+		return
+	
+	_head.rotate_x(deg_to_rad((weapon_config.recoil_curve.sample(_successive_shot)) * weapon_config.recoil_scalar))
 
 
 func _camera_shake(delta):
