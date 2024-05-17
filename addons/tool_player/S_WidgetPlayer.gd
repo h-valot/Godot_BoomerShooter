@@ -125,7 +125,7 @@ func _update_player_config(player_config : PlayerConfig):
 	player_config.sprint_move_speed = player_sprint_speed.value 
 	player_config.move_speed_acceleration = player_acceleration.value 
 	player_config.jump_force = player_jump_force.value 
-	player_config.i_frame_duration = player_i_frame_duration.value 
+	player_config.iframe_duration = player_i_frame_duration.value 
 	player_config.consumable_switch_time = player_consumable_switch_time.value 
 	player_config.air_control_scalar = player_air_control_scalar.value
 	player_config.horizontal_mouse_sensitivity = player_horizontal_mouse_sensitivity.value
@@ -140,7 +140,7 @@ func _update_ui_player_config(player_config : PlayerConfig):
 	player_sprint_speed.value = player_config.sprint_move_speed
 	player_acceleration.value = player_config.move_speed_acceleration
 	player_jump_force.value = player_config.jump_force
-	player_i_frame_duration.value = player_config.i_frame_duration
+	player_i_frame_duration.value = player_config.iframe_duration
 	player_consumable_switch_time.value = player_config.consumable_switch_time
 	player_air_control_scalar.value = player_config.air_control_scalar
 	player_horizontal_mouse_sensitivity.value = player_config.horizontal_mouse_sensitivity

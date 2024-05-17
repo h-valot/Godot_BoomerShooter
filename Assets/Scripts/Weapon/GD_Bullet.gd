@@ -15,11 +15,11 @@ var _direction
 signal collided(collider)
 
 
-func initialize(weapon_config : WeaponConfig, zone_prefab : PackedScene, causer_type : int = 0):
+func initialize(weapon_config : WeaponConfig, causer_type : int = 0):
 
 	_weapon_config = weapon_config
 	_lifetime = _weapon_config.bullet_lifetime
-	_zone_prefab = zone_prefab
+	_zone_prefab = weapon_config.zone_prefab
 	_initialized = true
 	_causer_type = causer_type
 
@@ -54,14 +54,14 @@ func _move(delta):
 
 	_direction = _direction.normalized() * (_weapon_config.bullet_start_speed * delta);
 	transform.origin += _direction
-	
-	#_velocity.y += -_weapon_config.bullet_gravity_scale * delta
-	#look_at(global_position + _direction, Vector3.UP)
 
 
 func _on_area_entered(area):
 
 	if (area as HitBoxComponent):
+
+		if (area.health_component.receiver_type == _causer_type):
+			return;
 
 		if (_weapon_config.create_zone_on_impact):
 			_generate_zone()
@@ -75,10 +75,26 @@ func _on_area_entered(area):
 
 func _on_body_entered(body : Node3D):
 	
-	if (!_weapon_config.create_zone_on_impact):
-		return;
+	# prevent bullets thrown by opponents from colliding with themselves 
+	if (body as Opponent):
 
-	_generate_zone()
+		if (_causer_type == 2
+		&& body._health_component.receiver_type == 2):
+			return;
+
+	# prevent bullets thrown by the player from colliding with itself 
+	if (body as Player):
+		
+		if (_causer_type == 1
+		&& body._health_component.receiver_type == 1):
+			return;
+
+	if (_weapon_config.create_zone_on_impact):
+		_generate_zone()
+		self.queue_free()
+		return;
+	
+	
 	self.queue_free()
 
 
@@ -88,6 +104,7 @@ func _generate_zone():
 	get_parent().add_child(new_zone)
 	
 	new_zone.position = global_position
+	new_zone = new_zone as ImpactZone
 	new_zone.initialize(
 		_weapon_config.zone_radius, 
 		_weapon_config.zone_lifetime, 

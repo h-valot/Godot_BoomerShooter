@@ -191,7 +191,7 @@ func _fire_bullet():
 		to.z += randf_range(weapon_config.spread, -weapon_config.spread)
 
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(weapon_config, weapon_config.zone_prefab, health_component.receiver_type)
+	new_bullet.initialize(weapon_config, health_component.receiver_type)
 	new_bullet.launch(from, to)
 
 
@@ -201,6 +201,7 @@ func _generate_zone(impact_position):
 	owner.get_parent().add_child(new_zone)
 	
 	new_zone.position = impact_position
+	new_zone = new_zone as ImpactZone
 	new_zone.initialize(
 		weapon_config.zone_radius, 
 		weapon_config.zone_lifetime, 

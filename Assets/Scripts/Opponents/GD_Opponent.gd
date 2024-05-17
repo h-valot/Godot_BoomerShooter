@@ -401,13 +401,16 @@ func _shoot():
 func _fire_bullet():
 	
 	var new_bullet = opponent_config.weapon_used.bullet_mesh.instantiate()
-	
-	# Parent the bullet outside the player
-	# Otherwise, bullets moves with the player
 	owner.get_parent().add_child(new_bullet)
 	
 	new_bullet.transform = _attack_point.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(opponent_config.weapon_used, opponent_config.weapon_used.zone_prefab, _health_component.receiver_type)
+	new_bullet.initialize(opponent_config.weapon_used, _health_component.receiver_type)
+
+	var from = _attack_point.global_position
+	var to = -_attack_point.global_transform.basis.z.normalized() * 100
+	new_bullet.launch(from, to)
+
 #endregion
+
 #endregion

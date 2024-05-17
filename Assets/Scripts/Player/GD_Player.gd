@@ -20,9 +20,14 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 
 	_hud.initialize(player_config)
-	_health_component.initialize(player_config.base_health, player_config.health_regeneration, player_config.base_armor)
 	_health_component.on_health_changed.connect(_hud.update_health_bar)
 	_health_component.on_armor_changed.connect(_hud.update_armor_bar)
+	_health_component.initialize(
+		player_config.base_health, 
+		player_config.health_regeneration,
+		player_config.base_armor,
+		player_config.iframe_duration
+	)
 
 	_weapon.initialize()
 	weapon_config.initialize_mag()

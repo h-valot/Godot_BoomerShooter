@@ -10,7 +10,7 @@ var _damage_per_tick : float
 var _tick_duration : float
 var _damage_type
 
-var _hitbox_in_range = []
+var _health_in_range = []
 
 
 func initialize(radius, lifetime, damage_per_tick, tick_duration, damage_type):
@@ -56,7 +56,7 @@ func _on_area_entered(area : Area3D):
 			_damage_type
 		)
 		
-		_hitbox_in_range.append(new_health_in_zone)
+		_health_in_range.append(new_health_in_zone)
 
 
 func _on_area_exited(area : Area3D):
@@ -66,16 +66,16 @@ func _on_area_exited(area : Area3D):
 		var new_health_in_zone = find_health(area.health_component)
 		new_health_in_zone.stop()
 
-		_hitbox_in_range.erase(new_health_in_zone)
+		_health_in_range.erase(new_health_in_zone)
 
 
 func find_health(health_component: HealthComponent) -> HealthInZone:
 	
-	for index in _hitbox_in_range.size():
+	for index in _health_in_range.size():
 
-		if (_hitbox_in_range[index]._health_component == health_component):
+		if (_health_in_range[index]._health_component == health_component):
 
-			return _hitbox_in_range[index]
+			return _health_in_range[index]
 	
 	return null
 
