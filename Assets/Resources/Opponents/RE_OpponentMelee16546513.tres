@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="OpponentConfig" load_steps=2 format=3 uid="uid://b470foxtbuv0"]
+[gd_resource type="Resource" script_class="OpponentConfig" load_steps=3 format=3 uid="uid://b470foxtbuv0"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_OpponentConfig.gd" id="1_qc3m1"]
+[ext_resource type="Resource" uid="uid://1fula6jd31lv" path="res://Assets/Resources/Items/Weapons/RE_Melee.tres" id="2_itrrw"]
 
 [resource]
 script = ExtResource("1_qc3m1")
@@ -10,13 +11,13 @@ move_speed = 5.0
 acceleration = 10.0
 jump_force = 4.5
 gravity = 9.8
-flight_height = 3.0
+flight_height = 0.0
 base_health = 50.0
 health_regeneration = 0.0
 base_armor = 0.0
-attack_type = 0
-attack_range = Vector2(0, 0)
+attack_range = Vector2(0, 1.5)
 attack_damage = 10.0
+weapon_used = ExtResource("2_itrrw")
 first_charge_time = 1.0
 final_charge_time = 1.0
 attack_recovery_time = 1.0

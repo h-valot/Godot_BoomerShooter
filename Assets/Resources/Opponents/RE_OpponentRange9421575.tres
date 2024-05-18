@@ -15,7 +15,6 @@ flight_height = 0.0
 base_health = 1.0
 health_regeneration = 0.0
 base_armor = 0.0
-attack_type = 1
 attack_range = Vector2(0, 4)
 attack_damage = 10.0
 weapon_used = ExtResource("2_d1fok")

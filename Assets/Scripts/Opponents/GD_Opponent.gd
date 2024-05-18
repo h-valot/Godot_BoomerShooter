@@ -226,13 +226,7 @@ func _start_attack():
 	_is_attacking = true
 	print("OPPONENT: Starting an attack")
 	
-	# Use melee attack
-	if (opponent_config.attack_type == 0): # MELEE
-		await _melee_attack()
-	
-	# Use range attack
-	if (opponent_config.attack_type == 1): # RANGE
-		await _range_attack()
+	await _handle_attack()
 	
 	if (_interrupted):
 		return;
@@ -306,69 +300,21 @@ func _wait_for(delay : float, with_interruption : bool = false):
 	_interruptable = false
 
 
-#region MELEE ATTACK
-func _melee_attack():
 
-	await _charge_and_pursue()
-
-	if (_interrupted):
-		return;
-
-	await _lock_position()
-
-	if (_interrupted):
-		return;
-
-	await _slach()
-
-
-
-func _charge_and_pursue():
-
-	# TODO - Play charge animation
-	
-	# Wait for first charge delay with interruption enabled
-	await _wait_for(opponent_config.first_charge_time, true)
-
-func _lock_position():
-
-	# Lock movement
-	_move_funtion_enabled = false
-	
-	# Wait for final charge delay with interruption enabled
-	await _wait_for(opponent_config.final_charge_time, true)
-
-
-func _slach():
-
-	# Lock rotation
-	_look_funtion_enabled = false
-	
-	# TODO - Enable melee damage collision area
-	
-	# TODO - Wait till the end of the attack animation with a signal
-	
-	# TODO - Disable melee damage collision area
-	
-	# Wait for the recovery time
-	await _wait_for(opponent_config.attack_recovery_time)
-#endregion
-
-
-#region RANGE ATTACK
-func _range_attack():
+#region ATTACK
+func _handle_attack():
 
 	await _charge_and_aim()
 
 	if (_interrupted):
 		return;
 
-	await _lock_and_finish_charge()
+	await _lock_target()
 
 	if (_interrupted):
 		return;
 
-	await _shoot()
+	await _attack()
 
 
 func _charge_and_aim():
@@ -380,7 +326,7 @@ func _charge_and_aim():
 	await _wait_for(opponent_config.first_charge_time, true)
 
 
-func _lock_and_finish_charge():
+func _lock_target():
 
 	# Lock rotation
 	_look_funtion_enabled = false
@@ -389,7 +335,7 @@ func _lock_and_finish_charge():
 	await _wait_for(opponent_config.final_charge_time, true)
 
 
-func _shoot():
+func _attack():
 
 	# Fire a bullet toward the opponent "looking at" diretion
 	_fire_bullet()

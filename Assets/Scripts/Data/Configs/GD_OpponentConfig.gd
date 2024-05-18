@@ -30,8 +30,6 @@ class_name OpponentConfig
 
 
 @export_group("Attack")
-## Can be melee, distance or special
-@export_enum("MELEE", "RANGE", "SPECIAL") var attack_type : int = 1
 ## Minimum and maximum distance to cast an attack
 @export var attack_range : Vector2 = Vector2(0, 1)
 ## Damage dealt to the touched hitbox when attacking
