@@ -238,13 +238,17 @@ func _start_attack():
 
 func _on_ai_sight_area_entered(area):
 
-	if (area.get_parent() as Player):
+	var player: Player = area.get_parent() as Player
+	if (player != null):
+		if (!player.player_config.is_invisible):
 
-		if (_sight_enabled):
-			return
-		
-		print("OPPONENT: Sight functions (re)activated")
-		_sight_enabled = true
+			if (_sight_enabled):
+				return
+			
+			print("OPPONENT: Sight functions (re)activated")
+			_sight_enabled = true
+		elif(player.player_config.is_invisible):
+			_sight_enabled = false
 
 
 func _on_ai_sight_area_exited(area):

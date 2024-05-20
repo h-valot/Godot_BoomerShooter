@@ -10,9 +10,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("inventory", "ui_container")]
+[node name="UI" type="Node2D" parent="." node_paths=PackedStringArray("ui_container")]
 script = ExtResource("1_ca6wn")
-inventory = NodePath("")
 text_anchor = 1.0
 ui_container = NodePath("Container")
 show_ui_on_ready = false

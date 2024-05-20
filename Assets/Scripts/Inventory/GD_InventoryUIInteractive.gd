@@ -6,6 +6,7 @@ class_name InventoryUIInteractive
 signal on_show(other: InventoryUI)
 signal on_hide(other: InventoryUI)
 signal on_use_item(item: ConsumableConfig)
+signal on_use_item_throw(item: ConsumableConfig)
 
 @export var interactable: Interactable
 @export var use_consumable: UseConsumable
@@ -21,6 +22,7 @@ func _ready():
 	on_hide.connect(_on_hide)
 
 	on_action_item.connect(_on_self_item_action)
+	on_throw_item.connect(_on_self_item_throw)
 
 	assert(interactable != null, "Missing interactable")
 	interactable.on_interact.connect(_on_interact)
@@ -81,6 +83,19 @@ func _on_self_item_action(item):
 			inventory.add_item(consumable, -1)
 			use_consumable.use_consumable(consumable)
 			_update_ui()
+
+func _on_self_item_throw(item):
+	if _other_inventory != null:
+		var item_quantity = inventory.get_item_quantity(item)
+		inventory.add_item(item, -item_quantity)
+		_other_inventory.add_item(item, item_quantity)
+	else:
+		var consumable = item as ConsumableConfig
+		if consumable != null:
+			on_use_item_throw.emit(consumable)
+			inventory.add_item(consumable, -1)
+			_update_ui()
+			use_consumable.throw_consumable(consumable)
 
 ## Hide the UI
 func hide_ui_compare(other: InventoryUI):

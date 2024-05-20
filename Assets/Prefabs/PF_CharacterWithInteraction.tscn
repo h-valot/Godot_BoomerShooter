@@ -46,15 +46,27 @@ script = ExtResource("3_oky0x")
 script = ExtResource("4_xvyim")
 inventory = NodePath("..")
 
-[node name="InteractiveInventory" parent="PF_Player/Head" index="0" instance=ExtResource("5_d1oom")]
+[node name="Input" type="Node" parent="PF_Player/Head" index="0"]
+
+[node name="PlayerInteraction" type="Node" parent="PF_Player/Head/Input" node_paths=PackedStringArray("interactable")]
+script = ExtResource("4_7x134")
+interactable = NodePath("../../Interactable")
+
+[node name="PlayerInventory" type="Node" parent="PF_Player/Head/Input" node_paths=PackedStringArray("inventoryUIInteractive", "inventoryUI")]
+script = ExtResource("8_cca7e")
+inventoryUIInteractive = NodePath("../../InteractiveInventory/UI")
+inventoryUI = NodePath("../../../PF_PlayerHud/InventoryUI/UI")
+
+[node name="InteractiveInventory" parent="PF_Player/Head" index="1" instance=ExtResource("5_d1oom")]
 offset_left = 302.0
 offset_top = 416.0
 
-[node name="UI" parent="PF_Player/Head/InteractiveInventory" index="0" node_paths=PackedStringArray("interactable", "inventory")]
+[node name="UI" parent="PF_Player/Head/InteractiveInventory" index="0" node_paths=PackedStringArray("interactable", "use_consumable", "inventory")]
 interactable = NodePath("../../Interactable")
+use_consumable = NodePath("../../../../UseConsumable")
 inventory = NodePath("../../../PF_PlayerHud/InventoryUI/Inventory")
 
-[node name="Interactable" parent="PF_Player/Head" index="1" node_paths=PackedStringArray("inventory") instance=ExtResource("1_tldtg")]
+[node name="Interactable" parent="PF_Player/Head" index="2" node_paths=PackedStringArray("inventory") instance=ExtResource("1_tldtg")]
 transform = Transform3D(2.22899, 0, 0, 0, 1.62841, 0, 0, 0, 5.53716, -0.26455, -0.28143, -2.55076)
 inventory = NodePath("../../PF_PlayerHud/InventoryUI/Inventory")
 interact_on_overlap = false
@@ -62,21 +74,11 @@ interact_on_overlap = false
 [node name="Area3D" parent="PF_Player/Head/Interactable" index="0"]
 one_interaction_per_frame = true
 
-[node name="Input" type="Node" parent="."]
-
-[node name="PlayerInteraction" type="Node" parent="Input" node_paths=PackedStringArray("interactable")]
-script = ExtResource("4_7x134")
-interactable = NodePath("../../PF_Player/Head/Interactable")
-
-[node name="PlayerInventory" type="Node" parent="Input" node_paths=PackedStringArray("inventoryUIInteractive", "inventoryUI")]
-script = ExtResource("8_cca7e")
-inventoryUIInteractive = NodePath("../../PF_Player/Head/InteractiveInventory/UI")
-inventoryUI = NodePath("../../PF_Player/PF_PlayerHud/InventoryUI/UI")
-
-[node name="UseConsumable" type="Node" parent="." node_paths=PackedStringArray("health", "player")]
+[node name="UseConsumable" type="Node3D" parent="." node_paths=PackedStringArray("local_player", "head")]
 script = ExtResource("9_33ilw")
-health = NodePath("../PF_Player/PF_Health")
-player = NodePath("../PF_Player")
+local_player = NodePath("../PF_Player")
+head = NodePath("../PF_Player/Head")
+throw_height_offset = 0.0
 
 [editable path="PF_Player"]
 [editable path="PF_Player/PF_PlayerHud"]

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ConditionItem" load_steps=3 format=3 uid="uid://dijidskeacfr2"]
 
-[ext_resource type="Resource" uid="uid://h266x3ugdxyc" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="1_hm6g4"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="1_hm6g4"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/Conditions/GD_ConditionItem.gd" id="2_hx85b"]
 
 [resource]
 script = ExtResource("2_hx85b")
 item = ExtResource("1_hm6g4")
-exceptedToHave = true
+exceptedToHave = false
 require_faction = false
 require_collision = false

@@ -28,3 +28,7 @@ class_name PlayerConfig
 @export_group("Combat properties")
 @export var i_frame_duration : float = 0.5 
 @export var consumable_switch_time : float = 0.25
+
+# Consumables modifiers, do not modify
+var is_invisible: bool = false
+var is_stun: bool = false

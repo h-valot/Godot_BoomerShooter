@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://deidim5dehtra"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_ConsumableObject.gd" id="1_11wxi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2b083"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mk1uu"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7uvcp"]
+
+[node name="PfConsumable" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+input_ray_pickable = false
+can_sleep = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_2b083")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D" node_paths=PackedStringArray("parent")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+script = ExtResource("1_11wxi")
+parent = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("SphereShape3D_mk1uu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_7uvcp")
+skeleton = NodePath("../..")

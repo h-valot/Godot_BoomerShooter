@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://dijidskeacfr2" path="res://Assets/Resources/Interactable/InteractionDebugCondition.tres" id="4_5mpwu"]
 [ext_resource type="PackedScene" uid="uid://ccwpdfq6nw0g0" path="res://Assets/Prefabs/PF_PickUp.tscn" id="4_jrsqp"]
 [ext_resource type="Resource" uid="uid://c2bj3ump3khrx" path="res://Assets/Resources/Items/InventoryDebug/DebugConsumable.tres" id="6_72w32"]
-[ext_resource type="PackedScene" path="res://Assets/Prefabs/PF_Opponent.tscn" id="7_ncg3e"]
+[ext_resource type="PackedScene" uid="uid://bjqqqntchis5p" path="res://Assets/Prefabs/PF_Opponent.tscn" id="7_ncg3e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ha34v"]
 
@@ -22,6 +22,17 @@ transform = Transform3D(25, 0, 0, 0, 0.1, 0, 0, 0, 25, 0, 0, 0)
 shape = SubResource("BoxShape3D_ha34v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/CollisionShape3D"]
+mesh = SubResource("BoxMesh_ihis2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_3cbno")
+
+[node name="Ground2" type="StaticBody3D" parent="."]
+transform = Transform3D(5.97365, 0, 0, 0, 0.100304, 0, 0, 0, 5.23332, 0, 6.01684, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2"]
+shape = SubResource("BoxShape3D_ha34v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground2/CollisionShape3D"]
 mesh = SubResource("BoxMesh_ihis2")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_3cbno")
@@ -71,7 +82,10 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_3cbno")
 
 [node name="PfCharacterWithInteraction" parent="." instance=ExtResource("2_wmjbu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 6.1169, 0.655442)
+
+[node name="PF_Player" parent="PfCharacterWithInteraction" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05434, 0, 0.840321)
 
 [node name="InventoryUI" parent="PfCharacterWithInteraction/PF_Player/PF_PlayerHud" index="3"]
 layout_mode = 1
@@ -83,13 +97,7 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UI" parent="PfCharacterWithInteraction/PF_Player/Head/InteractiveInventory" index="0" node_paths=PackedStringArray("use_consumable")]
-use_consumable = NodePath("../../../../UseConsumable")
-
-[node name="Camera3D" parent="PfCharacterWithInteraction/PF_Player/Head" index="2"]
-current = false
-
-[node name="WeaponInventory" type="Node" parent="PfCharacterWithInteraction/PF_Player" index="7"]
+[node name="WeaponInventory2" type="Node" parent="PfCharacterWithInteraction/PF_Player" index="7"]
 script = ExtResource("3_syobt")
 
 [node name="PfDoor" parent="." instance=ExtResource("3_5y824")]
@@ -107,7 +115,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 2)
 item = ExtResource("6_72w32")
 
 [node name="PfPickUp2" parent="Pickups" instance=ExtResource("4_jrsqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1849, 0.773863, 1.19321)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.92841, 7.62348, -0.335409)
 item = ExtResource("6_72w32")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -122,7 +130,7 @@ shadow_opacity = 0.95
 shadow_blur = 4.6
 
 [node name="PF_Opponent" parent="." instance=ExtResource("7_ncg3e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -7)
 
 [editable path="PfCharacterWithInteraction"]
 [editable path="PfCharacterWithInteraction/PF_Player"]

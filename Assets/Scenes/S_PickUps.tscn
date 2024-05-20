@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="5_404b0"]
 [ext_resource type="Script" path="res://Assets/Scripts/PickUps/GD_PickUp.gd" id="6_iopin"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_Interactable.gd" id="6_nu1b8"]
-[ext_resource type="Resource" uid="uid://h266x3ugdxyc" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="7_8mjew"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="7_8mjew"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3hlos"]
 

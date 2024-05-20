@@ -1,36 +1,30 @@
-[gd_resource type="Resource" script_class="ConsumableConfig" load_steps=3 format=3 uid="uid://c2bj3ump3khrx"]
+[gd_resource type="Resource" script_class="ConsumableConfig" load_steps=4 format=3 uid="uid://c2bj3ump3khrx"]
 
 [ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="1_sxyl8"]
 [ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_ConsumableConfig.gd" id="2_w18lt"]
+[ext_resource type="PackedScene" uid="uid://deidim5dehtra" path="res://Assets/Prefabs/PF_Consumable.tscn" id="3_8wdcw"]
 
 [resource]
 script = ExtResource("2_w18lt")
-use_heal_damage = false
-heal_damage = 0.0
+use_heal_damage = true
+heal_damage = -10.0
 use_armor = false
 armor = 0.0
-use_stun_duration = false
+use_stun = false
 stun_duration = 0.0
 use_speed_boost = false
-speed_boost = 0.0
-use_invisibility_duration = true
+speed_boost = 10.0
+use_invisibility = false
 invisibility_duration = 10.0
 use_jump_force_boost = false
-jump_force_boost = 0.0
+jump_force_boost = 10.0
 use_damage_boost = false
 damage_boost = 0.0
-use_speed = false
-speeed = 0.0
-use_trajectory = false
-trajectory = 0.0
-use_lifetime = false
-lifetime = 0.0
-use_impact_size = false
-impact_size = 0.0
-use_range = false
-throw_range = 0.0
+speed = 25.0
+lifetime = 10.0
 GUID = 0
 name = "Consumable"
+item_mesh = ExtResource("3_8wdcw")
 icon = ExtResource("1_sxyl8")
 quantity = 1.0
 max_stack = -1.0

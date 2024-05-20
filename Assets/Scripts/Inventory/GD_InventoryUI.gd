@@ -7,6 +7,7 @@ signal on_update_ui()
 signal post_on_update_ui()
 signal on_remove_child(child: Node)
 signal on_action_item(item: ItemConfig)
+signal on_throw_item(item: ItemConfig)
 
 @export var inventory: Inventory
 @export var text_position: Vector2
@@ -41,9 +42,15 @@ func _clear_ui():
 func _on_changed(_item: ItemConfig):
 	_update_ui()
 
-func _on_action_item(item: ItemConfig):
+func _on_action_item(button: Button, item: ItemConfig):
 	assert(item != null, "Action on null item")
-	on_action_item.emit(item)
+	if !button.button_pressed:
+		on_action_item.emit(item)
+
+func _on_throw_item(button: Button, item: ItemConfig):
+	assert(item != null, "Throw on null item")
+	if button.button_pressed:
+		on_throw_item.emit(item)
 
 ## Update the UI when an item quantity changed.
 ## Items are rendered as [Button].
@@ -64,7 +71,8 @@ func _update_ui():
 			if (inventory_item.config as ConsumableConfig) == null:
 				itemButton.set_process_input(false)
 			else:
-				itemButton.pressed.connect(func(): _on_action_item(inventory_item.config))
+				itemButton.button_down.connect(func(): InventoryUtils.call_latent(self, func(): _on_action_item(itemButton, inventory_item.config), 0.1))
+				itemButton.button_down.connect(func(): InventoryUtils.call_latent(self, func(): _on_throw_item(itemButton, inventory_item.config), 0.1))
 
 			if (hide_quantity_when_one && inventory_item.quantity != 1) || !hide_quantity_when_one:
 				var text = Label.new()
