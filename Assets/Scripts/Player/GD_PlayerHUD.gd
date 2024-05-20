@@ -29,4 +29,7 @@ func update_health_bar(current_health):
 
 func update_armor_bar(current_armor):
 
+	if (armor_progress_bar.hidden):
+		armor_progress_bar.show()
+	
 	armor_progress_bar.value = current_armor / _max_armor
