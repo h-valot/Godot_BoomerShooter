@@ -12,9 +12,14 @@ var _max_armor : float
 func initialize(player_config : PlayerConfig):
 
 	_max_health = player_config.base_health
-	_max_armor = player_config.base_armor
 	health_progress_bar.initalize()
-	armor_progress_bar.initalize()
+
+	if (player_config.base_armor > 0):
+		armor_progress_bar.show()
+		_max_armor = player_config.base_armor
+		armor_progress_bar.initalize()
+	else:
+		armor_progress_bar.hide()
 
 
 func update_health_bar(current_health):
