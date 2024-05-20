@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1ufa3ylnreay"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Dialogue/DialogueUI.gd" id="1_2ci17"]
+[ext_resource type="Resource" uid="uid://std1ysergv2b" path="res://Assets/Resources/RSE/RSE_DisplayDialogue.tres" id="2_uudt5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmg84"]
+bg_color = Color(0, 0, 0, 0.529412)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_bmws1"]
+font_size = 29
+
+[node name="PF_DialogueUI" type="CanvasLayer"]
+script = ExtResource("1_2ci17")
+rse_display_dialogue = ExtResource("2_uudt5")
+
+[node name="DialogueBox_MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -190.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_right = 96
+theme_override_constants/margin_bottom = 28
+
+[node name="Background_Panel" type="Panel" parent="DialogueBox_MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hmg84")
+
+[node name="InnerText_MarginContainer" type="MarginContainer" parent="DialogueBox_MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="InnerText_HBoxContainer" type="HBoxContainer" parent="DialogueBox_MarginContainer/InnerText_MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DialogueBox_MarginContainer/InnerText_MarginContainer/InnerText_HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_bmws1")
+autowrap_mode = 3
+clip_text = true
+
+[node name="End" type="Label" parent="DialogueBox_MarginContainer/InnerText_MarginContainer/InnerText_HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_vertical = 8
+text = "v"
+label_settings = SubResource("LabelSettings_bmws1")
