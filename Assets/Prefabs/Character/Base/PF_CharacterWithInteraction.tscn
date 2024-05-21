@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://crv4uiyqbey8w"]
+
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="1_tldtg"]
+[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/Character/Base/PF_Player.tscn" id="1_wi5pq"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="3_oky0x"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="3_vjl4t"]
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_PlayerInteract.gd" id="4_7x134"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="4_xvyim"]
+[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/UI/Inventory/PF_InventoryInteractive.tscn" id="5_d1oom"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_PlayerInventory.gd" id="8_cca7e"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="9_33ilw"]
+
+[node name="PfCharacterWithInteraction" type="Node3D"]
+
+[node name="PF_Player" parent="." instance=ExtResource("1_wi5pq")]
+
+[node name="InventoryUI" type="Control" parent="PF_Player/PF_PlayerHud" index="3"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" type="Node2D" parent="PF_Player/PF_PlayerHud/InventoryUI" node_paths=PackedStringArray("inventory", "ui_container")]
+script = ExtResource("3_vjl4t")
+inventory = NodePath("../Inventory")
+hide_quantity_when_one = true
+ui_container = NodePath("Container")
+
+[node name="Container" type="GridContainer" parent="PF_Player/PF_PlayerHud/InventoryUI/UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="Node" parent="PF_Player/PF_PlayerHud/InventoryUI"]
+script = ExtResource("3_oky0x")
+
+[node name="InventoryInitializer" type="Node" parent="PF_Player/PF_PlayerHud/InventoryUI/Inventory" node_paths=PackedStringArray("inventory")]
+script = ExtResource("4_xvyim")
+inventory = NodePath("..")
+
+[node name="Input" type="Node" parent="PF_Player/Head" index="0"]
+
+[node name="PlayerInteraction" type="Node" parent="PF_Player/Head/Input" node_paths=PackedStringArray("interactable")]
+script = ExtResource("4_7x134")
+interactable = NodePath("../../Interactable")
+
+[node name="PlayerInventory" type="Node" parent="PF_Player/Head/Input" node_paths=PackedStringArray("inventoryUIInteractive", "inventoryUI")]
+script = ExtResource("8_cca7e")
+inventoryUIInteractive = NodePath("../../InteractiveInventory/UI")
+inventoryUI = NodePath("../../../PF_PlayerHud/InventoryUI/UI")
+
+[node name="InteractiveInventory" parent="PF_Player/Head" index="1" instance=ExtResource("5_d1oom")]
+offset_left = 302.0
+offset_top = 416.0
+
+[node name="UI" parent="PF_Player/Head/InteractiveInventory" index="0" node_paths=PackedStringArray("interactable", "use_consumable", "inventory")]
+interactable = NodePath("../../Interactable")
+use_consumable = NodePath("../../../../UseConsumable")
+inventory = NodePath("../../../PF_PlayerHud/InventoryUI/Inventory")
+
+[node name="Interactable" parent="PF_Player/Head" index="2" node_paths=PackedStringArray("inventory") instance=ExtResource("1_tldtg")]
+transform = Transform3D(2.22899, 0, 0, 0, 1.62841, 0, 0, 0, 5.53716, -0.26455, -0.28143, -2.55076)
+inventory = NodePath("../../PF_PlayerHud/InventoryUI/Inventory")
+interact_on_overlap = false
+
+[node name="Area3D" parent="PF_Player/Head/Interactable" index="0"]
+one_interaction_per_frame = true
+
+[node name="UseConsumable" type="Node3D" parent="." node_paths=PackedStringArray("local_player", "head")]
+script = ExtResource("9_33ilw")
+local_player = NodePath("../PF_Player")
+head = NodePath("../PF_Player/Head")
+throw_height_offset = 0.0
+
+[editable path="PF_Player"]
+[editable path="PF_Player/PF_PlayerHud"]
+[editable path="PF_Player/Head/InteractiveInventory"]
+[editable path="PF_Player/Head/Interactable"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=12 format=3 uid="uid://i6tjyky8orfu"]
+
+[ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="1_bdqby"]
+[ext_resource type="Resource" uid="uid://8sbl3ydd3mnb" path="res://Assets/Resources/Opponents/RE_EntityOpponentDistance.tres" id="2_3yq35"]
+[ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="2_moaqw"]
+[ext_resource type="Script" path="res://Assets/Scripts/Entity/GD_Entity.gd" id="2_oxxun"]
+[ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="3_81be2"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="4_2gu10"]
+[ext_resource type="Resource" uid="uid://ingwhcs2ub1p" path="res://Assets/Resources/RSE/RSE_DisplayDialogue.tres" id="4_sk7c5"]
+[ext_resource type="PackedScene" uid="uid://7ow7rj1nbfss" path="res://Assets/Graphics/Meshes/GLB_Entity.glb" id="5_23ihg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i6e67"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iqglw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nwa1i"]
+
+[node name="PF_BaseEntity" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("2_oxxun")
+entity_config = ExtResource("2_3yq35")
+rso_player_position = ExtResource("3_81be2")
+rse_display_dialogue = ExtResource("4_sk7c5")
+
+[node name="Interactable" parent="." instance=ExtResource("4_2gu10")]
+transform = Transform3D(1, 0, 0, 0, 2.275, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="FlightOffset" type="Node3D" parent="."]
+
+[node name="PF_HitBox" parent="FlightOffset" node_paths=PackedStringArray("health_component") instance=ExtResource("2_moaqw")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+health_component = NodePath("../../PF_Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlightOffset/PF_HitBox"]
+shape = SubResource("CapsuleShape3D_i6e67")
+
+[node name="GLB_Entity" parent="FlightOffset" instance=ExtResource("5_23ihg")]
+transform = Transform3D(-1.145, 0, -1.00099e-07, 0, 1.145, 0, 1.00099e-07, 0, -1.145, 0, -1, 0)
+
+[node name="AttackPoint" type="Node3D" parent="FlightOffset"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.527986, -0.66634)
+
+[node name="CapsuleCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_iqglw")
+
+[node name="PF_Health" parent="." instance=ExtResource("1_bdqby")]
+receiver_type = 2
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+navigation_layers = 2
+
+[node name="AISight" type="Area3D" parent="."]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, -7.5)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AISight"]
+shape = SubResource("BoxShape3D_nwa1i")
+
+[connection signal="area_entered" from="AISight" to="." method="_on_ai_sight_area_entered"]
+[connection signal="area_exited" from="AISight" to="." method="_on_ai_sight_area_exited"]
+
+[editable path="Interactable"]

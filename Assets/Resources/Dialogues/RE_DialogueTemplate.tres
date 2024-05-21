@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DialogueConfig" load_steps=2 format=3 uid="uid://gkxayra4se6x"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Dialogue/DialogueConfig.gd" id="1_goya3"]
+
+[resource]
+script = ExtResource("1_goya3")
+sentences = Array[String](["First", "Second", "Third"])

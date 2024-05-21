@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ConsumableConfig" load_steps=4 format=3 uid="uid://csm8daewsph4c"]
+
+[ext_resource type="Texture2D" uid="uid://bl1wjn0ucv0xm" path="res://Assets/Graphics/Sprites/T_icon.svg" id="1_8tckg"]
+[ext_resource type="Script" path="res://Assets/Scripts/Items/GD_ConsumableConfig.gd" id="1_lk6tm"]
+[ext_resource type="PackedScene" uid="uid://deidim5dehtra" path="res://Assets/Prefabs/PF_Consumable.tscn" id="2_ry5h0"]
+
+[resource]
+script = ExtResource("1_lk6tm")
+use_heal_damage = true
+heal_damage = -50.0
+use_armor = false
+armor = 0.0
+use_stun = false
+stun_duration = 0.0
+use_speed_boost = false
+speed_boost = 0.0
+use_invisibility = false
+invisibility_duration = 0.0
+use_jump_force_boost = false
+jump_force_boost = 0.0
+use_damage_boost = false
+damage_boost = 0.0
+speed = 0.0
+lifetime = 0.0
+GUID = 8345903
+name = "ConsumableTemplate"
+item_mesh = ExtResource("2_ry5h0")
+icon = ExtResource("1_8tckg")
+quantity = 1.0
+max_stack = -1.0
+stackable = true

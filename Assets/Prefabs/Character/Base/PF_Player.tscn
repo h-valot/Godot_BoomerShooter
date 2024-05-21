@@ -1,0 +1,50 @@
+[gd_scene load_steps=12 format=3 uid="uid://bgpgbd57412ef"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_vwxq5"]
+[ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Player/RE_BaseCharacter.tres" id="2_6i1sl"]
+[ext_resource type="Resource" uid="uid://cx2imqrjvpxww" path="res://Assets/Resources/Items/Weapons/RE_Distance.tres" id="3_mf20g"]
+[ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="4_2am50"]
+[ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="5_gw5uf"]
+[ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="5_skedv"]
+[ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Prefabs/Character/Base/PF_CharacterHUD.tscn" id="6_o5hcx"]
+[ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="7_ag12p"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="9_0feja"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uafqk"]
+
+[node name="PF_Player" type="CharacterBody3D"]
+script = ExtResource("1_vwxq5")
+player_config = ExtResource("2_6i1sl")
+weapon_config = ExtResource("3_mf20g")
+rso_player_position = ExtResource("5_skedv")
+
+[node name="PF_PlayerHud" parent="." instance=ExtResource("6_o5hcx")]
+
+[node name="CharacterBodyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kxpnw")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+fov = 90.0
+
+[node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_gw5uf")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 1, 0)
+health_component = NodePath("../PF_Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PF_HitBox"]
+shape = SubResource("CapsuleShape3D_uafqk")
+
+[node name="PF_Health" parent="." instance=ExtResource("4_2am50")]
+receiver_type = 1
+
+[node name="WeaponInventory" type="Node3D" parent="."]
+script = ExtResource("9_0feja")
+
+[node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("7_ag12p")
+health_component = NodePath("../PF_Health")

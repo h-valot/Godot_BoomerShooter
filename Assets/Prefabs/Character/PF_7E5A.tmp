@@ -1,0 +1,131 @@
+[gd_scene load_steps=19 format=3 uid="uid://ijy3c8s153yu"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Player.gd" id="1_hxdtb"]
+[ext_resource type="Resource" uid="uid://pyndghcxqbg0" path="res://Assets/Resources/Player/RE_PlayerConfig.tres" id="2_jtycc"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="3_pndn0"]
+[ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="4_vytkp"]
+[ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Resources/Player/PF_PlayerHUD.tscn" id="6_7etot"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="7_oxt1e"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="8_w42fp"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="9_av4gi"]
+[ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_PlayerInteract.gd" id="10_4aqr3"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_PlayerInventory.gd" id="11_h88ng"]
+[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="12_cxvtc"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="13_4dyrs"]
+[ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="14_dibyc"]
+[ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="15_5gvro"]
+[ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="16_ph8i4"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="17_gn0ew"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uafqk"]
+
+[node name="PF_Character" type="CharacterBody3D"]
+script = ExtResource("1_hxdtb")
+player_config = ExtResource("2_jtycc")
+weapon_config = ExtResource("3_pndn0")
+rso_player_position = ExtResource("4_vytkp")
+
+[node name="CharacterBodyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kxpnw")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Interactable" parent="Head" node_paths=PackedStringArray("inventory") instance=ExtResource("13_4dyrs")]
+transform = Transform3D(2.22899, 0, 0, 0, 1.62841, 0, 0, 0, 5.53716, -0.26455, -0.28143, -2.55076)
+inventory = NodePath("../../PF_PlayerHud/InventoryUI/Inventory")
+interact_on_overlap = false
+
+[node name="Area3D" parent="Head/Interactable" index="0"]
+one_interaction_per_frame = true
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+fov = 90.0
+
+[node name="PF_PlayerHud" parent="." instance=ExtResource("6_7etot")]
+
+[node name="InventoryUI" type="Control" parent="PF_PlayerHud"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" type="Node2D" parent="PF_PlayerHud/InventoryUI" node_paths=PackedStringArray("inventory", "ui_container")]
+script = ExtResource("7_oxt1e")
+inventory = NodePath("../Inventory")
+hide_quantity_when_one = true
+ui_container = NodePath("Container")
+
+[node name="Container" type="GridContainer" parent="PF_PlayerHud/InventoryUI/UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="Node" parent="PF_PlayerHud/InventoryUI"]
+script = ExtResource("8_w42fp")
+
+[node name="InventoryInitializer" type="Node" parent="PF_PlayerHud/InventoryUI/Inventory" node_paths=PackedStringArray("inventory")]
+script = ExtResource("9_av4gi")
+inventory = NodePath("..")
+
+[node name="ExtraInputs" type="Node" parent="."]
+
+[node name="PlayerInteraction" type="Node" parent="ExtraInputs" node_paths=PackedStringArray("interactable")]
+script = ExtResource("10_4aqr3")
+interactable = NodePath("../../Head/Interactable")
+
+[node name="PlayerInventory" type="Node" parent="ExtraInputs" node_paths=PackedStringArray("inventoryUIInteractive", "inventoryUI")]
+script = ExtResource("11_h88ng")
+inventoryUIInteractive = NodePath("../../InteractiveInventory/UI")
+inventoryUI = NodePath("../../PF_PlayerHud/InventoryUI/UI")
+
+[node name="InteractiveInventory" parent="." instance=ExtResource("12_cxvtc")]
+offset_left = 302.0
+offset_top = 416.0
+
+[node name="UI" parent="InteractiveInventory" index="0" node_paths=PackedStringArray("interactable", "use_consumable", "inventory")]
+interactable = NodePath("../../Head/Interactable")
+use_consumable = NodePath("../../UseConsumable")
+inventory = NodePath("../../PF_PlayerHud/InventoryUI/Inventory")
+
+[node name="PF_HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("14_dibyc")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 1, 0)
+health_component = NodePath("../PF_Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PF_HitBox"]
+shape = SubResource("CapsuleShape3D_uafqk")
+
+[node name="PF_Health" parent="." instance=ExtResource("15_5gvro")]
+receiver_type = 1
+
+[node name="WeaponInventory" type="Node3D" parent="."]
+script = ExtResource("8_w42fp")
+
+[node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("16_ph8i4")
+health_component = NodePath("../PF_Health")
+
+[node name="UseConsumable" type="Node3D" parent="."]
+script = ExtResource("17_gn0ew")
+throw_height_offset = 0.0
+local_player = Object(CharacterBody3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"axis_lock_linear_x":false,"axis_lock_linear_y":false,"axis_lock_linear_z":false,"axis_lock_angular_x":false,"axis_lock_angular_y":false,"axis_lock_angular_z":false,"motion_mode":0,"up_direction":Vector3(0, 1, 0),"slide_on_ceiling":true,"velocity":Vector3(0, 0, 0),"max_slides":6,"wall_min_slide_angle":0.261799,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.785398,"floor_snap_length":0.1,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.001,"script":ExtResource("1_hxdtb"),"player_config":ExtResource("2_jtycc"),"weapon_config":ExtResource("3_pndn0"),"rso_player_position":ExtResource("4_vytkp"))
+
+head = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
+
+
+[editable path="Head/Interactable"]
+[editable path="PF_PlayerHud"]
+[editable path="PF_PlayerHud/PF_AnimatedProgressBar"]
+[editable path="PF_PlayerHud/PF_AnimatedProgressBar2"]
+[editable path="InteractiveInventory"]
