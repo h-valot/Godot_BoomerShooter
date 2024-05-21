@@ -6,6 +6,9 @@ class_name ConsumableObject
 
 var consumable: ConsumableConfig
 
+func begin():
+	InventoryUtils.call_latent_s(self, self, func(): parent.queue_free(), consumable.lifetime)
+
 func _physics_process(_delta):
 	apply_effects()
 

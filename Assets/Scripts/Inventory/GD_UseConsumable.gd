@@ -5,8 +5,9 @@ class_name UseConsumable
 @export var local_player: Character
 @export var head: Node3D
 
-@export var throw_forward_offset: float = 2.5
-@export var throw_height_offset: float = 1.0
+@export var throw_forward_offset: float = 3.5
+@export var throw_height_offset: float = 0.0
+@export var throw_left_offset: float = 3.5
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -99,14 +100,14 @@ func throw_consumable(consumable: ConsumableConfig):
 	consumable_object.consumable = consumable
 	
 	get_tree().current_scene.add_child(prefab)
-	prefab.position = head.global_position + ((Vector3.UP * throw_height_offset) * head.global_basis ) + ((Vector3.FORWARD * throw_forward_offset) * head.global_basis)
-	
+	prefab.global_position = head.global_position
+
 	var rigidbody = InventoryUtils.get_child_of_type(prefab, typeof(RigidBody3D))
 	assert(rigidbody != null, "Missing rigidbody in consumable prefab.")
 	
 	var forward_dir: Vector3 = (head.global_basis * Vector3.FORWARD).normalized()
-
+	
 	rigidbody.can_sleep = false
 	rigidbody.apply_impulse(forward_dir * consumable.speed)
 
-	InventoryUtils.call_latent_s(self, prefab, func(): prefab.queue_free(), consumable.lifetime)
+	consumable_object.begin()
