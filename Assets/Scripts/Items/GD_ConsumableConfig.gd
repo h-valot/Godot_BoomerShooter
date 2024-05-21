@@ -24,5 +24,5 @@ class_name ConsumableConfig
 @export var damage_boost : float = 0
 
 @export_group("Settings")
-@export var speed : float = 0
-@export var lifetime : float = 0
+@export var speed : float = 10
+@export var lifetime : float = 3

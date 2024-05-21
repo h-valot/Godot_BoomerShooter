@@ -3,8 +3,8 @@ class_name CharacterConfig
 
 @export_group("Main properties")
 @export var base_health : float = 100
-@export var health_regeneration : float = 5
-@export var base_armor : float = 50
+@export var health_regeneration : float = 0
+@export var base_armor : float = 0
 
 
 @export_group("Movement properties")
@@ -12,7 +12,7 @@ class_name CharacterConfig
 @export_subgroup("Movement speed settings")
 @export var base_move_speed : float = 10
 @export var sprint_move_speed : float = 12.5
-@export_range(0, 1) var air_control_scalar : float = 1
+@export_range(0, 1) var air_control_scalar : float = 0.05
 @export var move_speed_acceleration : float = 10
 
 @export_subgroup("Mouse settings")
