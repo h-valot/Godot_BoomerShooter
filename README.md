@@ -51,14 +51,14 @@ Find more details about the development status on the online documentation.
 - [ ] Sound, music & sfx implementation tools
 
 ## Gameplay systems
-- [ ] Dialogues
+- [x] Dialogues
 - [ ] Quests
-- [ ] Inventory
+- [x] Inventory
 
 ## Interactibles
 - [x] Doors
 - [ ] Chests
-- [ ] Pickups
+- [x] Pickups
 
 ## Miscs
 - [ ] Soulslike checkpoint system
