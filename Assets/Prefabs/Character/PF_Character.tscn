@@ -125,7 +125,6 @@ health_component = NodePath("../PF_Health")
 script = ExtResource("17_gn0ew")
 local_player = NodePath("..")
 head = NodePath("../Head")
-throw_height_offset = 0.0
 
 [editable path="Head/Interactable"]
 [editable path="PF_PlayerHud"]

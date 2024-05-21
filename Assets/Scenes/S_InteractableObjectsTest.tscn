@@ -117,3 +117,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 1)
 
 [editable path="PfDoor"]
 [editable path="PfDoor/Interactable"]
+[editable path="PF_Character"]
+[editable path="PF_Character/Head/Interactable"]
+[editable path="PF_Character/PF_PlayerHud"]
+[editable path="PF_Character/PF_PlayerHud/PF_AnimatedProgressBar"]
+[editable path="PF_Character/PF_PlayerHud/PF_AnimatedProgressBar2"]
+[editable path="PF_Character/InteractiveInventory"]
