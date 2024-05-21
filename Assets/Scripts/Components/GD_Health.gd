@@ -17,7 +17,9 @@ var _regeneration_timer : float
 
 var _iframe_counter: float
 var _iframe_duration: float
-var _iframe_enabled: bool = false;
+var _iframe_enabled: bool = false
+
+var _is_immuned: bool = false
 
 signal on_health_reached_zero
 signal on_health_changed(new_health, delta)
@@ -34,6 +36,11 @@ func initialize(base_health : float, health_regeneration : float, base_armor: fl
 
 	current_health = _base_health
 	current_armor = _base_armor
+
+
+func set_immunity(is_immuned: bool):
+
+	_is_immuned = is_immuned
 
 
 func _process(delta):
@@ -71,6 +78,9 @@ func _handle_passive_regeneration(delta):
 
 
 func update_current_health(amount : float, causer_type : int = 0):
+
+	if (_is_immuned):
+		return
 
 	# check causer and receiver receiver_type
 	if (causer_type != 0
