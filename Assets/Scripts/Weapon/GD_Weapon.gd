@@ -80,8 +80,7 @@ func _get_inputs():
 			_fire_rate_delay = 0
 			_firing = true
 			
-			_successive_shot = 0
-			_head.rotate_x(deg_to_rad((weapon_config.recoil_curve.sample(_successive_shot)) * weapon_config.recoil_scalar))
+			_head.rotate_x(deg_to_rad(weapon_config.recoil_scalar))
 	
 	if (Input.is_action_just_released("Fire")):
 	
@@ -269,19 +268,17 @@ func _use_bullet():
 #region RECOIL
 var _shake_strength : float = 0.0
 var _rnd = RandomNumberGenerator.new()
-var _successive_shot : int = 0
 
 
 func _recoil():
 
-	_successive_shot += 1
 	_shake_strength = weapon_config.camera_shake_strength
 
 	# prevent head dislocation
 	if (_head.global_transform.basis.z.y <= -0.975):
 		return
 	
-	_head.rotate_x(deg_to_rad((weapon_config.recoil_curve.sample(_successive_shot)) * weapon_config.recoil_scalar))
+	_head.rotate_x(deg_to_rad(weapon_config.recoil_scalar))
 
 
 func _camera_shake(delta):
