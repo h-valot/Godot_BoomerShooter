@@ -16,5 +16,5 @@ vertical_mouse_sensitivity = 0.2
 max_vertical_aim = 89.0
 jump_force = 4.5
 gravity_hint = "You can tweak the gravity value (9.8) in the project settings > physics > 3d > default gravity"
-i_frame_duration = 0.5
+iframe_duration = 0.5
 consumable_switch_time = 0.25

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://crv4uiyqbey8w"]
 
 [ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="1_tldtg"]
-[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Player.tscn" id="1_wi5pq"]
+[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/Character/Base/PF_Player.tscn" id="1_wi5pq"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="3_oky0x"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="3_vjl4t"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_PlayerInteract.gd" id="4_7x134"]

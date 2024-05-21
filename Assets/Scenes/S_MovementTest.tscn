@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0tg7jm3r2gnt"]
+[gd_scene load_steps=10 format=3 uid="uid://d0tg7jm3r2gnt"]
 
-[ext_resource type="PackedScene" uid="uid://bgpgbd57412ef" path="res://Assets/Prefabs/PF_Player.tscn" id="1_iemg8"]
+[ext_resource type="PackedScene" uid="uid://ccwpdfq6nw0g0" path="res://Assets/Prefabs/PF_PickUp.tscn" id="1_8k2l3"]
+[ext_resource type="PackedScene" uid="uid://ijy3c8s153yu" path="res://Assets/Prefabs/Character/PF_Character.tscn" id="2_dbwrp"]
 [ext_resource type="PackedScene" uid="uid://bpft763acmlc2" path="res://Assets/Prefabs/PF_Cube_1x1.tscn" id="2_lu8k6"]
 [ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/PF_Opponent.tscn" id="2_upqix"]
 [ext_resource type="NavigationMesh" uid="uid://cfix7url5y7n2" path="res://Assets/Resources/NM_MovementTest.tres" id="4_qsb15"]
@@ -24,13 +25,16 @@ glow_enabled = true
 
 [node name="SMovementTest" type="Node3D"]
 
-[node name="Entities" type="Node3D" parent="."]
+[node name="PF_PickUp" parent="." instance=ExtResource("1_8k2l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4726, 0.570819, -1.42749)
 
-[node name="PF_Player" parent="Entities" instance=ExtResource("1_iemg8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.41212, -9.53674e-07, -5.21929)
+[node name="Entities" type="Node3D" parent="."]
 
 [node name="PF_Opponent" parent="Entities" instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1.50309, 1.8717)
+
+[node name="PF_Character" parent="Entities" instance=ExtResource("2_dbwrp")]
+transform = Transform3D(-0.999474, 0, -0.0324225, 0, 1, 0, 0.0324225, 0, -0.999474, -5.34285, 0.447171, -4.7595)
 
 [node name="GroundedNavMesh" type="NavigationRegion3D" parent="."]
 navigation_mesh = ExtResource("4_qsb15")

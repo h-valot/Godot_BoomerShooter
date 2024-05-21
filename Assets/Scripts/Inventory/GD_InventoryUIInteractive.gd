@@ -41,7 +41,7 @@ func _on_show(_other):
 
 func _on_hide(_other):
 	_ui_open = false
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_other_inventory = null
 	get_tree().paused = false
 

@@ -8,7 +8,7 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_aj0dv"]
 
-[node name="PfPickUp" type="Node3D" node_paths=PackedStringArray("inventory", "interactable")]
+[node name="PF_PickUp" type="Node3D" node_paths=PackedStringArray("inventory", "interactable")]
 script = ExtResource("1_tgluv")
 inventory = NodePath("Inventory")
 item = ExtResource("2_44pot")
