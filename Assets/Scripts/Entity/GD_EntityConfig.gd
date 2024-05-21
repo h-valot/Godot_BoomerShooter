@@ -29,9 +29,7 @@ class_name EntityConfig
 
 @export_group("Attack")
 ## Minimum and maximum distance to cast an attack
-@export var attack_range : Vector2 = Vector2(0, 1)
-## Damage dealt to the touched hitbox when attacking
-@export var attack_damage : float = 10
+@export var attack_range : Vector2 = Vector2(0, 2)
 
 @export_subgroup("Projectile")
 ## Weapon used to shot projectiles

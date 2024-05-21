@@ -54,8 +54,7 @@ extends Control
 @onready var opponent_base_health : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Base_Health/SpinBox_Base_Health as SpinBox
 @onready var opponent_health_regeneration : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Health_Regeneration/SpinBox_Health_Regeneration as SpinBox
 @onready var opponent_base_armor : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Base_Armor/SpinBox_Base_Armor as SpinBox
-@onready var opponent_attack_type : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Attack_Type/SpinBox_Attack_Type as SpinBox
-@onready var opponent_attack_range_x : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Attack_Type/SpinBox_Attack_Type as SpinBox
+@onready var opponent_attack_range_x : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Attack_Range/SpinBox_Attack_Range_X as SpinBox
 @onready var opponent_attack_range_y : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Attack_Range/SpinBox_Attack_Range_Y as SpinBox
 @onready var opponent_weapon_used : OptionButton = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Weapon_Used/OptionButton_Weapon_Used as OptionButton
 @onready var opponent_first_charge_time : SpinBox = $TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_First_Charge_Time/SpinBox_First_Charge_Time as SpinBox
@@ -73,7 +72,7 @@ func _ready():
 	_populate_opponent_meshes()
 	opponent_item_list.connect("item_selected", Callable(self, "_on_item_selected"))
 	_load_player_motor("res://Assets/Resources/Character/RE_PlayerConfig.tres")
-	_list_opponents_files_in_directory("res://Assets/Resources/Opponents/")
+	_list_opponents_files_in_directory("res://Assets/Resources/Entities/")
 	_init_ui(tab_container.current_tab)
 
 func _generate_guid() -> int:
@@ -220,7 +219,7 @@ func _list_opponents_files_in_directory(directory_path: String):
 	else:
 		print("An error occurred when trying to access the path: ", directory_path)
 
-func _initialize_opponent_item_instance(opponent_config: OpponentConfig, file_path: String):
+func _initialize_opponent_item_instance(opponent_config: EntityConfig, file_path: String):
 	var opponent_item_instance = opponent_instance_template.duplicate()
 	if not opponent_item_instance:
 		print("Failed to load weapon instance template from: ", opponent_instance_template_path)
@@ -234,7 +233,7 @@ func _initialize_opponent_item_instance(opponent_config: OpponentConfig, file_pa
 	opponent_list_container.add_child(opponent_item_instance)
 
 func _load_and_display_opponent_config(file_path: String):
-	var opponent_config := ResourceLoader.load(file_path) as OpponentConfig
+	var opponent_config := ResourceLoader.load(file_path) as EntityConfig
 	print("file path " + file_path)
 	if opponent_config:
 		_initialize_opponent_item_instance(opponent_config, file_path)
@@ -243,11 +242,11 @@ func _load_and_display_opponent_config(file_path: String):
 		print("Failed to load opponent config from: ", file_path)
 
 func _on_button_add_opponent_pressed() -> void:
-	var opponent_config = OpponentConfig.new()
+	var opponent_config = EntityConfig.new()
 	opponent_config.id = _generate_guid()
 	opponent_config.name = "New Opponent"
 	if opponent_config.is_class("Resource") and opponent_config.name != "":
-		var save_path = "res://Assets/Resources/Opponents/"+ opponent_config.name + str(opponent_config.id) + ".tres"
+		var save_path = "res://Assets/Resources/Entities/"+ opponent_config.name + str(opponent_config.id) + ".tres"
 		var error = ResourceSaver.save(opponent_config,save_path)
 		if error != OK:
 			print("Error saving the resource: ", error)
@@ -255,7 +254,7 @@ func _on_button_add_opponent_pressed() -> void:
 			print("Resource successfully saved to: ", save_path)
 		
 		_initialize_opponent_item_instance(opponent_config, save_path)
-		_list_opponents_files_in_directory("res://Assets/Resources/Opponents/")
+		_list_opponents_files_in_directory("res://Assets/Resources/Entities/")
 	else:
 		print("Error: Opponent configuration is invalid or incomplete.")
 
@@ -282,7 +281,7 @@ func get_all_opponent_in_project(directory_path="res://"):
 		dir.list_dir_end()
 	return mesh_paths
 
-func _on_b_delete_opponent_pressed(opponent_config: OpponentConfig, opponent_item_instance: Node, file_path: String):
+func _on_b_delete_opponent_pressed(opponent_config: EntityConfig, opponent_item_instance: Node, file_path: String):
 	# Show a confirmation dialog before deleting
 	var confirmation_dialog = ConfirmationDialog.new()
 	confirmation_dialog.dialog_text = "Are you sure you want to delete this opponent: " + opponent_config.name + "?"
@@ -290,18 +289,18 @@ func _on_b_delete_opponent_pressed(opponent_config: OpponentConfig, opponent_ite
 	add_child(confirmation_dialog)
 	confirmation_dialog.popup_centered()
 
-func _confirm_delete_opponent(opponent_config: OpponentConfig, opponent_item_instance: Node, file_path: String):
+func _confirm_delete_opponent(opponent_config: EntityConfig, opponent_item_instance: Node, file_path: String):
 	# Delete UI instance
 	opponent_item_instance.queue_free()
 	# Delete File System Configuration File
-	var dir = DirAccess.open("res://Assets/Resources/Opponents/")
+	var dir = DirAccess.open("res://Assets/Resources/Entities/")
 	if dir.remove(file_path) == OK:
 		print("Opponent configuration file deleted successfully: ", file_path)
 		EditorInterface.get_resource_filesystem().scan()
 	else:
 		print("Failed to delete opponent configuration file: ", file_path)
 
-func _on_b_show_details_opponent_pressed(opponent_config: OpponentConfig):
+func _on_b_show_details_opponent_pressed(opponent_config: EntityConfig):
 	if (opponent_save_button.is_connected("pressed", _on_save_opponent_config_button_pressed.bind(opponent_config))):
 		opponent_save_button.disconnect("pressed", _on_save_opponent_config_button_pressed.bind(opponent_config))
 	opponent_save_button.connect("pressed", _on_save_opponent_config_button_pressed.bind(opponent_config))
@@ -323,7 +322,6 @@ func _on_b_show_details_opponent_pressed(opponent_config: OpponentConfig):
 	opponent_base_health.value = opponent_config.base_health
 	opponent_health_regeneration.value = opponent_config.health_regeneration
 	opponent_base_armor.value = opponent_config.base_armor
-	opponent_attack_type.value = opponent_config.attack_type
 	opponent_attack_range_x.value = opponent_config.attack_range.x
 	opponent_attack_range_y.value = opponent_config.attack_range.y
 	if !opponent_config.weapon_used.resource_path.is_empty():
@@ -338,21 +336,21 @@ func _on_b_show_details_opponent_pressed(opponent_config: OpponentConfig):
 	opponent_first_charge_time.value = opponent_config.first_charge_time
 	opponent_final_charge_time.value = opponent_config.final_charge_time
 	opponent_attack_recovery_time.value = opponent_config.attack_recovery_time
-	opponent_interrupt_recovery_time.value = opponent_config.interrupt_revorery_time
+	opponent_interrupt_recovery_time.value = opponent_config.interrupt_recovery_time
 	opponent_aggro_range.value = opponent_config.aggro_range
 	opponent_loss_distance_from_idle.value = opponent_config.loss_distance_from_idle
 	opponent_can_be_interrupted.button_pressed = opponent_config.can_be_interrupted
 
-func _on_save_opponent_config_button_pressed(opponent_config: OpponentConfig):
+func _on_save_opponent_config_button_pressed(opponent_config: EntityConfig):
 	_update_opponent_config(opponent_config)
-	var file_path = "res://Assets/Resources/Opponents/" + opponent_config.name + str(opponent_config.id) + ".tres"
+	var file_path = "res://Assets/Resources/Entities/" + opponent_config.name + str(opponent_config.id) + ".tres"
 	var error_save = ResourceSaver.save(opponent_config, file_path)
 	if error_save != OK:
 		print("Error saving the resource: ", error_save)
 	else:
 		print("Resource successfully saved to: ", file_path)
 
-func _update_opponent_config(opponent_config: OpponentConfig):
+func _update_opponent_config(opponent_config: EntityConfig):
 	opponent_config.name = opponent_name.text
 	
 	var opponent_mesh_path = opponent_select_item.get_item_text(opponent_select_item.get_selected_id())
@@ -369,7 +367,6 @@ func _update_opponent_config(opponent_config: OpponentConfig):
 	opponent_config.base_health = opponent_base_health.value
 	opponent_config.health_regeneration = opponent_health_regeneration.value
 	opponent_config.base_armor = opponent_base_armor.value
-	opponent_config.attack_type = opponent_attack_type.value
 	opponent_config.attack_range = Vector2(opponent_attack_range_x.value, opponent_attack_range_y.value)
 	
 	
@@ -384,7 +381,7 @@ func _update_opponent_config(opponent_config: OpponentConfig):
 	opponent_config.first_charge_time = opponent_first_charge_time.value
 	opponent_config.final_charge_time = opponent_final_charge_time.value
 	opponent_config.attack_recovery_time = opponent_attack_recovery_time.value
-	opponent_config.interrupt_revorery_time = opponent_interrupt_recovery_time.value
+	opponent_config.interrupt_recovery_time = opponent_interrupt_recovery_time.value
 	opponent_config.aggro_range = opponent_aggro_range.value
 	opponent_config.loss_distance_from_idle = opponent_loss_distance_from_idle.value
 	opponent_config.can_be_interrupted = opponent_can_be_interrupted.button_pressed
