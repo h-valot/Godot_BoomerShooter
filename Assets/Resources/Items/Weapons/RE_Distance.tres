@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponConfig" load_steps=7 format=3 uid="uid://cx2imqrjvpxww"]
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=6 format=3 uid="uid://cx2imqrjvpxww"]
 
 [ext_resource type="PackedScene" uid="uid://d23duj43qnji1" path="res://Assets/Prefabs/Bullets/PF_Bullet.tscn" id="1_l3sid"]
 [ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_WeaponConfig.gd" id="1_tqgke"]
@@ -6,18 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://bkxeeakuxr4ab" path="res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn" id="3_o2u4r"]
 [ext_resource type="PackedScene" uid="uid://n8fyongkeppa" path="res://Assets/Prefabs/Bullets/PF_ImpactZone.tscn" id="5_v6bqp"]
 
-[sub_resource type="Curve" id="Curve_g5ly4"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [resource]
 script = ExtResource("1_tqgke")
 switch_speed = 0.5
 mag_size = 30
 starting_mag_amount = 10
 reload_time = 1.0
-recoil_scalar = 5.0
-recoil_curve = SubResource("Curve_g5ly4")
+recoil_scalar = 10.0
 camera_shake_strength = 0.1
 camera_shake_fade = 10.0
 bullet_amount_per_shot = 1
@@ -26,7 +21,7 @@ raycast_length = 100.0
 fire_rate = 0.25
 bullet_mesh = ExtResource("1_l3sid")
 hit_scan = false
-interrupts_npc_attack = false
+interrupts_npc_attack = true
 bullet_damage = 10.0
 bullet_start_speed = 30.0
 bullet_lifetime = 3.0
