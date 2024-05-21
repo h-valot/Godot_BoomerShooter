@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://7yoi0lr8mqxy"]
+[gd_scene load_steps=57 format=3 uid="uid://7yoi0lr8mqxy"]
 
 [ext_resource type="Script" path="res://addons/MyTool_Item/S_WidgetItems.gd" id="1_sl4b4"]
 [ext_resource type="Texture2D" uid="uid://4b5omhqslotq" path="res://addons/cyclops_level_builder/art/cyclops.svg" id="2_jbs5r"]
@@ -55,6 +55,7 @@
 [ext_resource type="Texture2D" uid="uid://dnp4ufoxm0xf1" path="res://addons/cyclops_level_builder/art/textures/vertex.png" id="37_vl7kp"]
 [ext_resource type="Texture2D" uid="uid://b576r2vyp05jl" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks_icon.png" id="38_nigq7"]
 [ext_resource type="Texture2D" uid="uid://caarem3w77c6d" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks_icon.svg" id="39_d5ydk"]
+[ext_resource type="Texture2D" uid="uid://cv7y71y3edht8" path="res://Assets/Graphics/Meshes/GLB_Entity_Human_Colors.png" id="48_kasrr"]
 
 [node name="SSuperTool2000" type="Control"]
 layout_mode = 3
@@ -144,7 +145,7 @@ vertical_alignment = 1
 [node name="OptionButton_Mesh" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
-item_count = 85
+item_count = 90
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
@@ -270,52 +271,62 @@ popup/item_60/text = "res://addons/MyTool_Item/h_box_weapon_container.tscn"
 popup/item_60/id = 60
 popup/item_61/text = "res://addons/MyTool_Item/S_SuperTool2000.tscn"
 popup/item_61/id = 61
-popup/item_62/text = "res://addons/tool_player/S_PlayerTool.tscn"
+popup/item_62/text = "res://addons/tool_player/h_box_opponents_container.tscn"
 popup/item_62/id = 62
-popup/item_63/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
+popup/item_63/text = "res://addons/tool_player/S_PlayerTool.tscn"
 popup/item_63/id = 63
-popup/item_64/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
+popup/item_64/text = "res://Assets/Prefabs/Bullets/PF_DamageSphere.tscn"
 popup/item_64/id = 64
-popup/item_65/text = "res://Assets/Prefabs/PF_Bullet.tscn"
+popup/item_65/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
 popup/item_65/id = 65
-popup/item_66/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
+popup/item_66/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
 popup/item_66/id = 66
-popup/item_67/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
+popup/item_67/text = "res://Assets/Prefabs/PF_Bullet.tscn"
 popup/item_67/id = 67
-popup/item_68/text = "res://Assets/Prefabs/PF_Door.tscn"
+popup/item_68/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
 popup/item_68/id = 68
-popup/item_69/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
+popup/item_69/text = "res://Assets/Prefabs/PF_Consumable.tscn"
 popup/item_69/id = 69
-popup/item_70/text = "res://Assets/Prefabs/PF_Interactable.tscn"
+popup/item_70/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
 popup/item_70/id = 70
-popup/item_71/text = "res://Assets/Prefabs/PF_Inventory.tscn"
+popup/item_71/text = "res://Assets/Prefabs/PF_Dialog.tscn"
 popup/item_71/id = 71
-popup/item_72/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
+popup/item_72/text = "res://Assets/Prefabs/PF_Door.tscn"
 popup/item_72/id = 72
-popup/item_73/text = "res://Assets/Prefabs/PF_Opponent.tscn"
+popup/item_73/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
 popup/item_73/id = 73
-popup/item_74/text = "res://Assets/Prefabs/PF_PickUp.tscn"
+popup/item_74/text = "res://Assets/Prefabs/PF_Interactable.tscn"
 popup/item_74/id = 74
-popup/item_75/text = "res://Assets/Prefabs/PF_Player.tscn"
+popup/item_75/text = "res://Assets/Prefabs/PF_Inventory.tscn"
 popup/item_75/id = 75
-popup/item_76/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
+popup/item_76/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
 popup/item_76/id = 76
-popup/item_77/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
+popup/item_77/text = "res://Assets/Prefabs/PF_Opponent.tscn"
 popup/item_77/id = 77
-popup/item_78/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
+popup/item_78/text = "res://Assets/Prefabs/PF_PickUp.tscn"
 popup/item_78/id = 78
-popup/item_79/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
+popup/item_79/text = "res://Assets/Prefabs/PF_Player.tscn"
 popup/item_79/id = 79
-popup/item_80/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_80/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
 popup/item_80/id = 80
-popup/item_81/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_81/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
 popup/item_81/id = 81
-popup/item_82/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_82/text = "res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn"
 popup/item_82/id = 82
-popup/item_83/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_83/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
 popup/item_83/id = 83
-popup/item_84/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_84/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
 popup/item_84/id = 84
+popup/item_85/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_85/id = 85
+popup/item_86/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_86/id = 86
+popup/item_87/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_87/id = 87
+popup/item_88/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_88/id = 88
+popup/item_89/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_89/id = 89
 
 [node name="HBoxContainer_IconWeapon" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -335,7 +346,7 @@ custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_icon = true
-item_count = 55
+item_count = 56
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
@@ -477,30 +488,33 @@ popup/item_45/id = 45
 popup/item_46/text = "yellow.png"
 popup/item_46/icon = ExtResource("9_6h2ah")
 popup/item_46/id = 46
-popup/item_47/text = "S_Crosshair.png"
-popup/item_47/icon = ExtResource("10_yu4q4")
+popup/item_47/text = "GLB_Entity_Human_Colors.png"
+popup/item_47/icon = ExtResource("48_kasrr")
 popup/item_47/id = 47
-popup/item_48/text = "T_icon.svg"
-popup/item_48/icon = ExtResource("11_lml76")
+popup/item_48/text = "S_Crosshair.png"
+popup/item_48/icon = ExtResource("10_yu4q4")
 popup/item_48/id = 48
-popup/item_49/text = "T_Dark.png"
-popup/item_49/icon = ExtResource("12_ppquf")
+popup/item_49/text = "T_icon.svg"
+popup/item_49/icon = ExtResource("11_lml76")
 popup/item_49/id = 49
-popup/item_50/text = "T_Green.png"
-popup/item_50/icon = ExtResource("13_4nw1x")
+popup/item_50/text = "T_Dark.png"
+popup/item_50/icon = ExtResource("12_ppquf")
 popup/item_50/id = 50
-popup/item_51/text = "T_LightGrey.png"
-popup/item_51/icon = ExtResource("14_s7gei")
+popup/item_51/text = "T_Green.png"
+popup/item_51/icon = ExtResource("13_4nw1x")
 popup/item_51/id = 51
-popup/item_52/text = "T_Orange.png"
-popup/item_52/icon = ExtResource("15_3nyxs")
+popup/item_52/text = "T_LightGrey.png"
+popup/item_52/icon = ExtResource("14_s7gei")
 popup/item_52/id = 52
-popup/item_53/text = "T_Purple.png"
-popup/item_53/icon = ExtResource("16_vyr0p")
+popup/item_53/text = "T_Orange.png"
+popup/item_53/icon = ExtResource("15_3nyxs")
 popup/item_53/id = 53
-popup/item_54/text = "T_Red.png"
-popup/item_54/icon = ExtResource("17_46xqh")
+popup/item_54/text = "T_Purple.png"
+popup/item_54/icon = ExtResource("16_vyr0p")
 popup/item_54/id = 54
+popup/item_55/text = "T_Red.png"
+popup/item_55/icon = ExtResource("17_46xqh")
+popup/item_55/id = 55
 
 [node name="HBoxContainer_Quantity" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -516,6 +530,7 @@ custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_MaxStack" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -529,6 +544,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Stackable" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -553,6 +569,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_MagSize" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -580,6 +597,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(485, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_ReloadTime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -593,6 +611,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(485, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_RecoilScalar" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -606,6 +625,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Recoil_Curve" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 visible = false
@@ -628,6 +648,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Camera_Shake_Fade" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -641,6 +662,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Bullet_Amount_Per_Shot" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -654,6 +676,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Spread" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -667,6 +690,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Raycast_Lenght" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -680,6 +704,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_FireRate" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -693,6 +718,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_BulletMesh" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -704,7 +730,7 @@ vertical_alignment = 1
 
 [node name="OptionButton_BulletMesh" type="OptionButton" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_BulletMesh"]
 layout_mode = 2
-item_count = 85
+item_count = 90
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
@@ -830,52 +856,62 @@ popup/item_60/text = "res://addons/MyTool_Item/h_box_weapon_container.tscn"
 popup/item_60/id = 60
 popup/item_61/text = "res://addons/MyTool_Item/S_SuperTool2000.tscn"
 popup/item_61/id = 61
-popup/item_62/text = "res://addons/tool_player/S_PlayerTool.tscn"
+popup/item_62/text = "res://addons/tool_player/h_box_opponents_container.tscn"
 popup/item_62/id = 62
-popup/item_63/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
+popup/item_63/text = "res://addons/tool_player/S_PlayerTool.tscn"
 popup/item_63/id = 63
-popup/item_64/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
+popup/item_64/text = "res://Assets/Prefabs/Bullets/PF_DamageSphere.tscn"
 popup/item_64/id = 64
-popup/item_65/text = "res://Assets/Prefabs/PF_Bullet.tscn"
+popup/item_65/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
 popup/item_65/id = 65
-popup/item_66/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
+popup/item_66/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
 popup/item_66/id = 66
-popup/item_67/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
+popup/item_67/text = "res://Assets/Prefabs/PF_Bullet.tscn"
 popup/item_67/id = 67
-popup/item_68/text = "res://Assets/Prefabs/PF_Door.tscn"
+popup/item_68/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
 popup/item_68/id = 68
-popup/item_69/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
+popup/item_69/text = "res://Assets/Prefabs/PF_Consumable.tscn"
 popup/item_69/id = 69
-popup/item_70/text = "res://Assets/Prefabs/PF_Interactable.tscn"
+popup/item_70/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
 popup/item_70/id = 70
-popup/item_71/text = "res://Assets/Prefabs/PF_Inventory.tscn"
+popup/item_71/text = "res://Assets/Prefabs/PF_Dialog.tscn"
 popup/item_71/id = 71
-popup/item_72/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
+popup/item_72/text = "res://Assets/Prefabs/PF_Door.tscn"
 popup/item_72/id = 72
-popup/item_73/text = "res://Assets/Prefabs/PF_Opponent.tscn"
+popup/item_73/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
 popup/item_73/id = 73
-popup/item_74/text = "res://Assets/Prefabs/PF_PickUp.tscn"
+popup/item_74/text = "res://Assets/Prefabs/PF_Interactable.tscn"
 popup/item_74/id = 74
-popup/item_75/text = "res://Assets/Prefabs/PF_Player.tscn"
+popup/item_75/text = "res://Assets/Prefabs/PF_Inventory.tscn"
 popup/item_75/id = 75
-popup/item_76/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
+popup/item_76/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
 popup/item_76/id = 76
-popup/item_77/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
+popup/item_77/text = "res://Assets/Prefabs/PF_Opponent.tscn"
 popup/item_77/id = 77
-popup/item_78/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
+popup/item_78/text = "res://Assets/Prefabs/PF_PickUp.tscn"
 popup/item_78/id = 78
-popup/item_79/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
+popup/item_79/text = "res://Assets/Prefabs/PF_Player.tscn"
 popup/item_79/id = 79
-popup/item_80/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_80/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
 popup/item_80/id = 80
-popup/item_81/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_81/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
 popup/item_81/id = 81
-popup/item_82/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_82/text = "res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn"
 popup/item_82/id = 82
-popup/item_83/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_83/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
 popup/item_83/id = 83
-popup/item_84/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_84/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
 popup/item_84/id = 84
+popup/item_85/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_85/id = 85
+popup/item_86/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_86/id = 86
+popup/item_87/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_87/id = 87
+popup/item_88/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_88/id = 88
+popup/item_89/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_89/id = 89
 
 [node name="HBoxContainer_HitScan" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -912,6 +948,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Bullet_Start_Speed" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -925,6 +962,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_BulletLifetime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -938,6 +976,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_BulletGravityScale" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -951,6 +990,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Create_Zone_On_Impact" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -975,6 +1015,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Zone_Lifetime" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -988,6 +1029,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Zone_Damage_Per_Tick" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1001,6 +1043,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Zone_Tick_Duration" type="HBoxContainer" parent="TabContainer/Weapons/WeaponDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1014,6 +1057,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="Button_Save_weapon" type="Button" parent="TabContainer/Weapons/WeaponDetailsList"]
 layout_mode = 0
@@ -1104,7 +1148,7 @@ vertical_alignment = 1
 [node name="OptionButton_Mesh" type="OptionButton" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_SelectItem"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
-item_count = 85
+item_count = 90
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
@@ -1230,52 +1274,62 @@ popup/item_60/text = "res://addons/MyTool_Item/h_box_weapon_container.tscn"
 popup/item_60/id = 60
 popup/item_61/text = "res://addons/MyTool_Item/S_SuperTool2000.tscn"
 popup/item_61/id = 61
-popup/item_62/text = "res://addons/tool_player/S_PlayerTool.tscn"
+popup/item_62/text = "res://addons/tool_player/h_box_opponents_container.tscn"
 popup/item_62/id = 62
-popup/item_63/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
+popup/item_63/text = "res://addons/tool_player/S_PlayerTool.tscn"
 popup/item_63/id = 63
-popup/item_64/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
+popup/item_64/text = "res://Assets/Prefabs/Bullets/PF_DamageSphere.tscn"
 popup/item_64/id = 64
-popup/item_65/text = "res://Assets/Prefabs/PF_Bullet.tscn"
+popup/item_65/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
 popup/item_65/id = 65
-popup/item_66/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
+popup/item_66/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
 popup/item_66/id = 66
-popup/item_67/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
+popup/item_67/text = "res://Assets/Prefabs/PF_Bullet.tscn"
 popup/item_67/id = 67
-popup/item_68/text = "res://Assets/Prefabs/PF_Door.tscn"
+popup/item_68/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
 popup/item_68/id = 68
-popup/item_69/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
+popup/item_69/text = "res://Assets/Prefabs/PF_Consumable.tscn"
 popup/item_69/id = 69
-popup/item_70/text = "res://Assets/Prefabs/PF_Interactable.tscn"
+popup/item_70/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
 popup/item_70/id = 70
-popup/item_71/text = "res://Assets/Prefabs/PF_Inventory.tscn"
+popup/item_71/text = "res://Assets/Prefabs/PF_Dialog.tscn"
 popup/item_71/id = 71
-popup/item_72/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
+popup/item_72/text = "res://Assets/Prefabs/PF_Door.tscn"
 popup/item_72/id = 72
-popup/item_73/text = "res://Assets/Prefabs/PF_Opponent.tscn"
+popup/item_73/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
 popup/item_73/id = 73
-popup/item_74/text = "res://Assets/Prefabs/PF_PickUp.tscn"
+popup/item_74/text = "res://Assets/Prefabs/PF_Interactable.tscn"
 popup/item_74/id = 74
-popup/item_75/text = "res://Assets/Prefabs/PF_Player.tscn"
+popup/item_75/text = "res://Assets/Prefabs/PF_Inventory.tscn"
 popup/item_75/id = 75
-popup/item_76/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
+popup/item_76/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
 popup/item_76/id = 76
-popup/item_77/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
+popup/item_77/text = "res://Assets/Prefabs/PF_Opponent.tscn"
 popup/item_77/id = 77
-popup/item_78/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
+popup/item_78/text = "res://Assets/Prefabs/PF_PickUp.tscn"
 popup/item_78/id = 78
-popup/item_79/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
+popup/item_79/text = "res://Assets/Prefabs/PF_Player.tscn"
 popup/item_79/id = 79
-popup/item_80/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_80/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
 popup/item_80/id = 80
-popup/item_81/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_81/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
 popup/item_81/id = 81
-popup/item_82/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_82/text = "res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn"
 popup/item_82/id = 82
-popup/item_83/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_83/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
 popup/item_83/id = 83
-popup/item_84/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_84/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
 popup/item_84/id = 84
+popup/item_85/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_85/id = 85
+popup/item_86/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_86/id = 86
+popup/item_87/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_87/id = 87
+popup/item_88/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_88/id = 88
+popup/item_89/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_89/id = 89
 
 [node name="HBoxContainer_IconWeapon" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1295,7 +1349,7 @@ custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_icon = true
-item_count = 55
+item_count = 56
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
@@ -1437,30 +1491,33 @@ popup/item_45/id = 45
 popup/item_46/text = "yellow.png"
 popup/item_46/icon = ExtResource("9_6h2ah")
 popup/item_46/id = 46
-popup/item_47/text = "S_Crosshair.png"
-popup/item_47/icon = ExtResource("10_yu4q4")
+popup/item_47/text = "GLB_Entity_Human_Colors.png"
+popup/item_47/icon = ExtResource("48_kasrr")
 popup/item_47/id = 47
-popup/item_48/text = "T_icon.svg"
-popup/item_48/icon = ExtResource("11_lml76")
+popup/item_48/text = "S_Crosshair.png"
+popup/item_48/icon = ExtResource("10_yu4q4")
 popup/item_48/id = 48
-popup/item_49/text = "T_Dark.png"
-popup/item_49/icon = ExtResource("12_ppquf")
+popup/item_49/text = "T_icon.svg"
+popup/item_49/icon = ExtResource("11_lml76")
 popup/item_49/id = 49
-popup/item_50/text = "T_Green.png"
-popup/item_50/icon = ExtResource("13_4nw1x")
+popup/item_50/text = "T_Dark.png"
+popup/item_50/icon = ExtResource("12_ppquf")
 popup/item_50/id = 50
-popup/item_51/text = "T_LightGrey.png"
-popup/item_51/icon = ExtResource("14_s7gei")
+popup/item_51/text = "T_Green.png"
+popup/item_51/icon = ExtResource("13_4nw1x")
 popup/item_51/id = 51
-popup/item_52/text = "T_Orange.png"
-popup/item_52/icon = ExtResource("15_3nyxs")
+popup/item_52/text = "T_LightGrey.png"
+popup/item_52/icon = ExtResource("14_s7gei")
 popup/item_52/id = 52
-popup/item_53/text = "T_Purple.png"
-popup/item_53/icon = ExtResource("16_vyr0p")
+popup/item_53/text = "T_Orange.png"
+popup/item_53/icon = ExtResource("15_3nyxs")
 popup/item_53/id = 53
-popup/item_54/text = "T_Red.png"
-popup/item_54/icon = ExtResource("17_46xqh")
+popup/item_54/text = "T_Purple.png"
+popup/item_54/icon = ExtResource("16_vyr0p")
 popup/item_54/id = 54
+popup/item_55/text = "T_Red.png"
+popup/item_55/icon = ExtResource("17_46xqh")
+popup/item_55/id = 55
 
 [node name="HBoxContainer_Quantity" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1476,6 +1533,7 @@ custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_MaxStack" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1489,6 +1547,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Stackable" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1516,6 +1575,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Armor" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1532,6 +1592,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Stun_Duration" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1548,6 +1609,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Speed_Boost" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1564,6 +1626,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Invisibility_Duration" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1580,6 +1643,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Jump_Force_Boost" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1596,6 +1660,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Damage_Boost" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1612,6 +1677,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Speed" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1628,6 +1694,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Trajectory" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1644,6 +1711,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Lifetime" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1660,6 +1728,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Impact_Size" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1676,6 +1745,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Range" type="HBoxContainer" parent="TabContainer/Consumables/ConsumableDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1692,6 +1762,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="Button_Save_Consumable" type="Button" parent="TabContainer/Consumables/ConsumableDetailsList"]
 layout_mode = 0

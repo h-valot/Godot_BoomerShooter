@@ -53,6 +53,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 100.0
 
 [node name="HBoxContainer_Health_Regeneration" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -67,6 +68,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Base_Armor" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -80,6 +82,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Base_Move_Speed" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -93,6 +96,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 10.0
 
 [node name="HBoxContainer_Sprint_Move_Speed" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -107,6 +111,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 13.0
 
 [node name="HBoxContainer_Air_Control_Scalar" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -120,6 +125,7 @@ text = "Air Control Scalar :"
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 max_value = 1.0
+step = 0.001
 
 [node name="HBoxContainer_Move_Speed_Acceleration" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -133,6 +139,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 10.0
 
 [node name="HBoxContainer_Horizontal_Mouse_Sensitivity" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -147,6 +154,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Vertical_Mouse_Sensitivity" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -160,6 +168,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 89.0
 
 [node name="HBoxContainer_Max_Vertical_Aim" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -174,6 +183,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Jump_Force" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -187,6 +197,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 5.0
 
 [node name="HBoxContainer_Gravity_Hint" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -212,6 +223,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 value = 1.0
 
 [node name="HBoxContainer_Consumable_Switch_Time" type="HBoxContainer" parent="TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer"]
@@ -226,6 +238,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="Button_Save" type="Button" parent="TabContainer/Player"]
 layout_mode = 0
@@ -305,7 +318,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-item_count = 86
+item_count = 90
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
@@ -435,50 +448,58 @@ popup/item_62/text = "res://addons/tool_player/h_box_opponents_container.tscn"
 popup/item_62/id = 62
 popup/item_63/text = "res://addons/tool_player/S_PlayerTool.tscn"
 popup/item_63/id = 63
-popup/item_64/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
+popup/item_64/text = "res://Assets/Prefabs/Bullets/PF_DamageSphere.tscn"
 popup/item_64/id = 64
-popup/item_65/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
+popup/item_65/text = "res://Assets/Prefabs/Components/PF_Health.tscn"
 popup/item_65/id = 65
-popup/item_66/text = "res://Assets/Prefabs/PF_Bullet.tscn"
+popup/item_66/text = "res://Assets/Prefabs/Components/PF_HitBox.tscn"
 popup/item_66/id = 66
-popup/item_67/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
+popup/item_67/text = "res://Assets/Prefabs/PF_Bullet.tscn"
 popup/item_67/id = 67
-popup/item_68/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
+popup/item_68/text = "res://Assets/Prefabs/PF_CharacterWithInteraction.tscn"
 popup/item_68/id = 68
-popup/item_69/text = "res://Assets/Prefabs/PF_Door.tscn"
+popup/item_69/text = "res://Assets/Prefabs/PF_Consumable.tscn"
 popup/item_69/id = 69
-popup/item_70/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
+popup/item_70/text = "res://Assets/Prefabs/PF_Cube_1x1.tscn"
 popup/item_70/id = 70
-popup/item_71/text = "res://Assets/Prefabs/PF_Interactable.tscn"
+popup/item_71/text = "res://Assets/Prefabs/PF_Dialog.tscn"
 popup/item_71/id = 71
-popup/item_72/text = "res://Assets/Prefabs/PF_Inventory.tscn"
+popup/item_72/text = "res://Assets/Prefabs/PF_Door.tscn"
 popup/item_72/id = 72
-popup/item_73/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
+popup/item_73/text = "res://Assets/Prefabs/PF_ImpactZone.tscn"
 popup/item_73/id = 73
-popup/item_74/text = "res://Assets/Prefabs/PF_Opponent.tscn"
+popup/item_74/text = "res://Assets/Prefabs/PF_Interactable.tscn"
 popup/item_74/id = 74
-popup/item_75/text = "res://Assets/Prefabs/PF_PickUp.tscn"
+popup/item_75/text = "res://Assets/Prefabs/PF_Inventory.tscn"
 popup/item_75/id = 75
-popup/item_76/text = "res://Assets/Prefabs/PF_Player.tscn"
+popup/item_76/text = "res://Assets/Prefabs/PF_InventoryInteractive.tscn"
 popup/item_76/id = 76
-popup/item_77/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
+popup/item_77/text = "res://Assets/Prefabs/PF_Opponent.tscn"
 popup/item_77/id = 77
-popup/item_78/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
+popup/item_78/text = "res://Assets/Prefabs/PF_PickUp.tscn"
 popup/item_78/id = 78
-popup/item_79/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
+popup/item_79/text = "res://Assets/Prefabs/PF_Player.tscn"
 popup/item_79/id = 79
-popup/item_80/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
+popup/item_80/text = "res://Assets/Prefabs/PF_SphereMesh.tscn"
 popup/item_80/id = 80
-popup/item_81/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
+popup/item_81/text = "res://Assets/Prefabs/UI/Animated progress bar/PF_AnimatedProgressBar.tscn"
 popup/item_81/id = 81
-popup/item_82/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_82/text = "res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn"
 popup/item_82/id = 82
-popup/item_83/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_83/text = "res://Assets/Prefabs/Weapons/PF_WeaponPrefab.tscn"
 popup/item_83/id = 83
-popup/item_84/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_84/text = "res://Assets/Resources/Player/PF_PlayerHUD.tscn"
 popup/item_84/id = 84
-popup/item_85/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_85/text = "res://Assets/Scenes/S_InteractableObjectsTest.tscn"
 popup/item_85/id = 85
+popup/item_86/text = "res://Assets/Scenes/S_InventoryTest.tscn"
+popup/item_86/id = 86
+popup/item_87/text = "res://Assets/Scenes/S_ItemStorage.tscn"
+popup/item_87/id = 87
+popup/item_88/text = "res://Assets/Scenes/S_MovementTest.tscn"
+popup/item_88/id = 88
+popup/item_89/text = "res://Assets/Scenes/S_PickUps.tscn"
+popup/item_89/id = 89
 
 [node name="HBoxContainer_Move_Speed" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -494,6 +515,7 @@ custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 min_value = -2.14748e+09
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Acceleration" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -507,6 +529,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Jump_Force" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -520,6 +543,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Gravity" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -533,6 +557,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Flight_Height" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -546,6 +571,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(485, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Base_Health" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -560,6 +586,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(485, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Health_Regeneration" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -573,6 +600,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(485, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Base_Armor" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -586,6 +614,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Attack_Type" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -598,6 +627,7 @@ vertical_alignment = 1
 [node name="SpinBox_Attack_Type" type="SpinBox" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Attack_Type"]
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
+step = 0.001
 
 [node name="HBoxContainer_Attack_Range" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -611,11 +641,13 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="SpinBox_Attack_Range_Y" type="SpinBox" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Attack_Range"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Weapon_Used" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -628,12 +660,14 @@ vertical_alignment = 1
 [node name="OptionButton_Weapon_Used" type="OptionButton" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer/HBoxContainer_Weapon_Used"]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
-item_count = 2
+item_count = 3
 selected = 0
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
-popup/item_1/text = "res://Assets/Resources/Items/Weapons/RE_Rifle.tres"
+popup/item_1/text = "res://Assets/Resources/Items/Weapons/RE_Melee.tres"
 popup/item_1/id = 1
+popup/item_2/text = "res://Assets/Resources/Items/Weapons/RE_Rifle.tres"
+popup/item_2/id = 2
 
 [node name="HBoxContainer_First_Charge_Time" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -647,6 +681,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Final_Charge_Time" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -660,6 +695,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Attack_Recovery_Time" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -673,6 +709,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Interrupt_Revorery_Time" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -686,6 +723,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Aggro_Range" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -699,6 +737,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Loss_Distance_From_Idle" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -713,6 +752,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 max_value = 2.14748e+09
+step = 0.001
 
 [node name="HBoxContainer_Can_Be_Interrupted" type="HBoxContainer" parent="TabContainer/Opponents/OpponentDetailsList/ScrollContainer/VBoxContainer"]
 layout_mode = 2
