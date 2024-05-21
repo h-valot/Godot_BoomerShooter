@@ -1,7 +1,9 @@
 extends Resource
-class_name WrapperActionT1
+class_name RuntimeScriptableEventT1
 
 signal action(param)
 
+
 func trigger(param):
-	emit_signal("action", param)
+
+	action.emit(param)

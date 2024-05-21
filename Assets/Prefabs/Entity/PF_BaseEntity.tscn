@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://i6tjyky8orfu"]
+[gd_scene load_steps=12 format=3 uid="uid://i6tjyky8orfu"]
 
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="1_bdqby"]
-[ext_resource type="Resource" uid="uid://c40vi40gc5si2" path="res://Assets/Resources/Opponents/RE_OpponentRange9421575.tres" id="2_3yq35"]
+[ext_resource type="Resource" uid="uid://8sbl3ydd3mnb" path="res://Assets/Resources/Opponents/RE_EntityOpponentDistance.tres" id="2_3yq35"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="2_moaqw"]
-[ext_resource type="Script" path="res://Assets/Scripts/Opponents/GD_Opponent.gd" id="2_oxxun"]
-[ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="3_81be2"]
+[ext_resource type="Script" path="res://Assets/Scripts/Entity/GD_Entity.gd" id="2_oxxun"]
+[ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="3_81be2"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="4_2gu10"]
+[ext_resource type="Resource" uid="uid://ingwhcs2ub1p" path="res://Assets/Resources/RSE/RSE_DisplayDialogue.tres" id="4_sk7c5"]
 [ext_resource type="PackedScene" uid="uid://7ow7rj1nbfss" path="res://Assets/Graphics/Meshes/GLB_Entity.glb" id="5_23ihg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i6e67"]
@@ -13,13 +15,17 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nwa1i"]
 
-[node name="PF_Opponent" type="CharacterBody3D"]
+[node name="PF_BaseEntity" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("2_oxxun")
-opponent_config = ExtResource("2_3yq35")
+entity_config = ExtResource("2_3yq35")
 rso_player_position = ExtResource("3_81be2")
+rse_display_dialogue = ExtResource("4_sk7c5")
+
+[node name="Interactable" parent="." instance=ExtResource("4_2gu10")]
+transform = Transform3D(1, 0, 0, 0, 2.275, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="FlightOffset" type="Node3D" parent="."]
 
@@ -54,3 +60,5 @@ shape = SubResource("BoxShape3D_nwa1i")
 
 [connection signal="area_entered" from="AISight" to="." method="_on_ai_sight_area_entered"]
 [connection signal="area_exited" from="AISight" to="." method="_on_ai_sight_area_exited"]
+
+[editable path="Interactable"]

@@ -1,5 +1,5 @@
 extends Resource
-class_name PlayerConfig
+class_name CharacterConfig
 
 @export_group("Main properties")
 @export var base_health : float = 100

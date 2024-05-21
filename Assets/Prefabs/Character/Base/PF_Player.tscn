@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://bgpgbd57412ef"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Player/GD_Player.gd" id="1_vwxq5"]
-[ext_resource type="Resource" uid="uid://pyndghcxqbg0" path="res://Assets/Resources/Player/RE_PlayerConfig.tres" id="2_6i1sl"]
-[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="3_mf20g"]
+[ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_vwxq5"]
+[ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Player/RE_BaseCharacter.tres" id="2_6i1sl"]
+[ext_resource type="Resource" uid="uid://cx2imqrjvpxww" path="res://Assets/Resources/Items/Weapons/RE_Distance.tres" id="3_mf20g"]
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="4_2am50"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="5_gw5uf"]
-[ext_resource type="Resource" uid="uid://42fq4lr4tkla" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="5_skedv"]
-[ext_resource type="PackedScene" path="res://Assets/Resources/Player/PF_PlayerHUD.tscn" id="6_o5hcx"]
+[ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="5_skedv"]
+[ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Prefabs/Character/Base/PF_CharacterHUD.tscn" id="6_o5hcx"]
 [ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="7_ag12p"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="9_0feja"]
 

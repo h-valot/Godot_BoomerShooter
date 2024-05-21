@@ -9,8 +9,8 @@ static func get_child_of_type(parent: Node, type: int):
 	return null
 
 ## Get the childs of a node based on a type
-static func get_childs_of_type(parent: Node, type: int) -> Array[Opponent]:
-	var result: Array[Opponent] = []
+static func get_childs_of_type(parent: Node, type: int) -> Array[Entity]:
+	var result: Array[Entity] = []
 	
 	for child in parent.get_children():
 		if typeof(child) == type:

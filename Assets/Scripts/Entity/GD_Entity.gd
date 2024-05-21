@@ -1,10 +1,11 @@
 extends CharacterBody3D
-class_name Opponent
+class_name Entity
 
 #region VARIABLES
 @export_category("References")
-@export var opponent_config : OpponentConfig
-@export var rso_player_position : WrapperVariable
+@export var entity_config : EntityConfig
+@export var rso_player_position : RuntimeScriptableObject
+@export var rse_display_dialogue: RuntimeScriptableEventT1
 
 var _direction = Vector3.ZERO
 var _idle_position : Vector3
@@ -27,25 +28,27 @@ var _is_alive : bool = true
 @onready var _capsule_collision = $CapsuleCollision
 @onready var _flight_offset = $FlightOffset
 @onready var _attack_point = $"FlightOffset/AttackPoint"
+@onready var _interactable: Interactable = $"Interactable"
 
-signal on_opponent_dies
+signal on_entity_dies
 #endregion
 
 
 func _ready():
 
-	_health_component.initialize(opponent_config.base_health, opponent_config.health_regeneration, opponent_config.base_armor)
-	_health_component.connect("on_health_reached_zero", _die)
-	rso_player_position.connect("on_changed", _update_target_position)
-	_health_component.connect("on_health_changed", _getting_touched)
-	_health_component.connect("on_armor_changed", _getting_touched)
+	_health_component.initialize(entity_config.base_health, entity_config.health_regeneration, entity_config.base_armor)
+	_health_component.on_health_reached_zero.connect(_die)
+	rso_player_position.on_changed.connect(_update_target_position)
+	_health_component.on_health_changed.connect(_getting_touched)
+	_health_component.on_armor_changed.connect(_getting_touched)
+	_interactable.on_interact.connect(_on_next_dialogue)
 	_idle_position = global_transform.origin
 	
 	# Initialize flying opponents
-	if (opponent_config.flight_height > 0):
+	if (entity_config.flight_height > 0):
 
 		_capsule_collision.set_deferred("disabled", true) 
-		_flight_offset.global_position = Vector3(global_position.x, global_position.y + opponent_config.flight_height + opponent_config.flight_height * 0.25, global_position.z) 
+		_flight_offset.global_position = Vector3(global_position.x, global_position.y + entity_config.flight_height + entity_config.flight_height * 0.25, global_position.z) 
 		_navigation_agent_3d.set_navigation_layer_value(1, false)
 		_navigation_agent_3d.set_navigation_layer_value(2, true)
 	
@@ -69,8 +72,19 @@ func _process(delta):
 func _die():
 
 	_is_alive = false
-	on_opponent_dies.emit()
+	on_entity_dies.emit()
 	self.queue_free()
+
+#region DIALOGUE
+
+func _on_next_dialogue(_other: Node):
+
+	if (!entity_config.dialogue):
+		return
+
+	rse_display_dialogue.trigger(entity_config.dialogue.sentences)
+
+#endregion
 
 
 #region MOVEMENT
@@ -93,11 +107,11 @@ func _apply_gravity(delta):
 	if is_on_floor():
 		return
 
-	if (opponent_config.flight_height > 0
+	if (entity_config.flight_height > 0
 	&& _is_alive):
 		return
 
-	velocity.y -= opponent_config.gravity * delta
+	velocity.y -= entity_config.gravity * delta
 
 
 func _move():
@@ -107,7 +121,7 @@ func _move():
 		velocity = Vector3(0, 0, 0)
 		return		
 
-	_direction = (_navigation_agent_3d.get_next_path_position() - global_position).normalized() * opponent_config.move_speed
+	_direction = (_navigation_agent_3d.get_next_path_position() - global_position).normalized() * entity_config.move_speed
 	velocity = velocity.move_toward(_direction, 0.25)
 
 
@@ -126,7 +140,7 @@ func _jump():
 
 	if is_on_floor():
 
-		velocity.y = opponent_config.jump_force
+		velocity.y = entity_config.jump_force
 #endregion
 
 
@@ -161,7 +175,7 @@ func _check_target_in_sight():
 	if (_is_aggroed):
 		return
 
-	if (_distance_from_target > opponent_config.aggro_range):
+	if (_distance_from_target > entity_config.aggro_range):
 		return
 	
 	_centered_player_position =  Vector3(rso_player_position.value.x, rso_player_position.value.y + 1.5, rso_player_position.value.z)
@@ -170,7 +184,7 @@ func _check_target_in_sight():
 	_result = _space_query.intersect_ray(PhysicsRayQueryParameters3D.create(_attack_point.global_position, _centered_player_position))
 	if (_result):
 		
-		if (_result.collider as Player):
+		if (_result.collider as Character):
 			
 			if (!_is_aggroed):
 
@@ -183,7 +197,7 @@ func _check_target_out_of_sight():
 	if (!_is_aggroed):
 		return
 	
-	if (_distance_from_target >= opponent_config.loss_distance_from_idle):
+	if (_distance_from_target >= entity_config.loss_distance_from_idle):
 
 		_is_aggroed = false
 		_sight_enabled = false
@@ -193,7 +207,7 @@ func _check_target_out_of_sight():
 		_navigation_agent_3d.target_position = _idle_position
 
 
-func _getting_touched(new_amount: int = 0, delta: int = 0):
+func _getting_touched(_new_amount: int = 0, delta: int = 0):
 
 	# Ignore healing
 	if (delta >= 0):
@@ -215,8 +229,8 @@ func _handle_aggro():
 		return
 		
 	# Exit, if the opponent is out of attack range
-	if (_distance_from_target < opponent_config.attack_range.x
-		|| _distance_from_target >= opponent_config.attack_range.y):
+	if (_distance_from_target < entity_config.attack_range.x
+		|| _distance_from_target >= entity_config.attack_range.y):
 		return
 	
 	_start_attack()
@@ -239,7 +253,7 @@ func _start_attack():
 
 func _on_ai_sight_area_entered(area):
 
-	var player: Player = area.get_parent() as Player
+	var player: Character = area.get_parent() as Character
 	if (player != null):
 		if (!player.player_config.is_invisible):
 
@@ -272,7 +286,7 @@ func _handle_interruption():
 	_interrupted = true
 	_move_funtion_enabled = false
 	_look_funtion_enabled = false
-	await _wait_for(opponent_config.interrupt_recovery_time)
+	await _wait_for(entity_config.interrupt_recovery_time)
 	print("OPPONENT: Interrupt recovery delay passed")
 	_interrupted = false
 	_is_attacking = false
@@ -288,7 +302,7 @@ func _wait_for(delay : float, with_interruption : bool = false):
 	while _custom_timer > 0:
 
 		if (with_interruption &&
-		opponent_config.can_be_interrupted):
+		entity_config.can_be_interrupted):
 
 			_interruptable = true
 
@@ -327,7 +341,7 @@ func _charge_and_aim():
 	_move_funtion_enabled = false
 	
 	# Wait for first charge time with interruption enabled
-	await _wait_for(opponent_config.first_charge_time, true)
+	await _wait_for(entity_config.first_charge_time, true)
 
 
 func _lock_target():
@@ -336,7 +350,7 @@ func _lock_target():
 	_look_funtion_enabled = false
 	
 	# Wait for first charge time with interruption enabled
-	await _wait_for(opponent_config.final_charge_time, true)
+	await _wait_for(entity_config.final_charge_time, true)
 
 
 func _attack():
@@ -345,17 +359,17 @@ func _attack():
 	_fire_bullet()
 	
 	# Wait for the recovery time
-	await _wait_for(opponent_config.attack_recovery_time)
+	await _wait_for(entity_config.attack_recovery_time)
 
 
 func _fire_bullet():
 	
-	var new_bullet = opponent_config.weapon_used.bullet_mesh.instantiate()
+	var new_bullet = entity_config.weapon_used.bullet_mesh.instantiate()
 	owner.get_parent().add_child(new_bullet)
 	
 	new_bullet.transform = _attack_point.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(opponent_config.weapon_used, _health_component.receiver_type)
+	new_bullet.initialize(entity_config.weapon_used, _health_component.receiver_type)
 
 	var from = _attack_point.global_position
 	var to = -_attack_point.global_transform.basis.z.normalized() * 100

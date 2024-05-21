@@ -21,7 +21,9 @@ signal on_get_interactable_overlap(other: Node)
 
 var current_other_interactable: Interactable = null
 
+
 func _ready():
+
 	# If no InteractableTriggerBox, the interaction system cannot work
 	assert(trigger_box != null, "Child 0 must be an InteractableTriggerBox");
 
@@ -29,8 +31,10 @@ func _ready():
 	trigger_box.on_physic_process.connect(reset)
 	on_get_interaction.connect(_on_get_interaction)
 
+
 ## Called when receive an interaction
 func _on_get_interaction(other: Interactable):
+
 	assert(other != null, "Other is null when get interaction.")
 	
 	if require_condition:
@@ -41,26 +45,37 @@ func _on_get_interaction(other: Interactable):
 
 	on_interact.emit(other)
 
+
 func reset():
+
 	current_other_interactable = null
 
+
 func _on_overlap(other: Node):
+
 	var other_interactible = other.get_parent() as Interactable
 
 	assert(other_interactible != null, "Failed to get parent as interactable.");
 
 	current_other_interactable = other_interactible
 	on_get_interactable_overlap.emit()
+
 	if interact_on_overlap:
 		interact()
 
+
 ## Cause an interaction with the other [Interactable]
 func interact():
+
 	if (current_other_interactable != null):
 		current_other_interactable.on_get_interaction.emit(self)
 
+
 func _enter_tree():
+
 	interactable_index.nodes.append(self)
 
+
 func _exit_tree():
+
 	interactable_index.nodes.remove_at(interactable_index.nodes.find(self))

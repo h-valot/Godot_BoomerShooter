@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cswuj58ei2vts"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="1_frgum"]
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="2_3ejh8"]
-[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="3_5nai5"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="1_kxulp"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="2_u6fs1"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="3_5yc75"]
 
 [node name="Control2" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="UI" type="Node2D" parent="."]
-script = ExtResource("1_frgum")
+script = ExtResource("1_kxulp")
 text_anchor = 1.0
 
 [node name="Container" type="GridContainer" parent="UI"]
@@ -31,7 +31,7 @@ columns = 6
 metadata/_edit_use_anchors_ = true
 
 [node name="Inventory" type="Node" parent="."]
-script = ExtResource("2_3ejh8")
+script = ExtResource("2_u6fs1")
 
 [node name="InventoryInitializer" type="Node" parent="Inventory"]
-script = ExtResource("3_5nai5")
+script = ExtResource("3_5yc75")

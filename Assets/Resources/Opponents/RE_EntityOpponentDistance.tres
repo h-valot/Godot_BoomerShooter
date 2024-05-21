@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=4 format=3 uid="uid://8sbl3ydd3mnb"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Entity/GD_EntityConfig.gd" id="1_pwgsu"]
+[ext_resource type="Resource" uid="uid://gkxayra4se6x" path="res://Assets/Resources/Dialogues/RE_DialogueTemplate.tres" id="1_skp2m"]
+[ext_resource type="Resource" uid="uid://cx2imqrjvpxww" path="res://Assets/Resources/Items/Weapons/RE_Distance.tres" id="2_nij12"]
+
+[resource]
+script = ExtResource("1_pwgsu")
+name = "Enemy"
+id = 892315872
+dialogue = ExtResource("1_skp2m")
+move_speed = 5.0
+acceleration = 10.0
+jump_force = 4.5
+gravity = 9.8
+flight_height = 0.0
+base_health = 50.0
+health_regeneration = 0.0
+base_armor = 0.0
+attack_range = Vector2(0, 2)
+attack_damage = 10.0
+weapon_used = ExtResource("2_nij12")
+first_charge_time = 1.0
+final_charge_time = 1.0
+attack_recovery_time = 1.0
+interrupt_recovery_time = 1.0
+custom_aggro_triggers = []
+aggro_range = 10.0
+loss_distance_from_idle = 100.0
+can_be_interrupted = true
+event_on_death = -1.0

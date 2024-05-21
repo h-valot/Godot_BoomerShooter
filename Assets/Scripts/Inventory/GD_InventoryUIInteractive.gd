@@ -11,11 +11,12 @@ signal on_use_item_throw(item: ConsumableConfig)
 @export var interactable: Interactable
 @export var use_consumable: UseConsumable
 
-var _other_inventory: Inventory;
-
+var _other_inventory: Inventory
 var _ui_open: bool = false
 
+
 func _ready():
+
 	assert(typeof(use_consumable) == typeof(UseConsumable), "Missing UseConsumable node.")
 
 	on_show.connect(_on_show)
@@ -27,38 +28,52 @@ func _ready():
 	assert(interactable != null, "Missing interactable")
 	interactable.on_interact.connect(_on_interact)
 
-	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _on_interact(other: Interactable):
+
 	var other_inventory_buffer = InventoryUtils.get_child_of_type(other, typeof(InventoryUI)) as InventoryUI
+	
 	if other_inventory_buffer != null:
+
 		_other_inventory = other_inventory_buffer
 
+
 func _on_show(_other):
+
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_ui_open = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = true
 
+
 func _on_hide(_other):
+
+	process_mode = Node.PROCESS_MODE_INHERIT
 	_ui_open = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_other_inventory = null
 	get_tree().paused = false
 
+
 ## Show the UI of the current inventory
 func show_ui_standalone():
+
 	ui_container.show()
 	on_show.emit(null)
 	_update_ui()
 
+
 ## hide the UI of the current inventory
 func hide_ui_standalone():
+
 	ui_container.hide()
 	on_hide.emit(null)
 	_clear_ui()
 
+
 ## Show the UI
 func show_ui_compare(other: InventoryUI):
+
 	_other_inventory = other.inventory
 	
 	on_show.emit(other)
@@ -68,37 +83,53 @@ func show_ui_compare(other: InventoryUI):
 
 	other.on_action_item.connect(_on_other_item_action)
 
+
 func _on_other_item_action(item):
+
 	_other_inventory.add_item(item, -1)
 	inventory.add_item(item);
 
+
 func _on_self_item_action(item):
+
 	if _other_inventory != null:
+
 		inventory.add_item(item, -1)
 		_other_inventory.add_item(item)
 	else:
+
 		var consumable = item as ConsumableConfig
 		if consumable != null:
+
 			on_use_item.emit(consumable)
 			inventory.add_item(consumable, -1)
 			use_consumable.use_consumable(consumable)
 			_update_ui()
 
+
 func _on_self_item_throw(item):
+
 	if _other_inventory != null:
+
 		var item_quantity = inventory.get_item_quantity(item)
 		inventory.add_item(item, -item_quantity)
 		_other_inventory.add_item(item, item_quantity)
+
 	else:
+
 		var consumable = item as ConsumableConfig
+
 		if consumable != null:
+
 			on_use_item_throw.emit(consumable)
 			inventory.add_item(consumable, -1)
 			_update_ui()
 			use_consumable.throw_consumable(consumable)
 
+
 ## Hide the UI
 func hide_ui_compare(other: InventoryUI):
+
 	_other_inventory = null
 	on_hide.emit(other)
 	other._clear_ui()
@@ -107,9 +138,14 @@ func hide_ui_compare(other: InventoryUI):
 	on_action_item.disconnect(_on_self_item_action)
 	other.on_action_item.disconnect(_on_other_item_action)
 
+
 func toogle_ui_standalone():
+
 	if !_ui_open:
+
 		show_ui_standalone()
 	else:
+
 		hide_ui_standalone()
+
 	return _ui_open

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="WrapperVariable" load_steps=2 format=3 uid="uid://42fq4lr4tkla"]
+[gd_resource type="Resource" script_class="RuntimeScriptableObject" load_steps=2 format=3 uid="uid://dl2bngaoogdbx"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Data/Wrappers/GD_WrapperVariable.gd" id="1_qiq53"]
+[ext_resource type="Script" path="res://Assets/Scripts/RuntimeScriptables/GD_RuntimeScriptableObject.gd" id="1_suble"]
 
 [resource]
-script = ExtResource("1_qiq53")
+script = ExtResource("1_suble")

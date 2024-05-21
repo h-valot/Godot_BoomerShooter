@@ -2,7 +2,7 @@ extends Node3D
 
 class_name UseConsumable
 
-@export var local_player: Player
+@export var local_player: Character
 @export var head: Node3D
 
 @export var throw_forward_offset: float = 2.5
@@ -15,14 +15,14 @@ func use_consumable(consumable: ConsumableConfig):
 	UseConsumable.apply_consumable_effect(local_player, consumable)
 
 static func apply_consumable_effect(_target: Node, consumable: ConsumableConfig, can_hit_player: bool = true) -> bool:
-	var player = _target as Player
-	var opponent = _target as Opponent
+	var player = _target as Character
+	var opponent = _target as Entity
 
 	if can_hit_player && player == null:
-		player = _target.get_parent() as Player
+		player = _target.get_parent() as Character
 	elif opponent == null:
 		if _target.get_parent() != null:
-			opponent = _target.get_parent().get_parent() as Opponent
+			opponent = _target.get_parent().get_parent() as Entity
 
 	if can_hit_player && player != null:
 		if consumable.use_heal_damage:
@@ -71,17 +71,17 @@ static func apply_consumable_effect(_target: Node, consumable: ConsumableConfig,
 			pass
 
 		if consumable.use_jump_force_boost:
-			var base_jump_force: float = opponent.opponent_config.jump_force;
-			opponent.opponent_config.jump_force = opponent.opponent_config.jump_force + consumable.jump_force_boost;
+			var base_jump_force: float = opponent.entity_config.jump_force;
+			opponent.entity_config.jump_force = opponent.entity_config.jump_force + consumable.jump_force_boost;
 			opponent.get_tree().create_timer(consumable.duration).timeout.connect(
-				func():  opponent.opponent_config.jump_force = base_jump_force
+				func():  opponent.entity_config.jump_force = base_jump_force
 			)
 
 		if consumable.use_speed_boost:
-			var base_speed: float = opponent.opponent_config.base_move_speed;
-			opponent.opponent_config.base_move_speed = opponent.opponent_config.base_move_speed + consumable.speed_boost;
+			var base_speed: float = opponent.entity_config.base_move_speed;
+			opponent.entity_config.base_move_speed = opponent.entity_config.base_move_speed + consumable.speed_boost;
 			opponent.get_tree().create_timer(consumable.duration).timeout.connect(
-				func():  opponent.opponent_config.base_move_speed = base_speed
+				func():  opponent.entity_config.base_move_speed = base_speed
 			)
 		return true
 	return false

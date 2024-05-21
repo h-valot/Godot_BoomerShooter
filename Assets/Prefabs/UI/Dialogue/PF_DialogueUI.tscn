@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1ufa3ylnreay"]
+[gd_scene load_steps=6 format=3 uid="uid://c1ufa3ylnreay"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Dialogue/DialogueUI.gd" id="1_2ci17"]
-[ext_resource type="Resource" uid="uid://std1ysergv2b" path="res://Assets/Resources/RSE/RSE_DisplayDialogue.tres" id="2_uudt5"]
+[ext_resource type="Resource" uid="uid://ingwhcs2ub1p" path="res://Assets/Resources/RSE/RSE_DisplayDialogue.tres" id="2_uudt5"]
+[ext_resource type="Resource" uid="uid://bnhtskebcgyy5" path="res://Assets/Resources/RSE/RSE_EnableInventory.tres" id="3_owx87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmg84"]
 bg_color = Color(0, 0, 0, 0.529412)
@@ -16,6 +17,7 @@ font_size = 29
 [node name="PF_DialogueUI" type="CanvasLayer"]
 script = ExtResource("1_2ci17")
 rse_display_dialogue = ExtResource("2_uudt5")
+rse_enable_inventory = ExtResource("3_owx87")
 
 [node name="DialogueBox_MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 12

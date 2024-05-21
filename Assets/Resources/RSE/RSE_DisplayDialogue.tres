@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="WrapperActionT1" load_steps=2 format=3 uid="uid://std1ysergv2b"]
+[gd_resource type="Resource" script_class="RuntimeScriptableEventT1" load_steps=2 format=3 uid="uid://ingwhcs2ub1p"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Data/Wrappers/WrapperAction/GD_WrapperActionT1.gd" id="1_rn35x"]
+[ext_resource type="Script" path="res://Assets/Scripts/RuntimeScriptables/RuntimeScriptableEvents/GD_RuntimeScriptableEventT1.gd" id="1_ehp1s"]
 
 [resource]
-script = ExtResource("1_rn35x")
+script = ExtResource("1_ehp1s")

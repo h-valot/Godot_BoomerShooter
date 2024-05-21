@@ -4,11 +4,13 @@ class_name DialogueUI
 @export_category("Tweakable values")
 @export var char_read_rate: float = 0.025
 @export_category("References")
-@export var rse_display_dialogue: WrapperActionT1 = null
+@export var rse_display_dialogue: RuntimeScriptableEventT1 = null
+@export var rse_enable_inventory: RuntimeScriptableEventT1 = null
 
 var _current_state = State.READY
 var _dialogue_apparition_tween: Tween = null
-var _dialogue_queue = []
+var _dialogue_queue: Array[String]
+var _enabled: bool = false
 
 @onready var dialogue_box = $DialogueBox_MarginContainer
 @onready var label = $DialogueBox_MarginContainer/InnerText_MarginContainer/InnerText_HBoxContainer/Label
@@ -21,10 +23,14 @@ func _ready():
 
 	rse_display_dialogue.action.connect(_fill_queue)
 	_hide_dialogue()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
-func _process(delta):
-
+func _process(_delta):
+	
+	if (!_enabled):
+		return
+	
 	_handle_states()
 
 
@@ -35,7 +41,19 @@ func _handle_states():
 		State.READY:
 			
 			if (!_dialogue_queue.is_empty()):
+
 				_display_sentence()
+
+			else:
+
+				_enabled = false
+
+				if (_dialogue_apparition_tween != null):
+					_dialogue_apparition_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
+
+				rse_enable_inventory.trigger(true)
+				get_tree().paused = false
+
 		
 		State.READING:
 
@@ -57,7 +75,11 @@ func _handle_states():
 				_hide_dialogue()
 
 
-func _fill_queue(new_queue):
+func _fill_queue(new_queue: Array[String]):
+
+	_enabled = true
+	rse_enable_inventory.trigger(false)
+	get_tree().paused = true
 
 	for index in len(new_queue):
 		_dialogue_queue.push_back(new_queue[index])
@@ -73,8 +95,9 @@ func _display_sentence():
 	# animate the dialogue
 	label.visible_ratio = 0.0
 	_dialogue_apparition_tween = get_tree().create_tween()
+	_dialogue_apparition_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	_dialogue_apparition_tween.tween_property(label, "visible_ratio", 1.0, len(new_text) * char_read_rate).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-
+ 
 
 func _change_state(new_state):
 

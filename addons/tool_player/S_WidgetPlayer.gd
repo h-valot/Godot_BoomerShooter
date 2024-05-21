@@ -6,25 +6,25 @@ extends Control
 
 #region InitializeWeapon
 
-@onready var player_save_button : Button = $TabContainer/Player/Button_Save as Button
+@onready var player_save_button : Button = $TabContainer/Character/Button_Save as Button
 
-@onready var player_tabBar : TabBar = $TabContainer/Player as TabBar
+@onready var player_tabBar : TabBar = $TabContainer/Character as TabBar
 
-@onready var player_base_health : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Health/SpinBox_Base_Health as SpinBox
-@onready var player_regen : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Health_Regeneration/SpinBox_Health_Regeneration as SpinBox
-@onready var player_armor : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Armor/SpinBox_Base_Armor as SpinBox
-@onready var player_move_speed : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Move_Speed/SpinBox_Base_Move_Speed as SpinBox
-@onready var player_sprint_speed : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Sprint_Move_Speed/SpinBox_Sprint_Move_Speed as SpinBox
-@onready var player_acceleration : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Move_Speed_Acceleration/SpinBox_Move_Speed_Acceleration as SpinBox
-@onready var player_jump_force : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Jump_Force/SpinBox_Jump_Force as SpinBox
-@onready var player_i_frame_duration : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_I_Frame_Duration/SpinBox_I_Frame_Duration as SpinBox
-@onready var player_consumable_switch_time : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Consumable_Switch_Time/SpinBox_Consumable_Switch_Time as SpinBox
+@onready var player_base_health : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Health/SpinBox_Base_Health as SpinBox
+@onready var player_regen : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Health_Regeneration/SpinBox_Health_Regeneration as SpinBox
+@onready var player_armor : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Armor/SpinBox_Base_Armor as SpinBox
+@onready var player_move_speed : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Base_Move_Speed/SpinBox_Base_Move_Speed as SpinBox
+@onready var player_sprint_speed : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Sprint_Move_Speed/SpinBox_Sprint_Move_Speed as SpinBox
+@onready var player_acceleration : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Move_Speed_Acceleration/SpinBox_Move_Speed_Acceleration as SpinBox
+@onready var player_jump_force : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Jump_Force/SpinBox_Jump_Force as SpinBox
+@onready var player_i_frame_duration : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_I_Frame_Duration/SpinBox_I_Frame_Duration as SpinBox
+@onready var player_consumable_switch_time : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Consumable_Switch_Time/SpinBox_Consumable_Switch_Time as SpinBox
 
-@onready var player_air_control_scalar : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Air_Control_Scalar/SpinBox_Air_Control_Scalar as SpinBox
-@onready var player_horizontal_mouse_sensitivity : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Horizontal_Mouse_Sensitivity/SpinBox_Horizontal_Mouse_Sensitivity as SpinBox
-@onready var player_vertical_mouse_sensitivity : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Vertical_Mouse_Sensitivity/SpinBox_Vertical_Mouse_Sensitivity as SpinBox
-@onready var player_max_vertical_aim : SpinBox = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Vertical_Mouse_Sensitivity/SpinBox_Vertical_Mouse_Sensitivity as SpinBox
-@onready var player_gravity_hint : Label = $TabContainer/Player/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Gravity_Hint/Label_Gravity_Hin_Details as Label
+@onready var player_air_control_scalar : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Air_Control_Scalar/SpinBox_Air_Control_Scalar as SpinBox
+@onready var player_horizontal_mouse_sensitivity : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Horizontal_Mouse_Sensitivity/SpinBox_Horizontal_Mouse_Sensitivity as SpinBox
+@onready var player_vertical_mouse_sensitivity : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Vertical_Mouse_Sensitivity/SpinBox_Vertical_Mouse_Sensitivity as SpinBox
+@onready var player_max_vertical_aim : SpinBox = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Vertical_Mouse_Sensitivity/SpinBox_Vertical_Mouse_Sensitivity as SpinBox
+@onready var player_gravity_hint : Label = $TabContainer/Character/ItemList_Player/ScrollContainer/VBoxContainer/HBoxContainer_Gravity_Hint/Label_Gravity_Hin_Details as Label
 
 
 #endregion
@@ -72,7 +72,7 @@ func _ready():
 	_populate_weapon_files()
 	_populate_opponent_meshes()
 	opponent_item_list.connect("item_selected", Callable(self, "_on_item_selected"))
-	_load_player_motor("res://Assets/Resources/Player/RE_PlayerConfig.tres")
+	_load_player_motor("res://Assets/Resources/Character/RE_PlayerConfig.tres")
 	_list_opponents_files_in_directory("res://Assets/Resources/Opponents/")
 	_init_ui(tab_container.current_tab)
 
@@ -94,17 +94,17 @@ func _on_tab_changed(tab_index: int) -> void:
 			player_tabBar.visible = false
 
 func _create_player_file(file_path : String):
-		var player_config = PlayerConfig.new()
+		var player_config = CharacterConfig.new()
 		var error = ResourceSaver.save(player_config, file_path)
 		if error == OK:
 			print("Motor config saved successfully.")
 
 func _on_button_save_pressed():
-	var dir = DirAccess.open("res://Assets/Resources/Player/")
-	var file_path : String = "res://Assets/Resources/Player/RE_PlayerConfig.tres"
+	var dir = DirAccess.open("res://Assets/Resources/Character/")
+	var file_path : String = "res://Assets/Resources/Character/RE_PlayerConfig.tres"
 	var player_config
 	if dir.file_exists(file_path):
-		player_config = ResourceLoader.load(file_path) as PlayerConfig
+		player_config = ResourceLoader.load(file_path) as CharacterConfig
 		if player_config:
 			print("Fichier trouvé. Mise à jour des données...")
 			_update_player_config(player_config)
@@ -117,7 +117,7 @@ func _on_button_save_pressed():
 		print("Fichier non trouvé. Création d'une nouvelle instance...")
 		_create_player_file(file_path)
 
-func _update_player_config(player_config : PlayerConfig):
+func _update_player_config(player_config : CharacterConfig):
 	player_config.base_health = player_base_health.value 
 	player_config.health_regeneration = player_regen.value 
 	player_config.base_armor = player_armor.value 
@@ -132,7 +132,7 @@ func _update_player_config(player_config : PlayerConfig):
 	player_config.vertical_mouse_sensitivity = player_vertical_mouse_sensitivity.value
 	player_config.max_vertical_aim = player_max_vertical_aim.value
 
-func _update_ui_player_config(player_config : PlayerConfig):
+func _update_ui_player_config(player_config : CharacterConfig):
 	player_base_health.value = player_config.base_health
 	player_regen.value = player_config.health_regeneration
 	player_armor.value = player_config.base_armor
@@ -147,11 +147,11 @@ func _update_ui_player_config(player_config : PlayerConfig):
 	player_vertical_mouse_sensitivity.value =  player_horizontal_mouse_sensitivity.value
 	player_max_vertical_aim.value = player_config.max_vertical_aim
 
-func _load_player_motor(file_path : String) -> PlayerConfig:
-	var dir = DirAccess.open("res://Assets/Resources/Player/")
+func _load_player_motor(file_path : String) -> CharacterConfig:
+	var dir = DirAccess.open("res://Assets/Resources/Character/")
 	var player_config
 	if dir.file_exists(file_path):
-		player_config = ResourceLoader.load(file_path) as PlayerConfig
+		player_config = ResourceLoader.load(file_path) as CharacterConfig
 		if player_config:
 			print("Fichier trouvé. Mise à jour des données...")
 			_update_ui_player_config(player_config)
@@ -165,7 +165,7 @@ func _load_player_motor(file_path : String) -> PlayerConfig:
 		return player_config
 	else:
 		_create_player_file(file_path)  
-		player_config = ResourceLoader.load(file_path) as PlayerConfig
+		player_config = ResourceLoader.load(file_path) as CharacterConfig
 		return player_config
 
 	

@@ -1,9 +1,10 @@
 extends Resource
-class_name OpponentConfig
+class_name EntityConfig
 
 @export var name : String = ""
 @export var id : int
 @export var opponent_mesh : PackedScene
+@export var dialogue : DialogueConfig
 
 
 @export_group("Movement")
@@ -14,9 +15,6 @@ class_name OpponentConfig
 
 @export_subgroup("Flying")
 ## Offset the y position of the opponent. If set to 0, it stays on ground.
-## NOT IMPLEMENTED YET - We can not just offset the position of a node. 
-## Even though, offsetted opponent moves on the same navigation mesh as the landed one. 
-## So, if a land opponent avoid a wall, flying one will do so.
 @export var flight_height : float = 0
 
 

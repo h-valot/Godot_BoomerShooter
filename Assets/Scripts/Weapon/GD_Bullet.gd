@@ -76,14 +76,14 @@ func _on_area_entered(area):
 func _on_body_entered(body : Node3D):
 	
 	# prevent bullets thrown by opponents from colliding with themselves 
-	if (body as Opponent):
+	if (body as Entity):
 
 		if (_causer_type == 2
 		&& body._health_component.receiver_type == 2):
 			return;
 
 	# prevent bullets thrown by the player from colliding with itself 
-	if (body as Player):
+	if (body as Character):
 		
 		if (_causer_type == 1
 		&& body._health_component.receiver_type == 1):
@@ -99,6 +99,8 @@ func _on_body_entered(body : Node3D):
 
 
 func _generate_zone():
+
+	assert(_zone_prefab != null, "BULLET: you are trying to instantiate a impact zone but it is empty or null")
 
 	var new_zone = _zone_prefab.instantiate()
 	get_parent().add_child(new_zone)

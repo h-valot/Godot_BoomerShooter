@@ -8,7 +8,7 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_7uvcp"]
 
-[node name="PfConsumable" type="Node3D"]
+[node name="PF_Consumable" type="Node3D"]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 input_ray_pickable = false

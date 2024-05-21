@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="3_vjl4t"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_PlayerInteract.gd" id="4_7x134"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryInitializer.gd" id="4_xvyim"]
-[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/PF_InventoryInteractive.tscn" id="5_d1oom"]
+[ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/UI/Inventory/PF_InventoryInteractive.tscn" id="5_d1oom"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_PlayerInventory.gd" id="8_cca7e"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="9_33ilw"]
 
