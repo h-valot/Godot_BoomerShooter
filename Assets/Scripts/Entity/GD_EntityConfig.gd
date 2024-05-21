@@ -8,6 +8,7 @@ class_name EntityConfig
 
 
 @export_group("Movement")
+@export var can_move: bool = true
 @export var move_speed : float = 5
 @export var acceleration : float = 10
 @export var jump_force : float = 4.5
@@ -19,10 +20,11 @@ class_name EntityConfig
 
 
 @export_group("Health")
+@export var damage_immunity: bool = false
 ## Set the current health of the opponent to this base health on game launches.
 @export var base_health : float = 50
 ## Increament 'current_health' by 'health_regeneration' every seconds.
-@export var health_regeneration : float = 1
+@export var health_regeneration : float = 0
 ## Extra life that can not be regenerate
 @export var base_armor : float = 0
 

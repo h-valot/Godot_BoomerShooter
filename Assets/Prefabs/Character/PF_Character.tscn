@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://ijy3c8s153yu"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_hxdtb"]
-[ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Player/RE_BaseCharacter.tres" id="2_jtycc"]
+[ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Character/RE_BaseCharacter.tres" id="2_jtycc"]
 [ext_resource type="Resource" uid="uid://cx2imqrjvpxww" path="res://Assets/Resources/Items/Weapons/RE_Distance.tres" id="3_pndn0"]
 [ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="4_vytkp"]
 [ext_resource type="PackedScene" uid="uid://c1ufa3ylnreay" path="res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn" id="5_eka37"]

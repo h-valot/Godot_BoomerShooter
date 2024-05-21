@@ -37,6 +37,7 @@ signal on_entity_dies
 func _ready():
 
 	_health_component.initialize(entity_config.base_health, entity_config.health_regeneration, entity_config.base_armor)
+	_health_component.set_immunity(entity_config.damage_immunity)
 	_health_component.on_health_reached_zero.connect(_die)
 	rso_player_position.on_changed.connect(_update_target_position)
 	_health_component.on_health_changed.connect(_getting_touched)
@@ -88,8 +89,14 @@ func _on_next_dialogue(_other: Node):
 
 
 #region MOVEMENT
+
 var debug_timer : float = 0
+
+
 func _process_movement(delta):
+
+	if (!entity_config.can_move):
+		return
 
 	if (debug_timer < 1):
 
@@ -141,11 +148,15 @@ func _jump():
 	if is_on_floor():
 
 		velocity.y = entity_config.jump_force
+
 #endregion
 
 
 #region AI BEHAVIOUR
+
 var _process_ai_behaviour_timer : float
+
+
 func _process_ai_behaviour(delta):
 	
 	# Custom clock to optimize perfomances
@@ -320,6 +331,8 @@ func _wait_for(delay : float, with_interruption : bool = false):
 
 
 #region ATTACK
+
+
 func _handle_attack():
 
 	await _charge_and_aim()
