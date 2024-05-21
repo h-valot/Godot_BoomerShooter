@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://vkqpo7metfgy"]
+
+[node name="HBoxContainer2" type="HBoxContainer"]
+
+[node name="B_ShowDetailsOpponent" type="Button" parent="."]
+custom_minimum_size = Vector2(325, 25)
+layout_mode = 2
+
+[node name="L_NameOpponent" type="Label" parent="B_ShowDetailsOpponent"]
+layout_mode = 0
+offset_right = 323.0
+offset_bottom = 27.0
+text = "New Opponents"
+
+[node name="B_DeleteOpponent" type="Button" parent="."]
+layout_mode = 2
+text = "-"

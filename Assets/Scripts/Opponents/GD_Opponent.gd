@@ -26,7 +26,7 @@ var _is_alive : bool = true
 @onready var _navigation_agent_3d = $NavigationAgent3D
 @onready var _capsule_collision = $CapsuleCollision
 @onready var _flight_offset = $FlightOffset
-@onready var _debug_head = $"FlightOffset/[DEBUG]Head"
+@onready var _attack_point = $"FlightOffset/AttackPoint"
 
 signal on_opponent_dies
 #endregion
@@ -141,7 +141,7 @@ func _process_ai_behaviour(delta):
 	_process_ai_behaviour_timer -= 0.1
 
 	# Get distance from opponent to target
-	_distance_from_target = (_navigation_agent_3d.target_position - global_transform.origin).length()
+	_distance_from_target = (rso_player_position.value - global_transform.origin).length()
 	
 	_handle_sight()
 	_handle_aggro()
@@ -167,12 +167,15 @@ func _check_target_in_sight():
 	_centered_player_position =  Vector3(rso_player_position.value.x, rso_player_position.value.y + 1.5, rso_player_position.value.z)
 
 	# Cast a ray3D toward the player position to verify if there is any obstacles
-	_result = _space_query.intersect_ray(PhysicsRayQueryParameters3D.create(_debug_head.global_position, _centered_player_position))
+	_result = _space_query.intersect_ray(PhysicsRayQueryParameters3D.create(_attack_point.global_position, _centered_player_position))
 	if (_result):
 		
 		if (_result.collider as Player):
 			
-			_getting_touched()
+			if (!_is_aggroed):
+
+				_is_aggroed = true
+				print("OPPONENT: Target aggroed")
 	
 
 func _check_target_out_of_sight():
@@ -190,13 +193,17 @@ func _check_target_out_of_sight():
 		_navigation_agent_3d.target_position = _idle_position
 
 
-func _getting_touched():
+func _getting_touched(new_amount: int = 0, delta: int = 0):
+
+	# Ignore healing
+	if (delta >= 0):
+		return
 
 	if (!_is_aggroed):
 
 		_is_aggroed = true
 		print("OPPONENT: Target aggroed")
-
+	
 	_handle_interruption()
 
 
@@ -219,13 +226,7 @@ func _start_attack():
 	_is_attacking = true
 	print("OPPONENT: Starting an attack")
 	
-	# Use melee attack
-	if (opponent_config.attack_type == 0): # MELEE
-		await _melee_attack()
-	
-	# Use range attack
-	if (opponent_config.attack_type == 1): # RANGE
-		await _range_attack()
+	await _handle_attack()
 	
 	if (_interrupted):
 		return;
@@ -251,14 +252,6 @@ func _on_ai_sight_area_entered(area):
 			_sight_enabled = false
 
 
-func _on_ai_sight_area_exited(area):
-
-	if (area.get_parent() as Player):
-
-		# Do nothing
-		pass
-
-
 func _update_target_position():
 
 	if (!_is_aggroed):
@@ -276,13 +269,15 @@ func _handle_interruption():
 		return
 
 	print("OPPONENT: Attack interrupted ")
-	_interrupted = true;
+	_interrupted = true
 	_move_funtion_enabled = false
 	_look_funtion_enabled = false
-	await _wait_for(opponent_config.interrupt_revorery_time)
+	await _wait_for(opponent_config.interrupt_recovery_time)
+	print("OPPONENT: Interrupt recovery delay passed")
+	_interrupted = false
+	_is_attacking = false
 	_move_funtion_enabled = true
 	_look_funtion_enabled = true
-	_interrupted = false;
 
 
 var _interrupted : bool = false
@@ -296,76 +291,34 @@ func _wait_for(delay : float, with_interruption : bool = false):
 		opponent_config.can_be_interrupted):
 
 			_interruptable = true
+
+			if (_interrupted):
+
+				_interruptable = false
+				return
 		
 		await get_tree().create_timer(0.1).timeout
 		_custom_timer -= 0.1
+		
 	
 	_interruptable = false
 
 
-#region MELEE ATTACK
-func _melee_attack():
 
-	await _charge_and_pursue()
-
-	if (_interrupted):
-		return;
-
-	await _lock_position()
-
-	if (_interrupted):
-		return;
-
-	await _slach()
-
-
-
-func _charge_and_pursue():
-
-	# TODO - Play charge animation
-	
-	# Wait for first charge delay with interruption enabled
-	await _wait_for(opponent_config.first_charge_time, true)
-
-func _lock_position():
-
-	# Lock movement
-	_move_funtion_enabled = false
-	
-	# Wait for final charge delay with interruption enabled
-	await _wait_for(opponent_config.final_charge_time, true)
-
-
-func _slach():
-
-	# Lock rotation
-	_look_funtion_enabled = false
-	
-	# TODO - Enable melee damage collision area
-	
-	# TODO - Wait till the end of the attack animation with a signal
-	
-	# TODO - Disable melee damage collision area
-	
-	# Wait for the recovery time
-	await _wait_for(opponent_config.attack_recovery_time)
-#endregion
-
-
-#region RANGE ATTACK
-func _range_attack():
+#region ATTACK
+func _handle_attack():
 
 	await _charge_and_aim()
 
 	if (_interrupted):
 		return;
 
-	await _lock_and_finish_charge()
+	await _lock_target()
 
 	if (_interrupted):
 		return;
 
-	await _shoot()
+	await _attack()
 
 
 func _charge_and_aim():
@@ -377,7 +330,7 @@ func _charge_and_aim():
 	await _wait_for(opponent_config.first_charge_time, true)
 
 
-func _lock_and_finish_charge():
+func _lock_target():
 
 	# Lock rotation
 	_look_funtion_enabled = false
@@ -386,7 +339,7 @@ func _lock_and_finish_charge():
 	await _wait_for(opponent_config.final_charge_time, true)
 
 
-func _shoot():
+func _attack():
 
 	# Fire a bullet toward the opponent "looking at" diretion
 	_fire_bullet()
@@ -398,13 +351,16 @@ func _shoot():
 func _fire_bullet():
 	
 	var new_bullet = opponent_config.weapon_used.bullet_mesh.instantiate()
-	
-	# Parent the bullet outside the player
-	# Otherwise, bullets moves with the player
 	owner.get_parent().add_child(new_bullet)
 	
-	new_bullet.transform = _debug_head.global_transform
+	new_bullet.transform = _attack_point.global_transform
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(opponent_config.weapon_used, opponent_config.weapon_used.zone_prefab, _health_component.receiver_type)
+	new_bullet.initialize(opponent_config.weapon_used, _health_component.receiver_type)
+
+	var from = _attack_point.global_position
+	var to = -_attack_point.global_transform.basis.z.normalized() * 100
+	new_bullet.launch(from, to)
+
 #endregion
+
 #endregion

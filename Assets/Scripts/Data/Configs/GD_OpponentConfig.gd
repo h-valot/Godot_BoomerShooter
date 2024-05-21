@@ -2,7 +2,9 @@ extends Resource
 class_name OpponentConfig
 
 @export var name : String = ""
+@export var id : int
 @export var opponent_mesh : PackedScene
+
 
 @export_group("Movement")
 @export var move_speed : float = 5
@@ -28,8 +30,6 @@ class_name OpponentConfig
 
 
 @export_group("Attack")
-## Can be melee, distance or special
-@export_enum("MELEE", "RANGE", "SPECIAL") var attack_type : int = 1
 ## Minimum and maximum distance to cast an attack
 @export var attack_range : Vector2 = Vector2(0, 1)
 ## Damage dealt to the touched hitbox when attacking
@@ -49,7 +49,7 @@ class_name OpponentConfig
 ## Delay while the opponent stops moving right after landing an attack
 @export var attack_recovery_time : float = 1
 ## TODO - Delay while the opponent stops moving after being interrupted
-@export var interrupt_revorery_time : float = 1
+@export var interrupt_recovery_time : float = 1
 
 
 @export_group("Behaviour")

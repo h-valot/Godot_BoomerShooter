@@ -12,7 +12,10 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed(eventName):
+		print("Input")
 		if inventoryUIInteractive.toogle_ui_standalone():
 			inventoryUI.ui_container.hide()
+			print("Hide")
 		else:
 			inventoryUI.ui_container.show()
+			print("Show")

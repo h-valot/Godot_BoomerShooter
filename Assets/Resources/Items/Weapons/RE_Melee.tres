@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="WeaponConfig" load_steps=5 format=3 uid="uid://1fula6jd31lv"]
+
+[ext_resource type="PackedScene" uid="uid://dburk6ip8ay6i" path="res://Assets/Prefabs/Bullets/PF_DamageSphere.tscn" id="1_a5isx"]
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_WeaponConfig.gd" id="1_fj26j"]
+[ext_resource type="PackedScene" path="res://Assets/Prefabs/PF_ImpactZone.tscn" id="3_7jgul"]
+
+[sub_resource type="Curve" id="Curve_qw4an"]
+_data = [Vector2(0, 0.015807), 0.0, 0.0, 0, 0, Vector2(0.993363, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_fj26j")
+switch_speed = 0.25
+mag_size = 99999999
+starting_mag_amount = 9
+reload_time = 0.01
+recoil_scalar = 0.0
+recoil_curve = SubResource("Curve_qw4an")
+camera_shake_strength = 0.0
+camera_shake_fade = 0.0
+bullet_amount_per_shot = 1
+spread = 0.0
+raycast_length = 100.0
+fire_rate = 0.25
+bullet_mesh = ExtResource("1_a5isx")
+hit_scan = false
+interrupts_npc_attack = false
+bullet_damage = 1.0
+bullet_start_speed = 0.0
+bullet_lifetime = 0.05
+bullet_gravity_scale = 0.0
+create_zone_on_impact = false
+zone_prefab = ExtResource("3_7jgul")
+zone_radius = 1.5
+zone_lifetime = 1.0
+zone_damage_per_tick = 1.0
+zone_tick_duration = 99.0
+GUID = 0
+name = "Melee"
+quantity = 1.0
+max_stack = -1.0
+stackable = true

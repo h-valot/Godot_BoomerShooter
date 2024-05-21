@@ -35,8 +35,8 @@ func set_weapon(new_weapon_config: WeaponConfig):
 
 
 func set_muzzle(muzzle: Node3D):
+	
 	_muzzle = muzzle
-	print("muzzle set")
 
 
 func _physics_process(delta):
@@ -191,7 +191,7 @@ func _fire_bullet():
 		to.z += randf_range(weapon_config.spread, -weapon_config.spread)
 
 	new_bullet = new_bullet as Bullet
-	new_bullet.initialize(weapon_config, weapon_config.zone_prefab, health_component.receiver_type)
+	new_bullet.initialize(weapon_config, health_component.receiver_type)
 	new_bullet.launch(from, to)
 
 
@@ -201,6 +201,7 @@ func _generate_zone(impact_position):
 	owner.get_parent().add_child(new_zone)
 	
 	new_zone.position = impact_position
+	new_zone = new_zone as ImpactZone
 	new_zone.initialize(
 		weapon_config.zone_radius, 
 		weapon_config.zone_lifetime, 
@@ -274,8 +275,13 @@ var _successive_shot : int = 0
 func _recoil():
 
 	_successive_shot += 1
-	_head.rotate_x(deg_to_rad((weapon_config.recoil_curve.sample(_successive_shot)) * weapon_config.recoil_scalar))
 	_shake_strength = weapon_config.camera_shake_strength
+
+	# prevent head dislocation
+	if (_head.global_transform.basis.z.y <= -0.975):
+		return
+	
+	_head.rotate_x(deg_to_rad((weapon_config.recoil_curve.sample(_successive_shot)) * weapon_config.recoil_scalar))
 
 
 func _camera_shake(delta):

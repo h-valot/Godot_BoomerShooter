@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="WrapperActionT1" load_steps=2 format=3 uid="uid://std1ysergv2b"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Wrappers/WrapperAction/GD_WrapperActionT1.gd" id="1_rn35x"]
+
+[resource]
+script = ExtResource("1_rn35x")

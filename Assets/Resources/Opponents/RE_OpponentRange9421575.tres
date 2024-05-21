@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="OpponentConfig" load_steps=3 format=3 uid="uid://c40vi40gc5si2"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Data/Configs/GD_OpponentConfig.gd" id="1_ypm8p"]
+[ext_resource type="Resource" uid="uid://mh7u247v0q5j" path="res://Assets/Resources/Items/Weapons/RE_Rifle.tres" id="2_d1fok"]
+
+[resource]
+script = ExtResource("1_ypm8p")
+name = "Range"
+id = 9421575
+move_speed = 5.0
+acceleration = 1.0
+jump_force = 4.5
+gravity = 9.8
+flight_height = 0.0
+base_health = 1.0
+health_regeneration = 0.0
+base_armor = 0.0
+attack_range = Vector2(0, 4)
+attack_damage = 10.0
+weapon_used = ExtResource("2_d1fok")
+first_charge_time = 1.0
+final_charge_time = 1.0
+attack_recovery_time = 1.0
+interrupt_recovery_time = 1.0
+custom_aggro_triggers = []
+aggro_range = 10.0
+loss_distance_from_idle = 100.0
+can_be_interrupted = true
+event_on_death = -1.0

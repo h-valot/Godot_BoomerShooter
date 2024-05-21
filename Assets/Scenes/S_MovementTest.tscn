@@ -27,7 +27,7 @@ glow_enabled = true
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="PF_Player" parent="Entities" instance=ExtResource("1_iemg8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0709593, 0, 14.3208)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.41212, -9.53674e-07, -5.21929)
 
 [node name="PF_Opponent" parent="Entities" instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1.50309, 1.8717)
