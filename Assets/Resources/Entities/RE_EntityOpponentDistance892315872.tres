@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://8sbl3ydd3mnb"]
+
+[ext_resource type="Resource" uid="uid://gkxayra4se6x" path="res://Assets/Resources/Dialogues/RE_DialogueTemplate.tres" id="1_i0run"]
+[ext_resource type="Script" path="res://Assets/Scripts/Entity/GD_EntityConfig.gd" id="2_cy75a"]
+
+[resource]
+script = ExtResource("2_cy75a")
+name = "RE_EntityOpponentDistance"
+id = 892315872
+dialogue = ExtResource("1_i0run")
+move_speed = 5.0
+acceleration = 10.0
+jump_force = 4.5
+gravity = 9.8
+flight_height = 0.0
+base_health = 50.0
+health_regeneration = 0.0
+base_armor = 0.0
+attack_range = Vector2(0, 2)
+first_charge_time = 0.0
+final_charge_time = 0.0
+attack_recovery_time = 0.0
+interrupt_recovery_time = 0.0
+custom_aggro_triggers = []
+aggro_range = 0.0
+loss_distance_from_idle = 0.0
+can_be_interrupted = false
+event_on_death = -1.0
