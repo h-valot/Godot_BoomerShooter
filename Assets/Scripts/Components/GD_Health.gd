@@ -2,10 +2,7 @@ extends Node
 class_name HealthComponent
 
 @export_category("Tweakable values")
-## NEUTRAL can be damaged by every source of damage including itself. 
-## PLAYER can be damaged by NEUTRAL and OPPONENT but not by itself.  
-## OPPONENT can be damaged by PLAYER and NEUTRAL but not by itself.
-@export_enum("NEUTRAL", "PLAYER", "OPPONENT") var receiver_type : int = 0 
+@export var receiver_type : Enums.HealthType = Enums.HealthType.NEUTRAL
 
 var current_health : float
 var current_armor : float
