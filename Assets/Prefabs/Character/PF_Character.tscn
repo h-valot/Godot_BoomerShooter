@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ijy3c8s153yu"]
+[gd_scene load_steps=23 format=3 uid="uid://ijy3c8s153yu"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_hxdtb"]
 [ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Character/RE_BaseCharacter.tres" id="2_jtycc"]
@@ -18,10 +18,13 @@
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="15_5gvro"]
 [ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="16_ph8i4"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="17_gn0ew"]
+[ext_resource type="Script" path="res://Assets/Scripts/PickUps/GD_PickupCollider.gd" id="19_3hmef"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uafqk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7tq5y"]
 
 [node name="PF_Character" type="CharacterBody3D"]
 script = ExtResource("1_hxdtb")
@@ -125,6 +128,16 @@ health_component = NodePath("../PF_Health")
 script = ExtResource("17_gn0ew")
 local_player = NodePath("..")
 head = NodePath("../Head")
+
+[node name="PickUpCollider" type="Area3D" parent="." node_paths=PackedStringArray("inventory")]
+transform = Transform3D(1.45042, 0, 0, 0, 1.45042, 0, 0, 0, 1.45042, 0, 0.312352, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("19_3hmef")
+inventory = NodePath("../PF_PlayerHud/InventoryUI/Inventory")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpCollider"]
+shape = SubResource("SphereShape3D_7tq5y")
 
 [editable path="Head/Interactable"]
 [editable path="PF_PlayerHud"]

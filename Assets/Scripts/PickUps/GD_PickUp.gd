@@ -8,7 +8,7 @@ class_name PickUp
 @export var quantity: int
 @export var interactable: Interactable
 @export var destroy_when_item_transferred: bool = true
-
+@export var require_input: bool = false
 
 func _ready():
 
@@ -20,8 +20,14 @@ func _ready():
 
 
 func _on_overlap_pickup(_other: Node):
-
-	interactable.interact()
+	if !require_input:
+		var other_parent = _other as PickUpCollider
+		if other_parent != null:
+			other_parent.inventory.add_item(item, quantity)
+			queue_free()
+			return
+	else:
+		interactable.interact()
 
 
 func _on_pickup_interact(other: Interactable):
