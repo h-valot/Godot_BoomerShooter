@@ -14,10 +14,12 @@ signal on_use_item_throw(item: ConsumableConfig)
 var _other_inventory: Inventory
 var _ui_open: bool = false
 
-
 func _ready():
 
-	assert(typeof(use_consumable) == typeof(UseConsumable), "Missing UseConsumable node.")
+	if use_consumable != null:
+		assert(typeof(use_consumable) == typeof(UseConsumable), "Missing UseConsumable node.")
+	
+	assert(interactable != null, "Missing interactable")
 
 	on_show.connect(_on_show)
 	on_hide.connect(_on_hide)
@@ -25,7 +27,6 @@ func _ready():
 	on_action_item.connect(_on_self_item_action)
 	on_throw_item.connect(_on_self_item_throw)
 
-	assert(interactable != null, "Missing interactable")
 	interactable.on_interact.connect(_on_interact)
 
 

@@ -55,13 +55,12 @@ func _on_overlap(other: Node):
 
 	var other_interactible = other.get_parent() as Interactable
 
-	assert(other_interactible != null, "Failed to get parent as interactable.");
+	if other_interactible != null:
+		current_other_interactable = other_interactible
+		on_get_interactable_overlap.emit()
 
-	current_other_interactable = other_interactible
-	on_get_interactable_overlap.emit()
-
-	if interact_on_overlap:
-		interact()
+		if interact_on_overlap:
+			interact()
 
 
 ## Cause an interaction with the other [Interactable]
