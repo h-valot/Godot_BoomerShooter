@@ -52,6 +52,9 @@ one_interaction_per_frame = true
 [node name="Camera3D" type="Camera3D" parent="Head"]
 fov = 90.0
 
+[node name="AudioListener3D" type="AudioListener3D" parent="Head/Camera3D"]
+current = true
+
 [node name="PF_PlayerHud" parent="." instance=ExtResource("6_7etot")]
 
 [node name="InventoryUI" type="Control" parent="PF_PlayerHud"]

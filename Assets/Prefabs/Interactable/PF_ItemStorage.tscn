@@ -1,15 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cswgyqo50c3qa"]
+[gd_scene load_steps=5 format=3 uid="uid://cswgyqo50c3qa"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Interactable/Objects/GD_ItemContainer.gd" id="1_6d2mx"]
 [ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="2_13nea"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="3_3vtxi"]
 [ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/UI/Inventory/PF_InventoryInteractive.tscn" id="4_des77"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_30ele"]
 
-[node name="PfItemStorage" type="Node3D" node_paths=PackedStringArray("interactable")]
-script = ExtResource("1_6d2mx")
-interactable = NodePath("Interactable")
+[node name="PfItemStorage" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_30ele")
