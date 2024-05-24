@@ -4,8 +4,11 @@ class_name Entity
 #region VARIABLES
 @export_category("References")
 @export var entity_config : EntityConfig
+
+@export_group("Forbidden")
 @export var rso_player_position : RuntimeScriptableObject
 @export var rse_display_dialogue: RuntimeScriptableEventT1
+@export var rse_entity_killed: RuntimeScriptableEventT0
 
 var _direction = Vector3.ZERO
 var _idle_position : Vector3
@@ -72,6 +75,7 @@ func _process(delta):
 
 func _die():
 
+	rse_entity_killed.trigger()
 	_is_alive = false
 	on_entity_dies.emit()
 	self.queue_free()
@@ -83,7 +87,7 @@ func _on_next_dialogue(_other: Node):
 	if (!entity_config.dialogue):
 		return
 
-	rse_display_dialogue.trigger(entity_config.dialogue.sentences)
+	rse_display_dialogue.trigger(entity_config.dialogue)
 
 #endregion
 

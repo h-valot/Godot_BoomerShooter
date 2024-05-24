@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5n8cwtblxw00"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Events/GD_EventForceInteraction.gd" id="1_20tlj"]
+
+[node name="PF_EventForceInteraction" type="Node3D"]
+script = ExtResource("1_20tlj")

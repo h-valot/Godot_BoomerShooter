@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccff5apgwi2b2"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/GD_Quest.gd" id="1_voadl"]
+
+[node name="PF_Quest" type="Node3D"]
+script = ExtResource("1_voadl")
+
+[node name="Start" type="Node" parent="."]
+
+[node name="Success" type="Node" parent="."]
+
+[node name="Failure" type="Node" parent="."]

@@ -9,7 +9,7 @@ enum HealthType {
 	OPPONENT
 }
 
-enum QuestCondition {
+enum QuestConditionType {
 	NONE,
 	PLAYER_DIED,
 	TIME_ELAPSED,

@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_goya3")
-sentences = Array[String](["First", "Second", "Third"])
+sentences = Array[String](["First sentence to be displayed", "Second sentence to be displayed", "Third sentence to be displayed"])

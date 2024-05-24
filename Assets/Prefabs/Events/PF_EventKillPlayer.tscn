@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmn7hhc5mrt1t"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Events/GD_EventKillPlayer.gd" id="1_bglqk"]
+
+[node name="PF_EventKillPlayer" type="Node3D"]
+script = ExtResource("1_bglqk")

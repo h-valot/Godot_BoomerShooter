@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbc0ibbuuesjv"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/Conditions/GD_QuestConditionInteractedInArea.gd" id="1_y7ce3"]
+
+[node name="PF_QuestConditionInteractedInArea" type="Node3D"]
+script = ExtResource("1_y7ce3")
+type = 3

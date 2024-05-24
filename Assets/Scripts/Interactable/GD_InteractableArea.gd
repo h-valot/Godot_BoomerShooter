@@ -1,9 +1,6 @@
 extends Area3D
 class_name InteractableArea
 
-@export_category("Tweakable values")
-@export var quest_condition_index: int = 0
-
 @export_group("Forbidden")
 @export var rse_interacted_in_area: RuntimeScriptableEventT1
 
@@ -16,7 +13,7 @@ func _process(_delta):
 		return
 
 	if (Input.is_action_just_pressed("Interact")):
-		rse_interacted_in_area.trigger(quest_condition_index)
+		rse_interacted_in_area.trigger(owner as InteractableArea)
 
 
 func _on_area_entered(area):

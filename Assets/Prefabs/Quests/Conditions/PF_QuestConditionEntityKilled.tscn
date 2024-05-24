@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvb88tf3ab8h3"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/Conditions/GD_QuestConditionEntityKilled.gd" id="1_jbykw"]
+
+[node name="PF_QuestConditionEntityKilled" type="Node3D"]
+script = ExtResource("1_jbykw")
+type = 4

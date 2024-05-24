@@ -1,10 +1,13 @@
 extends CharacterBody3D
 class_name Character
 
-@export_category("References")
+@export_category("Character")
 @export var player_config : CharacterConfig
 @export var weapon_config : WeaponConfig
+
+@export_group("Forbidden")
 @export var rso_player_position : RuntimeScriptableObject
+@export var rse_player_died: RuntimeScriptableEventT0
 
 var _current_movement_speed : float
 var _direction = Vector3.ZERO

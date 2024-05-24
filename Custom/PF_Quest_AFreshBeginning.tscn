@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://djfmteocgqveo"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/GD_Quest.gd" id="1_xjlo0"]
+[ext_resource type="PackedScene" uid="uid://cexywhcyp6o6x" path="res://Assets/Prefabs/Quests/Conditions/PF_QuestConditionGameBegan.tscn" id="2_885o4"]
+[ext_resource type="PackedScene" uid="uid://didfp63lkqs1n" path="res://Assets/Prefabs/Quests/Conditions/PF_QuestConditionDialogueEnded.tscn" id="3_uistq"]
+[ext_resource type="PackedScene" uid="uid://ci6qady7wneqt" path="res://Assets/Prefabs/Events/PF_EventSpawnNode.tscn" id="4_rm242"]
+[ext_resource type="PackedScene" uid="uid://c626m2uyse8r4" path="res://Assets/Prefabs/Quests/Conditions/PF_QuestConditionPlayerDied.tscn" id="5_rktwl"]
+
+[node name="PF_Quest_AFreshBeginning" type="Node3D"]
+script = ExtResource("1_xjlo0")
+
+[node name="Start" type="Node" parent="."]
+
+[node name="PF_QuestConditionGameBegan" parent="Start" instance=ExtResource("2_885o4")]
+
+[node name="Success" type="Node" parent="."]
+
+[node name="PF_QuestConditionDialogueEnded" parent="Success" instance=ExtResource("3_uistq")]
+
+[node name="PF_EventSpawnNode" parent="Success" instance=ExtResource("4_rm242")]
+
+[node name="Failure" type="Node" parent="."]
+
+[node name="PF_QuestConditionPlayerDied" parent="Failure" instance=ExtResource("5_rktwl")]

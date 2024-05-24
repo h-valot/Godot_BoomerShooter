@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://ijy3c8s153yu"]
+[gd_scene load_steps=22 format=3 uid="uid://ijy3c8s153yu"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_hxdtb"]
 [ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Character/RE_BaseCharacter.tres" id="2_jtycc"]
 [ext_resource type="Resource" uid="uid://cx2imqrjvpxww" path="res://Assets/Resources/Items/Weapons/RE_Distance.tres" id="3_pndn0"]
 [ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="4_vytkp"]
+[ext_resource type="Resource" uid="uid://bi6584880254m" path="res://Assets/Resources/RSE/RSE_PlayerDied.tres" id="5_ct748"]
 [ext_resource type="PackedScene" uid="uid://c1ufa3ylnreay" path="res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn" id="5_eka37"]
 [ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Prefabs/Character/Base/PF_CharacterHUD.tscn" id="6_7etot"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="7_oxt1e"]
@@ -12,7 +13,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_PlayerInteract.gd" id="10_4aqr3"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_PlayerInventory.gd" id="11_h88ng"]
 [ext_resource type="PackedScene" uid="uid://c6u35swacsip" path="res://Assets/Prefabs/UI/Inventory/PF_InventoryInteractive.tscn" id="12_cxvtc"]
-[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="13_4dyrs"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/Interactables/PF_Interactable.tscn" id="13_4dyrs"]
 [ext_resource type="Resource" uid="uid://bnhtskebcgyy5" path="res://Assets/Resources/RSE/RSE_EnableInventory.tres" id="13_4qt76"]
 [ext_resource type="PackedScene" uid="uid://0cringntf7yj" path="res://Assets/Prefabs/Components/PF_HitBox.tscn" id="14_dibyc"]
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="15_5gvro"]
@@ -28,6 +29,7 @@ script = ExtResource("1_hxdtb")
 player_config = ExtResource("2_jtycc")
 weapon_config = ExtResource("3_pndn0")
 rso_player_position = ExtResource("4_vytkp")
+rse_player_died = ExtResource("5_ct748")
 
 [node name="CharacterBodyCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
