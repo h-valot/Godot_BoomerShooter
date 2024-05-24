@@ -153,6 +153,7 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 			start()
 		else:
 			is_completed = true
+			print("QUEST: success or failures")
 			
 		_trigger_events(events)
 

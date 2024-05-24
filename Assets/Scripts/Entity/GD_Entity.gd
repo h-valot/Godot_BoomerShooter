@@ -80,6 +80,7 @@ func _die():
 	on_entity_dies.emit()
 	self.queue_free()
 
+
 #region DIALOGUE
 
 func _on_next_dialogue(_other: Node):

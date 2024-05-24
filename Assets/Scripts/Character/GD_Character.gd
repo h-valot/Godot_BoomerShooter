@@ -24,6 +24,7 @@ func _ready():
 
 	_hud.initialize(player_config)
 	_health_component.on_health_changed.connect(_hud.update_health_bar)
+	_health_component.on_health_reached_zero.connect(_handle_death)
 	_health_component.on_armor_changed.connect(_hud.update_armor_bar)
 	_health_component.initialize(
 		player_config.base_health, 
@@ -44,6 +45,11 @@ func _physics_process(delta):
 
 	_handle_move(delta)
 	_change_weapon()
+
+
+func _handle_death():
+	
+	rse_player_died.trigger()
 
 
 #region MOTOR

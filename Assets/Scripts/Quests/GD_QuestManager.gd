@@ -30,7 +30,7 @@ func _ready():
 	rse_game_began.trigger()
 
 
-## not implemented yet
+## to be tested
 func _on_player_died():
 
 	for quest in _quests:
@@ -51,21 +51,18 @@ func _on_interacted_in_area(_area: InteractableArea):
 		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTED_IN_AREA)
 
 
-## to be tested
 func _on_entity_killed():
 
 	for quest in _quests:
 		quest.check_conditions_of_type(Enums.QuestConditionType.ENTITY_KILLED)
 
 
-## to be tested
 func _on_dialogue_ended(_dialogue_config: DialogueConfig):
 
 	for quest in _quests:
 		quest.check_conditions_of_type(Enums.QuestConditionType.DIALOGUE_ENDED)
 
 
-## to be tested
 func _on_game_began():
 
 	for quest in _quests:

@@ -74,12 +74,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 1)
 
 [node name="PF_Quest_AFreshBeginning" parent="PF_QuestManager" instance=ExtResource("8_j5k2l")]
 
-[node name="PF_QuestConditionDialogueEnded" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="0"]
+[node name="PF_QuestConditionEntityKilled" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="0" node_paths=PackedStringArray("entities")]
+entities = [NodePath("../../../../Entities/PF_Opponent")]
+
+[node name="PF_QuestConditionDialogueEnded" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="1"]
 dialogue_config = ExtResource("9_xyeut")
 
-[node name="PF_EventSpawnNode" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="1" node_paths=PackedStringArray("spawn_parent")]
+[node name="PF_EventSpawnNode" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="2" node_paths=PackedStringArray("spawn_parent")]
 node_prefab = ExtResource("9_8rtsa")
 spawn_parent = NodePath("../../../../Entities")
-world_position = Vector3(0, 3, 0)
+world_position = Vector3(0, 5, 0)
 
 [editable path="PF_QuestManager/PF_Quest_AFreshBeginning"]
