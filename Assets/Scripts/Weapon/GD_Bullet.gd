@@ -94,7 +94,6 @@ func _on_body_entered(body : Node3D):
 		self.queue_free()
 		return;
 	
-	
 	self.queue_free()
 
 

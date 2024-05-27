@@ -45,7 +45,7 @@ func _handle_states():
 			
 			if (!_dialogue_queue.is_empty()):
 
-				_display_sentence()
+				_display_next_dialogue()
 
 			else:
 
@@ -55,6 +55,7 @@ func _handle_states():
 					_dialogue_apparition_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 
 				if (_last_dialogue_displayed != null):
+					print("on dialogue ended in dialogue ui with", _last_dialogue_displayed.resource_name)
 					rse_dialogue_ended.trigger(_last_dialogue_displayed)
 					
 				rse_enable_inventory.trigger(true)
@@ -93,7 +94,7 @@ func _fill_queue(new_dialogue: DialogueConfig):
 		_dialogue_queue.push_back(new_dialogue.sentences[index])
 
 
-func _display_sentence():
+func _display_next_dialogue():
 
 	var new_text = _dialogue_queue.pop_front()
 	label.text = new_text

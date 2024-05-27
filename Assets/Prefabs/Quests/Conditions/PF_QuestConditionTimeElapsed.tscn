@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://pf2tw1du37pd"]
+[gd_scene load_steps=3 format=3 uid="uid://pf2tw1du37pd"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Quests/Conditions/GD_QuestConditionTimeElapsed.gd" id="1_l63ys"]
+[ext_resource type="Resource" uid="uid://d1q2c2m0yp2d8" path="res://Assets/Resources/RSE/RSE_TimeElapsed.tres" id="2_wpvwq"]
 
 [node name="PF_QuestConditionTimeElapsed" type="Node3D"]
 script = ExtResource("1_l63ys")
+rse_time_elapsed = ExtResource("2_wpvwq")
 type = 2

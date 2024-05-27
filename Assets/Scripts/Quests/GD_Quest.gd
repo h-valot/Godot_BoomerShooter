@@ -71,29 +71,32 @@ func start():
 
 	print("QUEST: ", owner.name, " started")
 	_trigger_events(start_events)
+	start_timers()
 	is_started = true
 
 
-var _timer_index = null
+func start_timers():
+
+	for condition in start_events:
+		if (condition.type == Enums.QuestConditionType.TIME_ELAPSED):
+			condition.start_timer()
+
+
+var _timer = null
 var _area = null
 var _dialogue = null
-func check_conditions_of_type(quest_condition_type: Enums.QuestConditionType, timer_index = null, area = null, dialogue = null):
+func check_conditions_of_type(type: Enums.QuestConditionType, timer = null, area = null, dialogue = null):
 
-	if (timer_index != null):
-		_timer_index = timer_index
-
-	if (area != null):
-		_area = area
-
-	if (dialogue != null):
-		_dialogue = dialogue
+	_timer = timer
+	_area = area
+	_dialogue = dialogue
 
 	if (!is_started):
-		check_conditions(start_conditions, start_events, quest_condition_type, true)
+		check_conditions(start_conditions, start_events, type, true)
 
 	if (is_started):
-		check_conditions(success_conditions, success_events, quest_condition_type)
-		check_conditions(failure_conditions, failure_events, quest_condition_type)
+		check_conditions(success_conditions, success_events, type)
+		check_conditions(failure_conditions, failure_events, type)
 
 
 func check_conditions(conditions: Array[QuestCondition], events: Array[Event], type: Enums.QuestConditionType, check_for_start: bool = false):
@@ -106,43 +109,50 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 
 		if (condition.type == type):
 
-			# additional check: timer
-			if (type == Enums.QuestConditionType.TIME_ELAPSED
-			&& _timer_index != null):
+			condition.is_completed = false
 
-				# to-do
-				pass
+			if (type == Enums.QuestConditionType.PLAYER_DIED
+			|| type == Enums.QuestConditionType.GAME_BEGAN):
+
+				condition.is_completed = true
+
+			# additional check: timer
+			if (type == Enums.QuestConditionType.TIME_ELAPSED):
+
+				assert(_timer == null, "QUEST: the given timer is null")
+
+				if (_timer == condition
+				&& _timer._is_ended):
+
+					condition.is_completed = true
 
 			# additional check: area identity
-			elif (type == Enums.QuestConditionType.INTERACTED_IN_AREA
-			&& _timer_index != null):
+			if (type == Enums.QuestConditionType.INTERACTED_IN_AREA):
+
+				assert(_area == null, "QUEST: the given area is null")
 
 				if (condition.interactable_area == _area):
 					condition.is_completed = true
 
 			# additional check: entities status
-			elif (type == Enums.QuestConditionType.ENTITY_KILLED
-			&& _timer_index != null):
+			if (type == Enums.QuestConditionType.ENTITY_KILLED):
 
 				var entity_killed_count: int = 0
 				for entity in condition.entities:
 
-					if (!entity.is_alive):
+					if (!entity._is_alive):
 						entity_killed_count += 1
 				
 				if (entity_killed_count >= condition.entities.size()):
 					condition.is_completed = true
 
 			# additional check: dialogue identity
-			elif (type == Enums.QuestConditionType.DIALOGUE_ENDED
-			&& _timer_index != null):
+			if (type == Enums.QuestConditionType.DIALOGUE_ENDED):
+
+				assert(_dialogue == null, "QUEST: the given dialogue is null")
 
 				if (condition.dialogue_config == _dialogue):
 					condition.is_completed = true
-
-			# if there is no exceptional cases, set the condition as completed
-			else:
-				condition.is_completed = true
 
 		if (condition.is_completed):
 			count += 1

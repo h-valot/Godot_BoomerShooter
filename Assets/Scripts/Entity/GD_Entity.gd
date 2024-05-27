@@ -75,9 +75,10 @@ func _process(delta):
 
 func _die():
 
-	rse_entity_killed.trigger()
 	_is_alive = false
+	rse_entity_killed.trigger()
 	on_entity_dies.emit()
+
 	self.queue_free()
 
 

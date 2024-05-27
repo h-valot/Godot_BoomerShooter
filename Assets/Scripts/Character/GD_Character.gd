@@ -8,6 +8,7 @@ class_name Character
 @export_group("Forbidden")
 @export var rso_player_position : RuntimeScriptableObject
 @export var rse_player_died: RuntimeScriptableEventT0
+@export var rse_kill_player: RuntimeScriptableEventT0
 
 var _current_movement_speed : float
 var _direction = Vector3.ZERO
@@ -21,9 +22,10 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready():
-
+	
 	_hud.initialize(player_config)
 	_health_component.on_health_changed.connect(_hud.update_health_bar)
+	rse_kill_player.action.connect(_handle_death)
 	_health_component.on_health_reached_zero.connect(_handle_death)
 	_health_component.on_armor_changed.connect(_hud.update_armor_bar)
 	_health_component.initialize(
@@ -49,6 +51,7 @@ func _physics_process(delta):
 
 func _handle_death():
 	
+	print("player killed")
 	rse_player_died.trigger()
 
 

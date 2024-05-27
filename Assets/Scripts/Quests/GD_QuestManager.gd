@@ -38,17 +38,17 @@ func _on_player_died():
 
 
 ## not implemented yet
-func _on_time_elapsed(_timer_index: int):
+func _on_time_elapsed(timer: QuestConditionTimeElapsed):
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.TIME_ELAPSED)
+		quest.check_conditions_of_type(Enums.QuestConditionType.TIME_ELAPSED, timer, null, null)
 
 
 ## to be tested
-func _on_interacted_in_area(_area: InteractableArea):
+func _on_interacted_in_area(area: InteractableArea):
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTED_IN_AREA)
+		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTED_IN_AREA, null, area, null)
 
 
 func _on_entity_killed():
@@ -57,10 +57,12 @@ func _on_entity_killed():
 		quest.check_conditions_of_type(Enums.QuestConditionType.ENTITY_KILLED)
 
 
-func _on_dialogue_ended(_dialogue_config: DialogueConfig):
+func _on_dialogue_ended(dialogue_config: DialogueConfig):
+
+	print("on dialogue ended in quest manager with", dialogue_config.resource_name)
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.DIALOGUE_ENDED)
+		quest.check_conditions_of_type(Enums.QuestConditionType.DIALOGUE_ENDED, null, null, dialogue_config)
 
 
 func _on_game_began():
