@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ijy3c8s153yu"]
+[gd_scene load_steps=24 format=3 uid="uid://ijy3c8s153yu"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_hxdtb"]
 [ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Character/RE_BaseCharacter.tres" id="2_jtycc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dl2bngaoogdbx" path="res://Assets/Resources/RSO/RSO_PlayerPosition.tres" id="4_vytkp"]
 [ext_resource type="Resource" uid="uid://bi6584880254m" path="res://Assets/Resources/RSE/RSE_PlayerDied.tres" id="5_ct748"]
 [ext_resource type="PackedScene" uid="uid://c1ufa3ylnreay" path="res://Assets/Prefabs/UI/Dialogue/PF_DialogueUI.tscn" id="5_eka37"]
+[ext_resource type="Resource" uid="uid://jow6qfnpwtsd" path="res://Assets/Resources/RSO/RSO_PlayerInteractable.tres" id="5_hj1bq"]
 [ext_resource type="PackedScene" uid="uid://de3fec6ns8th6" path="res://Assets/Prefabs/Character/Base/PF_CharacterHUD.tscn" id="6_7etot"]
 [ext_resource type="Resource" uid="uid://ij8i1e32whyv" path="res://Assets/Resources/RSE/RSE_KillPlayer.tres" id="6_pj0nm"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_InventoryUI.gd" id="7_oxt1e"]
@@ -30,6 +31,7 @@ script = ExtResource("1_hxdtb")
 player_config = ExtResource("2_jtycc")
 weapon_config = ExtResource("3_pndn0")
 rso_player_position = ExtResource("4_vytkp")
+rso_player_interactable = ExtResource("5_hj1bq")
 rse_player_died = ExtResource("5_ct748")
 rse_kill_player = ExtResource("6_pj0nm")
 

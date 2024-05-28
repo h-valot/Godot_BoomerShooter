@@ -14,7 +14,6 @@ var _current_timer: float = 0.0
 
 func start_timer():
 
-	print("timer started")
 	_is_started = true
 
 
@@ -28,5 +27,4 @@ func _process(delta):
 	if (_current_timer >= timer_duration):
 
 		_is_ended = true
-		print("timer ended")
 		rse_time_elapsed.trigger(self)

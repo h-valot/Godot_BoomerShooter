@@ -55,8 +55,7 @@ func _handle_states():
 					_dialogue_apparition_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 
 				if (_last_dialogue_displayed != null):
-					print("on dialogue ended in dialogue ui with", _last_dialogue_displayed.resource_name)
-					rse_dialogue_ended.trigger(_last_dialogue_displayed)
+					rse_dialogue_ended.trigger(_last_dialogue_displayed.sentences[0])
 					
 				rse_enable_inventory.trigger(true)
 				get_tree().paused = false

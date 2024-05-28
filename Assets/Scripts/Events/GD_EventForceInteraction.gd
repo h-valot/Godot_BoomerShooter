@@ -2,7 +2,10 @@ extends Event
 class_name EventForceInteraction
 
 @export_category("Event")
-@export var interactable: Interactable = null
+@export var interactable: Interactable
+
+@export_group("Forbidden")
+@export var rso_player_interactable: RuntimeScriptableObject
 
 
 func execute():
@@ -10,4 +13,4 @@ func execute():
 	super.execute()
 
 	# emit the on interact signal with the player interaction box
-	pass
+	interactable._on_get_interaction(rso_player_interactable.value)

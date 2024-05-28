@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ciqgtgvj5xw5o"]
+[gd_scene load_steps=7 format=3 uid="uid://ciqgtgvj5xw5o"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_InteractableTriggerBox.gd" id="1_3lsfk"]
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/GD_Interactable.gd" id="1_hyglr"]
 [ext_resource type="Resource" uid="uid://b8y6m5rktsnev" path="res://Assets/Resources/Interactable/InteractableAllyFaction.tres" id="2_uwnpb"]
 [ext_resource type="Resource" uid="uid://dk7w6eduhx2m0" path="res://Assets/Resources/Interactable/InteractableIndex.tres" id="2_ygbvo"]
+[ext_resource type="Resource" uid="uid://dijbgq3wu8354" path="res://Assets/Resources/RSE/RSE_InteractableInteracted.tres" id="4_jbo3g"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_feoew"]
 
@@ -13,6 +14,7 @@ interactable_index = ExtResource("2_ygbvo")
 interactable_faction = ExtResource("2_uwnpb")
 interact_on_overlap = true
 trigger_box = NodePath("Area3D")
+rse_interactable_interacted = ExtResource("4_jbo3g")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2

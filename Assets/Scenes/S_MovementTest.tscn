@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://djfmteocgqveo" path="res://Custom/PF_Quest_AFreshBeginning.tscn" id="8_j5k2l"]
 [ext_resource type="PackedScene" uid="uid://dencii50hkdmw" path="res://Assets/Prefabs/PF_SphereMesh.tscn" id="9_8rtsa"]
 [ext_resource type="Resource" uid="uid://gkxayra4se6x" path="res://Assets/Resources/Dialogues/RE_DialogueTemplate.tres" id="9_xyeut"]
-[ext_resource type="PackedScene" uid="uid://dmn7hhc5mrt1t" path="res://Assets/Prefabs/Events/PF_EventKillPlayer.tscn" id="10_7x4gh"]
 [ext_resource type="PackedScene" uid="uid://e8fu483pjnnc" path="res://Assets/Prefabs/Events/PF_EventDestroyNode.tscn" id="10_fjlui"]
+[ext_resource type="PackedScene" uid="uid://5n8cwtblxw00" path="res://Assets/Prefabs/Events/PF_EventForceInteraction.tscn" id="11_hgimo"]
 [ext_resource type="PackedScene" uid="uid://pf2tw1du37pd" path="res://Assets/Prefabs/Quests/Conditions/PF_QuestConditionTimeElapsed.tscn" id="13_psa3e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8ulj"]
@@ -91,6 +91,9 @@ world_position = Vector3(0, 5, 0)
 [node name="PF_QuestConditionTimeElapsed" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Failure" index="0" instance=ExtResource("13_psa3e")]
 timer_duration = 5.0
 
-[node name="PF_EventKillPlayer" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Failure" index="1" instance=ExtResource("10_7x4gh")]
+[node name="PF_EventForceInteraction" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Failure" index="1" node_paths=PackedStringArray("interactable") instance=ExtResource("11_hgimo")]
+interactable = NodePath("../../../../Entities/PF_Opponent/Interactable")
 
+[editable path="Entities/PF_Opponent"]
+[editable path="Entities/PF_Opponent/Interactable"]
 [editable path="PF_QuestManager/PF_Quest_AFreshBeginning"]

@@ -86,10 +86,8 @@ func _die():
 
 func _on_next_dialogue(_other: Node):
 
-	if (!entity_config.dialogue):
-		return
-
-	rse_display_dialogue.trigger(entity_config.dialogue)
+	if (entity_config.dialogue != null):
+		rse_display_dialogue.trigger(entity_config.dialogue)
 
 #endregion
 

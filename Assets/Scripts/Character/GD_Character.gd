@@ -7,6 +7,7 @@ class_name Character
 
 @export_group("Forbidden")
 @export var rso_player_position : RuntimeScriptableObject
+@export var rso_player_interactable: RuntimeScriptableObject
 @export var rse_player_died: RuntimeScriptableEventT0
 @export var rse_kill_player: RuntimeScriptableEventT0
 
@@ -19,10 +20,11 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var _health_component = $PF_Health
 @onready var _hud = $PF_PlayerHud
 @onready var _camera_3d = $"Head/Camera3D"
+@onready var _interactable: Interactable = $"Head/Interactable"
 
 
 func _ready():
-	
+
 	_hud.initialize(player_config)
 	_health_component.on_health_changed.connect(_hud.update_health_bar)
 	rse_kill_player.action.connect(_handle_death)
@@ -35,6 +37,7 @@ func _ready():
 		player_config.iframe_duration
 	)
 
+	rso_player_interactable.value = _interactable
 	_weapon.initialize()
 	weapon_config.initialize_mag()
 	_weapon.set_weapon(weapon_config)

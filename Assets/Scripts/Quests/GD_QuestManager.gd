@@ -4,7 +4,7 @@ class_name QuestManager
 @export_group("Forbidden")
 @export var rse_player_died: RuntimeScriptableEventT0
 @export var rse_time_elapsed: RuntimeScriptableEventT1
-@export var rse_interacted_in_area: RuntimeScriptableEventT1
+@export var rse_interactable_interacted: RuntimeScriptableEventT1
 @export var rse_entity_killed: RuntimeScriptableEventT0
 @export var rse_dialogue_ended: RuntimeScriptableEventT1
 @export var rse_game_began: RuntimeScriptableEventT0
@@ -16,7 +16,7 @@ func _ready():
 
 	rse_player_died.action.connect(_on_player_died)
 	rse_time_elapsed.action.connect(_on_time_elapsed)
-	rse_interacted_in_area.action.connect(_on_interacted_in_area)
+	rse_interactable_interacted.action.connect(_on_interactable_interacted)
 	rse_entity_killed.action.connect(_on_entity_killed)
 	rse_dialogue_ended.action.connect(_on_dialogue_ended)
 	rse_game_began.action.connect(_on_game_began)
@@ -30,25 +30,22 @@ func _ready():
 	rse_game_began.trigger()
 
 
-## to be tested
 func _on_player_died():
 
 	for quest in _quests:
 		quest.check_conditions_of_type(Enums.QuestConditionType.PLAYER_DIED)
 
 
-## not implemented yet
 func _on_time_elapsed(timer: QuestConditionTimeElapsed):
 
 	for quest in _quests:
 		quest.check_conditions_of_type(Enums.QuestConditionType.TIME_ELAPSED, timer, null, null)
 
 
-## to be tested
-func _on_interacted_in_area(area: InteractableArea):
+func _on_interactable_interacted(interactable: Interactable):
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTED_IN_AREA, null, area, null)
+		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTABLE_INTERACTED, null, interactable, null)
 
 
 func _on_entity_killed():
@@ -57,12 +54,10 @@ func _on_entity_killed():
 		quest.check_conditions_of_type(Enums.QuestConditionType.ENTITY_KILLED)
 
 
-func _on_dialogue_ended(dialogue_config: DialogueConfig):
-
-	print("on dialogue ended in quest manager with", dialogue_config.resource_name)
+func _on_dialogue_ended(sentence: String):
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.DIALOGUE_ENDED, null, null, dialogue_config)
+		quest.check_conditions_of_type(Enums.QuestConditionType.DIALOGUE_ENDED, null, null, sentence)
 
 
 func _on_game_began():

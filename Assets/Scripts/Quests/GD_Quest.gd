@@ -69,27 +69,35 @@ func _fill_events(folder):
 
 func start():
 
-	print("QUEST: ", owner.name, " started")
+	print("QUEST: ", self.name, " started")
 	_trigger_events(start_events)
-	start_timers()
+	_start_timers()
 	is_started = true
 
 
-func start_timers():
+func _start_timers():
 
 	for condition in start_events:
 		if (condition.type == Enums.QuestConditionType.TIME_ELAPSED):
 			condition.start_timer()
 
+	for condition in success_conditions:
+		if (condition.type == Enums.QuestConditionType.TIME_ELAPSED):
+			condition.start_timer()
+
+	for condition in failure_conditions:
+		if (condition.type == Enums.QuestConditionType.TIME_ELAPSED):
+			condition.start_timer()
+
 
 var _timer = null
-var _area = null
-var _dialogue = null
-func check_conditions_of_type(type: Enums.QuestConditionType, timer = null, area = null, dialogue = null):
+var _interactable = null
+var _sentence = null
+func check_conditions_of_type(type: Enums.QuestConditionType, timer = null, interactable = null, sentence = null):
 
 	_timer = timer
-	_area = area
-	_dialogue = dialogue
+	_interactable = interactable
+	_sentence = sentence
 
 	if (!is_started):
 		check_conditions(start_conditions, start_events, type, true)
@@ -119,7 +127,7 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 			# additional check: timer
 			if (type == Enums.QuestConditionType.TIME_ELAPSED):
 
-				assert(_timer == null, "QUEST: the given timer is null")
+				assert(_timer != null, "QUEST: the given timer is null")
 
 				if (_timer == condition
 				&& _timer._is_ended):
@@ -127,11 +135,11 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 					condition.is_completed = true
 
 			# additional check: area identity
-			if (type == Enums.QuestConditionType.INTERACTED_IN_AREA):
+			if (type == Enums.QuestConditionType.INTERACTABLE_INTERACTED):
 
-				assert(_area == null, "QUEST: the given area is null")
+				assert(_interactable != null, "QUEST: the given interactable is null")
 
-				if (condition.interactable_area == _area):
+				if (condition.interactable == _interactable):
 					condition.is_completed = true
 
 			# additional check: entities status
@@ -149,9 +157,9 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 			# additional check: dialogue identity
 			if (type == Enums.QuestConditionType.DIALOGUE_ENDED):
 
-				assert(_dialogue == null, "QUEST: the given dialogue is null")
+				assert(!_sentence.is_empty(), "QUEST: the first sentence of the given dialogue is null or empty")
 
-				if (condition.dialogue_config == _dialogue):
+				if (condition.dialogue_config.sentences[0] == _sentence):
 					condition.is_completed = true
 
 		if (condition.is_completed):
