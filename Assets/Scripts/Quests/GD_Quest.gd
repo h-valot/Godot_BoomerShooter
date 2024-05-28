@@ -7,8 +7,13 @@ class_name Quest
 @export var display_on_screen: bool = true
 
 @export_group("Debug")
-@export var is_completed: bool = false
 @export var is_started: bool = false
+@export var is_completed: bool = false
+
+@export_group("Forbidden")
+@export_subgroup("External references")
+@export var rse_quest_started: RuntimeScriptableEventT1 = null
+@export var rse_quest_completed: RuntimeScriptableEventT1 = null
 
 var start_conditions: Array[QuestCondition]
 var start_events: Array[Event]
@@ -18,6 +23,11 @@ var success_events: Array[Event]
 
 var failure_conditions: Array[QuestCondition]
 var failure_events: Array[Event]
+
+var _time_elapsed: QuestConditionTimeElapsed
+var _entities_killed: QuestConditionEntityKilled
+var _interactable: Interactable
+var _sentence: String
 
 @onready var start_folder = $Start
 @onready var success_folder = $Success
@@ -52,6 +62,13 @@ func _fill_conditions(folder):
 
 				failure_folder:
 					failure_conditions.push_back(child)
+			
+
+			if (child as QuestConditionTimeElapsed):
+				_time_elapsed = child
+
+			if (child as QuestConditionEntityKilled):
+				_entities_killed = child
 
 
 func _fill_events(folder):
@@ -74,10 +91,14 @@ func _fill_events(folder):
 
 func start():
 
-	print("QUEST: ", self.name, " started")
 	_trigger_events(start_events)
 	_start_timers()
+
+	# connected to QuestManagerUI
+	rse_quest_started.trigger(self)
+
 	is_started = true
+	print("QUEST: ", self.name, " started")
 
 
 func _start_timers():
@@ -95,14 +116,16 @@ func _start_timers():
 			condition.start_timer()
 
 
-var _timer = null
-var _interactable = null
-var _sentence = null
-func check_conditions_of_type(type: Enums.QuestConditionType, timer = null, interactable = null, sentence = null):
+func check_conditions_of_type(type: Enums.QuestConditionType, timer: QuestConditionTimeElapsed = null, interactable: Interactable = null, sentence: String = ""):
 
-	_timer = timer
-	_interactable = interactable
-	_sentence = sentence
+	if (timer != null):
+		_time_elapsed = timer
+
+	if (interactable != null):
+		_interactable = interactable
+
+	if (sentence != ""):
+		_sentence = sentence
 
 	if (!is_started):
 		check_conditions(start_conditions, start_events, type, true)
@@ -132,10 +155,10 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 			# additional check: timer
 			if (type == Enums.QuestConditionType.TIME_ELAPSED):
 
-				assert(_timer != null, "QUEST: the given timer is null")
+				assert(_time_elapsed != null, "QUEST: the given timer is null")
 
-				if (_timer == condition
-				&& _timer._is_ended):
+				if (_time_elapsed == condition
+				&& _time_elapsed._is_ended):
 
 					condition.is_completed = true
 
@@ -150,13 +173,7 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 			# additional check: entities status
 			if (type == Enums.QuestConditionType.ENTITY_KILLED):
 
-				var entity_killed_count: int = 0
-				for entity in condition.entities:
-
-					if (!entity._is_alive):
-						entity_killed_count += 1
-				
-				if (entity_killed_count >= condition.entities.size()):
+				if (condition.entities_killed_amount >= condition.entities_status.size()):
 					condition.is_completed = true
 
 			# additional check: dialogue identity
@@ -176,9 +193,13 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 	if (count >= 1):
 
 		if (check_for_start):
+
 			start()
+
 		else:
+
 			is_completed = true
+			rse_quest_completed.trigger(self)
 			print("QUEST: ", self.name, " ended")
 			
 		_trigger_events(events)

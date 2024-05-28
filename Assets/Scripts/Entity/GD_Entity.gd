@@ -86,6 +86,9 @@ func _die():
 
 func _on_next_dialogue(_other: Node):
 
+	if !(_other as Character):
+		return
+
 	if (entity_config.dialogue != null):
 		rse_display_dialogue.trigger(entity_config.dialogue)
 

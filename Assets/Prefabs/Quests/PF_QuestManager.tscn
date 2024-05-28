@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hco21em206h0"]
+[gd_scene load_steps=9 format=3 uid="uid://chtidy0yleodt"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Quests/GD_QuestManager.gd" id="1_qjrfn"]
 [ext_resource type="Resource" uid="uid://bi6584880254m" path="res://Assets/Resources/RSE/RSE_PlayerDied.tres" id="2_ef2uw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ch33slsa8mo7o" path="res://Assets/Resources/RSE/RSE_EntityKilled.tres" id="5_xtehk"]
 [ext_resource type="Resource" uid="uid://bpcsi2h6bumoo" path="res://Assets/Resources/RSE/RSE_DialogueEnded.tres" id="6_e3rqk"]
 [ext_resource type="Resource" uid="uid://mrn075varvci" path="res://Assets/Resources/RSE/RSE_GameBegan.tres" id="7_1eapc"]
+[ext_resource type="PackedScene" uid="uid://dg0utv21sij3w" path="res://Assets/Prefabs/UI/Quest/PF_QuestManagerUI.tscn" id="8_gvgw6"]
 
 [node name="PF_QuestManager" type="Node3D"]
 script = ExtResource("1_qjrfn")
@@ -16,3 +17,5 @@ rse_interactable_interacted = ExtResource("4_xtiut")
 rse_entity_killed = ExtResource("5_xtehk")
 rse_dialogue_ended = ExtResource("6_e3rqk")
 rse_game_began = ExtResource("7_1eapc")
+
+[node name="PF_QuestManagerUI" parent="." instance=ExtResource("8_gvgw6")]

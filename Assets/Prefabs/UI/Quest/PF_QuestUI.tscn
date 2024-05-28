@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv35wsdvljq6t"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/GD_QuestUI.gd" id="1_r8sxq"]
+[ext_resource type="Resource" uid="uid://ch33slsa8mo7o" path="res://Assets/Resources/RSE/RSE_EntityKilled.tres" id="2_00nub"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmg84"]
+bg_color = Color(0, 0, 0, 0.529412)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_p23on"]
+font_size = 10
+
+[node name="PF_QuestUI" type="MarginContainer" node_paths=PackedStringArray("title", "timer", "description", "param")]
+offset_right = 176.001
+offset_bottom = 38.0
+script = ExtResource("1_r8sxq")
+rse_entity_killed = ExtResource("2_00nub")
+title = NodePath("MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Top/Label_Title")
+timer = NodePath("MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Top/Label_Timer")
+description = NodePath("MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Bot/Label_Description")
+param = NodePath("MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Bot/Label_Param")
+
+[node name="Panel_Background" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hmg84")
+
+[node name="MarginContainer_Content" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer_Content" type="VBoxContainer" parent="MarginContainer_Content"]
+layout_mode = 2
+
+[node name="HBoxContainer_Top" type="HBoxContainer" parent="MarginContainer_Content/VBoxContainer_Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label_Title" type="Label" parent="MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Top"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Quest"
+label_settings = SubResource("LabelSettings_p23on")
+autowrap_mode = 3
+clip_text = true
+
+[node name="Label_Timer" type="Label" parent="MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Top"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "05:17"
+label_settings = SubResource("LabelSettings_p23on")
+horizontal_alignment = 2
+autowrap_mode = 3
+clip_text = true
+
+[node name="HBoxContainer_Bot" type="HBoxContainer" parent="MarginContainer_Content/VBoxContainer_Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label_Description" type="Label" parent="MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Bot"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Do stuff"
+label_settings = SubResource("LabelSettings_p23on")
+autowrap_mode = 3
+
+[node name="Label_Param" type="Label" parent="MarginContainer_Content/VBoxContainer_Content/HBoxContainer_Bot"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.4
+text = "[0/5]"
+label_settings = SubResource("LabelSettings_p23on")
+horizontal_alignment = 2
+autowrap_mode = 3
+clip_text = true

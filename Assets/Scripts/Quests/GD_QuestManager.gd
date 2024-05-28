@@ -2,6 +2,7 @@ extends Node
 class_name QuestManager
 
 @export_group("Forbidden")
+@export_subgroup("External references")
 @export var rse_player_died: RuntimeScriptableEventT0
 @export var rse_time_elapsed: RuntimeScriptableEventT1
 @export var rse_interactable_interacted: RuntimeScriptableEventT1
@@ -39,13 +40,13 @@ func _on_player_died():
 func _on_time_elapsed(timer: QuestConditionTimeElapsed):
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.TIME_ELAPSED, timer, null, null)
+		quest.check_conditions_of_type(Enums.QuestConditionType.TIME_ELAPSED, timer)
 
 
 func _on_interactable_interacted(interactable: Interactable):
 
 	for quest in _quests:
-		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTABLE_INTERACTED, null, interactable, null)
+		quest.check_conditions_of_type(Enums.QuestConditionType.INTERACTABLE_INTERACTED, null, interactable)
 
 
 func _on_entity_killed():

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg0utv21sij3w"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/GD_QuestManagerUI.gd" id="1_h6qrn"]
+[ext_resource type="PackedScene" uid="uid://bv35wsdvljq6t" path="res://Assets/Prefabs/UI/Quest/PF_QuestUI.tscn" id="2_ej71a"]
+[ext_resource type="Resource" uid="uid://dnurcyuc4uex4" path="res://Assets/Resources/RSE/RSE_QuestStarted.tres" id="3_26stp"]
+[ext_resource type="Resource" uid="uid://bnryigujfi5qq" path="res://Assets/Resources/RSE/RSE_QuestCompleted.tres" id="4_y5uix"]
+
+[node name="PF_QuestManagerUI" type="CanvasLayer" node_paths=PackedStringArray("quests_ui_content")]
+script = ExtResource("1_h6qrn")
+pf_quest_ui = ExtResource("2_ej71a")
+rse_quest_started = ExtResource("3_26stp")
+rse_quest_completed = ExtResource("4_y5uix")
+quests_ui_content = NodePath("MarginContainer/VBoxContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2

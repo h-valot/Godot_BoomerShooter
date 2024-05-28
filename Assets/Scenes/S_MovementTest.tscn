@@ -1,15 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0tg7jm3r2gnt"]
+[gd_scene load_steps=17 format=3 uid="uid://d0tg7jm3r2gnt"]
 
 [ext_resource type="PackedScene" uid="uid://ijy3c8s153yu" path="res://Assets/Prefabs/Character/PF_Character.tscn" id="2_dbwrp"]
 [ext_resource type="PackedScene" uid="uid://bpft763acmlc2" path="res://Assets/Prefabs/Blockout/PF_Cube_1x1.tscn" id="2_lu8k6"]
 [ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/Entity/PF_BaseEntity.tscn" id="2_upqix"]
 [ext_resource type="NavigationMesh" uid="uid://cfix7url5y7n2" path="res://Assets/Resources/NM_MovementTest.tres" id="4_qsb15"]
-[ext_resource type="PackedScene" uid="uid://hco21em206h0" path="res://Assets/Prefabs/Quests/PF_QuestManager.tscn" id="7_8q6tm"]
+[ext_resource type="PackedScene" uid="uid://chtidy0yleodt" path="res://Assets/Prefabs/Quests/PF_QuestManager.tscn" id="7_8q6tm"]
 [ext_resource type="PackedScene" uid="uid://djfmteocgqveo" path="res://Custom/PF_Quest_AFreshBeginning.tscn" id="8_j5k2l"]
+[ext_resource type="Resource" uid="uid://dnurcyuc4uex4" path="res://Assets/Resources/RSE/RSE_QuestStarted.tres" id="8_xi7o6"]
+[ext_resource type="Resource" uid="uid://bnryigujfi5qq" path="res://Assets/Resources/RSE/RSE_QuestCompleted.tres" id="9_4prmy"]
 [ext_resource type="PackedScene" uid="uid://dencii50hkdmw" path="res://Assets/Prefabs/PF_SphereMesh.tscn" id="9_8rtsa"]
 [ext_resource type="Resource" uid="uid://gkxayra4se6x" path="res://Assets/Resources/Dialogues/RE_DialogueTemplate.tres" id="9_xyeut"]
 [ext_resource type="PackedScene" uid="uid://e8fu483pjnnc" path="res://Assets/Prefabs/Events/PF_EventDestroyNode.tscn" id="10_fjlui"]
-[ext_resource type="PackedScene" uid="uid://5n8cwtblxw00" path="res://Assets/Prefabs/Events/PF_EventForceInteraction.tscn" id="11_hgimo"]
 [ext_resource type="PackedScene" uid="uid://pf2tw1du37pd" path="res://Assets/Prefabs/Quests/Conditions/PF_QuestConditionTimeElapsed.tscn" id="13_psa3e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8ulj"]
@@ -63,19 +64,24 @@ transform = Transform3D(200, 0, 0, 0, 1, 0, 0, 0, 200, 0, 0, 0)
 
 [node name="Entities" type="Node3D" parent="."]
 
-[node name="PF_Opponent" parent="Entities" instance=ExtResource("2_upqix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1.50309, 1.8717)
-
 [node name="PF_Character" parent="Entities" instance=ExtResource("2_dbwrp")]
 transform = Transform3D(-0.999474, 0, -0.0324225, 0, 1, 0, 0.0324225, 0, -0.999474, -5.34285, 0.447171, -4.7595)
+
+[node name="PF_BaseEntity" parent="Entities" instance=ExtResource("2_upqix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 5)
+
+[node name="PF_BaseEntity2" parent="Entities" instance=ExtResource("2_upqix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, 10)
 
 [node name="PF_QuestManager" parent="." instance=ExtResource("7_8q6tm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 1)
 
 [node name="PF_Quest_AFreshBeginning" parent="PF_QuestManager" instance=ExtResource("8_j5k2l")]
+rse_quest_started = ExtResource("8_xi7o6")
+rse_quest_completed = ExtResource("9_4prmy")
 
 [node name="PF_QuestConditionEntityKilled" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="0" node_paths=PackedStringArray("entities")]
-entities = [NodePath("../../../../Entities/PF_Opponent")]
+entities = [NodePath("../../../../Entities/PF_BaseEntity"), NodePath("../../../../Entities/PF_BaseEntity2")]
 
 [node name="PF_QuestConditionDialogueEnded" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="1"]
 dialogue_config = ExtResource("9_xyeut")
@@ -89,11 +95,8 @@ spawn_parent = NodePath("../../../../Entities")
 world_position = Vector3(0, 5, 0)
 
 [node name="PF_QuestConditionTimeElapsed" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Failure" index="0" instance=ExtResource("13_psa3e")]
-timer_duration = 5.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 1)
+timer_duration = 120.0
 
-[node name="PF_EventForceInteraction" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Failure" index="1" node_paths=PackedStringArray("interactable") instance=ExtResource("11_hgimo")]
-interactable = NodePath("../../../../Entities/PF_Opponent/Interactable")
-
-[editable path="Entities/PF_Opponent"]
-[editable path="Entities/PF_Opponent/Interactable"]
+[editable path="PF_QuestManager"]
 [editable path="PF_QuestManager/PF_Quest_AFreshBeginning"]

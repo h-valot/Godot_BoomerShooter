@@ -84,6 +84,7 @@ func _handle_states():
 
 func _fill_queue(new_dialogue: DialogueConfig):
 
+	print("fill queue called")
 	_enabled = true
 	rse_enable_inventory.trigger(false)
 	get_tree().paused = true
