@@ -1,6 +1,11 @@
 extends Node
 class_name Quest
 
+@export_category("Quest")
+@export var title: String = "Quest"
+@export var description: String = "Do stuff"
+@export var display_on_screen: bool = true
+
 @export_group("Debug")
 @export var is_completed: bool = false
 @export var is_started: bool = false
@@ -165,13 +170,16 @@ func check_conditions(conditions: Array[QuestCondition], events: Array[Event], t
 		if (condition.is_completed):
 			count += 1
 
-	if (count >= conditions.size()):
+	# validate a quest if at least one condition is completed (OR logic)
+	# replace the if statement by the following one, if you want an AND logic
+	# if (count >= conditions.size()):
+	if (count >= 1):
 
 		if (check_for_start):
 			start()
 		else:
 			is_completed = true
-			print("QUEST: success or failures")
+			print("QUEST: ", self.name, " ended")
 			
 		_trigger_events(events)
 
