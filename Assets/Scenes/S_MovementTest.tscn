@@ -65,7 +65,7 @@ transform = Transform3D(200, 0, 0, 0, 1, 0, 0, 0, 200, 0, 0, 0)
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="PF_Character" parent="Entities" instance=ExtResource("2_dbwrp")]
-transform = Transform3D(-0.999474, 0, -0.0324225, 0, 1, 0, 0.0324225, 0, -0.999474, -5.34285, 0.447171, -4.7595)
+transform = Transform3D(-0.999474, 0, -0.0324225, 0, 1, 0, 0.0324225, 0, -0.999474, 0.693899, 3.04517, -2.61107)
 
 [node name="PF_BaseEntity" parent="Entities" instance=ExtResource("2_upqix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 5)
