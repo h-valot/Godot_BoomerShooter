@@ -22,12 +22,12 @@ func initialize(player_config : CharacterConfig):
 		armor_progress_bar.hide()
 
 
-func update_health_bar(current_health):
-
+func update_health_bar(current_health, amount):
+	
 	health_progress_bar.value = current_health / _max_health
 
 
-func update_armor_bar(current_armor):
+func update_armor_bar(current_armor, amount):
 
 	if (armor_progress_bar.hidden):
 		armor_progress_bar.show()

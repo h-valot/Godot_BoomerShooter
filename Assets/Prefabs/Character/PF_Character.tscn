@@ -144,6 +144,4 @@ shape = SubResource("SphereShape3D_7tq5y")
 
 [editable path="Head/Interactable"]
 [editable path="PF_PlayerHud"]
-[editable path="PF_PlayerHud/PF_AnimatedProgressBar"]
-[editable path="PF_PlayerHud/PF_AnimatedProgressBar2"]
 [editable path="InteractiveInventory"]
