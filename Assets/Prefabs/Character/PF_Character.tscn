@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ijy3c8s153yu"]
+[gd_scene load_steps=24 format=3 uid="uid://ijy3c8s153yu"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Character/GD_Character.gd" id="1_hxdtb"]
 [ext_resource type="Resource" uid="uid://0eeobww87wpk" path="res://Assets/Resources/Character/RE_BaseCharacter.tres" id="2_jtycc"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="15_5gvro"]
 [ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="16_ph8i4"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="17_gn0ew"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_WeaponInventory.gd" id="17_xcsw2"]
 [ext_resource type="Script" path="res://Assets/Scripts/PickUps/GD_PickupCollider.gd" id="19_3hmef"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
@@ -120,8 +121,9 @@ shape = SubResource("CapsuleShape3D_uafqk")
 [node name="PF_Health" parent="." instance=ExtResource("15_5gvro")]
 receiver_type = 1
 
-[node name="WeaponInventory" type="Node3D" parent="."]
-script = ExtResource("8_w42fp")
+[node name="WeaponInventory" type="Node3D" parent="." node_paths=PackedStringArray("main_inventory")]
+script = ExtResource("17_xcsw2")
+main_inventory = NodePath("../PF_PlayerHud/InventoryUI/Inventory")
 
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("16_ph8i4")
