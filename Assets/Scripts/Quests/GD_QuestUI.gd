@@ -32,10 +32,11 @@ func initialize(new_title: String, new_description: String, new_timer: QuestCond
 		print("timer is null")
 		timer.text = ""
 
-	if (_entities_killed.entities_status.size() <= 0):
-		param.text = ""
-	else:
-		_update_entity_killed_count()
+	if (_entities_killed != null):
+		if (_entities_killed.entities_status.size() <= 0):
+			param.text = ""
+		else:
+			_update_entity_killed_count()
 	
 	_is_initialized = true
 
