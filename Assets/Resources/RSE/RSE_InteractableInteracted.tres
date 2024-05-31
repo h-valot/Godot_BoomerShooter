@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="RuntimeScriptableEventT1" load_steps=2 format=3 uid="uid://dijbgq3wu8354"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/RuntimeScriptables/RuntimeScriptableEvents/GD_RuntimeScriptableEventT1.gd" id="1_71tdr"]
+
+[resource]
+script = ExtResource("1_71tdr")

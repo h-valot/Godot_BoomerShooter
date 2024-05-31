@@ -1,16 +1,19 @@
 extends CanvasLayer
 class_name DialogueUI
 
-@export_category("Tweakable values")
+@export_category("DialogueUI")
 @export var char_read_rate: float = 0.025
-@export_category("References")
+
+@export_group("Forbidden")
 @export var rse_display_dialogue: RuntimeScriptableEventT1 = null
 @export var rse_enable_inventory: RuntimeScriptableEventT1 = null
+@export var rse_dialogue_ended: RuntimeScriptableEventT1 = null
 
 var _current_state = State.READY
 var _dialogue_apparition_tween: Tween = null
 var _dialogue_queue: Array[String]
 var _enabled: bool = false
+var _last_dialogue_displayed: DialogueConfig = null
 
 @onready var dialogue_box = $DialogueBox_MarginContainer
 @onready var label = $DialogueBox_MarginContainer/InnerText_MarginContainer/InnerText_HBoxContainer/Label
@@ -42,7 +45,7 @@ func _handle_states():
 			
 			if (!_dialogue_queue.is_empty()):
 
-				_display_sentence()
+				_display_next_dialogue()
 
 			else:
 
@@ -51,8 +54,12 @@ func _handle_states():
 				if (_dialogue_apparition_tween != null):
 					_dialogue_apparition_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 
+				if (_last_dialogue_displayed != null):
+					rse_dialogue_ended.trigger(_last_dialogue_displayed.sentences[0])
+					
 				rse_enable_inventory.trigger(true)
 				get_tree().paused = false
+
 
 		
 		State.READING:
@@ -75,17 +82,19 @@ func _handle_states():
 				_hide_dialogue()
 
 
-func _fill_queue(new_queue: Array[String]):
+func _fill_queue(new_dialogue: DialogueConfig):
 
+	print("fill queue called")
 	_enabled = true
 	rse_enable_inventory.trigger(false)
 	get_tree().paused = true
+	_last_dialogue_displayed = new_dialogue
 
-	for index in len(new_queue):
-		_dialogue_queue.push_back(new_queue[index])
+	for index in len(new_dialogue.sentences):
+		_dialogue_queue.push_back(new_dialogue.sentences[index])
 
 
-func _display_sentence():
+func _display_next_dialogue():
 
 	var new_text = _dialogue_queue.pop_front()
 	label.text = new_text

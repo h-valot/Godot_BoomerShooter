@@ -1,0 +1,2 @@
+extends QuestCondition
+class_name QuestConditionPlayerDied

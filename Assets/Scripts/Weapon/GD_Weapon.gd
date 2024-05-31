@@ -80,6 +80,10 @@ func _get_inputs():
 			_fire_rate_delay = 0
 			_firing = true
 			
+			# prevent head dislocation
+			if (_head.global_transform.basis.z.y <= -0.975):
+				return
+
 			_head.rotate_x(deg_to_rad(weapon_config.recoil_scalar))
 	
 	if (Input.is_action_just_released("Fire")):

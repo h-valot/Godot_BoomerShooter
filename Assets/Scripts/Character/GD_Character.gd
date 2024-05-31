@@ -1,10 +1,15 @@
 extends CharacterBody3D
 class_name Character
 
-@export_category("References")
+@export_category("Character")
 @export var player_config : CharacterConfig
 @export var weapon_config : WeaponConfig
+
+@export_group("Forbidden")
 @export var rso_player_position : RuntimeScriptableObject
+@export var rso_player_interactable: RuntimeScriptableObject
+@export var rse_player_died: RuntimeScriptableEventT0
+@export var rse_kill_player: RuntimeScriptableEventT0
 
 var _current_movement_speed : float
 var _direction = Vector3.ZERO
@@ -15,12 +20,15 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var _health_component = $PF_Health
 @onready var _hud = $PF_PlayerHud
 @onready var _camera_3d = $"Head/Camera3D"
+@onready var _interactable: Interactable = $"Head/Interactable"
 
 
 func _ready():
 
 	_hud.initialize(player_config)
 	_health_component.on_health_changed.connect(_hud.update_health_bar)
+	rse_kill_player.action.connect(_handle_death)
+	_health_component.on_health_reached_zero.connect(_handle_death)
 	_health_component.on_armor_changed.connect(_hud.update_armor_bar)
 	_health_component.initialize(
 		player_config.base_health, 
@@ -29,6 +37,7 @@ func _ready():
 		player_config.iframe_duration
 	)
 
+	rso_player_interactable.value = _interactable
 	_weapon.initialize()
 	weapon_config.initialize_mag()
 	_weapon.set_weapon(weapon_config)
@@ -41,6 +50,12 @@ func _physics_process(delta):
 
 	_handle_move(delta)
 	_change_weapon()
+
+
+func _handle_death():
+	
+	print("player killed")
+	rse_player_died.trigger()
 
 
 #region MOTOR
@@ -190,7 +205,7 @@ func _set_weapon(index: int):
 
 	var weapon_at_index: WeaponConfig = _weapon_inventory.get_item_by_index((index))
 
-	if (weapon_at_index == null):
+	if (weapon_at_index == null || !_weapon_inventory.have_item(weapon_at_index)):
 		return;
 
 	_weapon.set_weapon(weapon_at_index)

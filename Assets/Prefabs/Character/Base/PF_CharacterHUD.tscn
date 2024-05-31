@@ -6,8 +6,8 @@
 
 [node name="PF_PlayerHud" type="CanvasLayer" node_paths=PackedStringArray("health_progress_bar", "armor_progress_bar")]
 script = ExtResource("1_sv7qg")
-health_progress_bar = NodePath("PF_AnimatedProgressBar2")
-armor_progress_bar = NodePath("PF_AnimatedProgressBar")
+health_progress_bar = NodePath("PF_AnimatedProgressBar_Health")
+armor_progress_bar = NodePath("PF_AnimatedProgressBar_Armor")
 
 [node name="TEX_Crosshair" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -25,14 +25,14 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 texture = ExtResource("1_gmvc2")
 
-[node name="PF_AnimatedProgressBar" parent="." instance=ExtResource("3_ay7wr")]
+[node name="PF_AnimatedProgressBar_Armor" parent="." instance=ExtResource("3_ay7wr")]
 offset_left = 28.0
 offset_top = 593.0
 offset_right = 128.0
 offset_bottom = 603.0
 _upper_color = Color(0.0313726, 0.576471, 1, 1)
 
-[node name="PF_AnimatedProgressBar2" parent="." instance=ExtResource("3_ay7wr")]
+[node name="PF_AnimatedProgressBar_Health" parent="." instance=ExtResource("3_ay7wr")]
 offset_left = 28.0
 offset_top = 610.0
 offset_right = 228.0

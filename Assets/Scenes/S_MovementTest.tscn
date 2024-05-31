@@ -1,15 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0tg7jm3r2gnt"]
+[gd_scene load_steps=17 format=3 uid="uid://d0tg7jm3r2gnt"]
 
-[ext_resource type="PackedScene" uid="uid://ccwpdfq6nw0g0" path="res://Assets/Prefabs/Pickups/PF_PickUp.tscn" id="1_8k2l3"]
-[ext_resource type="Resource" uid="uid://csm8daewsph4c" path="res://Assets/Resources/Items/Consumables/RE_ConsumableTemplate.tres" id="2_1pu3e"]
 [ext_resource type="PackedScene" uid="uid://ijy3c8s153yu" path="res://Assets/Prefabs/Character/PF_Character.tscn" id="2_dbwrp"]
 [ext_resource type="PackedScene" uid="uid://bpft763acmlc2" path="res://Assets/Prefabs/Blockout/PF_Cube_1x1.tscn" id="2_lu8k6"]
 [ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/Entity/PF_BaseEntity.tscn" id="2_upqix"]
 [ext_resource type="NavigationMesh" uid="uid://cfix7url5y7n2" path="res://Assets/Resources/NM_MovementTest.tres" id="4_qsb15"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_dy5sh"]
-vertices = PackedVector3Array(-99.5, 1, -99.5, -99.5, 1, 99.5, 99.5, 1, 99.5, 99.5, 1, -99.5)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+[ext_resource type="PackedScene" uid="uid://chtidy0yleodt" path="res://Assets/Prefabs/Quests/PF_QuestManager.tscn" id="7_8q6tm"]
+[ext_resource type="PackedScene" uid="uid://djfmteocgqveo" path="res://Custom/PF_Quest_AFreshBeginning.tscn" id="8_j5k2l"]
+[ext_resource type="Resource" uid="uid://dnurcyuc4uex4" path="res://Assets/Resources/RSE/RSE_QuestStarted.tres" id="8_xi7o6"]
+[ext_resource type="Resource" uid="uid://bnryigujfi5qq" path="res://Assets/Resources/RSE/RSE_QuestCompleted.tres" id="9_4prmy"]
+[ext_resource type="PackedScene" uid="uid://dencii50hkdmw" path="res://Assets/Prefabs/PF_SphereMesh.tscn" id="9_8rtsa"]
+[ext_resource type="Resource" uid="uid://gkxayra4se6x" path="res://Assets/Resources/Dialogues/RE_DialogueTemplate.tres" id="9_xyeut"]
+[ext_resource type="PackedScene" uid="uid://e8fu483pjnnc" path="res://Assets/Prefabs/Events/PF_EventDestroyNode.tscn" id="10_fjlui"]
+[ext_resource type="PackedScene" uid="uid://pf2tw1du37pd" path="res://Assets/Prefabs/Quests/Conditions/PF_QuestConditionTimeElapsed.tscn" id="13_psa3e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8ulj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -24,35 +26,11 @@ sky = SubResource("Sky_dy52j")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_dy5sh"]
+vertices = PackedVector3Array(-99.5, 1, -99.5, -99.5, 1, 99.5, 99.5, 1, 99.5, 99.5, 1, -99.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
 [node name="SMovementTest" type="Node3D"]
-
-[node name="PF_PickUp" parent="." instance=ExtResource("1_8k2l3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4726, 0.570819, -1.42749)
-item = ExtResource("2_1pu3e")
-
-[node name="Entities" type="Node3D" parent="."]
-
-[node name="PF_Opponent" parent="Entities" instance=ExtResource("2_upqix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.55909, 1.50309, 1.8717)
-
-[node name="PF_Character" parent="Entities" instance=ExtResource("2_dbwrp")]
-transform = Transform3D(-0.999474, 0, -0.0324225, 0, 1, 0, 0.0324225, 0, -0.999474, -5.34285, 0.447171, -4.7595)
-
-[node name="GroundedNavMesh" type="NavigationRegion3D" parent="."]
-navigation_mesh = ExtResource("4_qsb15")
-
-[node name="PF_Cube_1x1" parent="GroundedNavMesh" instance=ExtResource("2_lu8k6")]
-transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, -0.156007, -1.5)
-
-[node name="PF_Cube_1x2" parent="GroundedNavMesh" instance=ExtResource("2_lu8k6")]
-transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, 2.15601, -1.5)
-
-[node name="FlyNavMesh" type="NavigationRegion3D" parent="GroundedNavMesh"]
-navigation_mesh = SubResource("NavigationMesh_dy5sh")
-navigation_layers = 2
-
-[node name="PF_Cube_50x50" parent="GroundedNavMesh/FlyNavMesh" instance=ExtResource("2_lu8k6")]
-transform = Transform3D(200, 0, 0, 0, 1, 0, 0, 0, 200, 0, 0, 0)
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -62,3 +40,63 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_6yoed")
+
+[node name="LevelDesign" type="Node3D" parent="."]
+
+[node name="PF_SphereMesh" parent="LevelDesign" instance=ExtResource("9_8rtsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94876, 0.5, -0.294173)
+
+[node name="GroundedNavMesh" type="NavigationRegion3D" parent="LevelDesign"]
+navigation_mesh = ExtResource("4_qsb15")
+
+[node name="PF_Cube_1x1" parent="LevelDesign/GroundedNavMesh" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, -0.156007, -1.5)
+
+[node name="PF_Cube_1x2" parent="LevelDesign/GroundedNavMesh" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(2.31201, 0, 0, 0, 2.31201, 0, 0, 0, 20.9453, 0.5, 2.15601, -1.5)
+
+[node name="FlyNavMesh" type="NavigationRegion3D" parent="LevelDesign/GroundedNavMesh"]
+navigation_mesh = SubResource("NavigationMesh_dy5sh")
+navigation_layers = 2
+
+[node name="PF_Cube_50x50" parent="LevelDesign/GroundedNavMesh/FlyNavMesh" instance=ExtResource("2_lu8k6")]
+transform = Transform3D(200, 0, 0, 0, 1, 0, 0, 0, 200, 0, 0, 0)
+
+[node name="Entities" type="Node3D" parent="."]
+
+[node name="PF_Character" parent="Entities" instance=ExtResource("2_dbwrp")]
+transform = Transform3D(-0.999474, 0, -0.0324225, 0, 1, 0, 0.0324225, 0, -0.999474, 0.693899, 3.04517, -2.61107)
+
+[node name="PF_BaseEntity" parent="Entities" instance=ExtResource("2_upqix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 5)
+
+[node name="PF_BaseEntity2" parent="Entities" instance=ExtResource("2_upqix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, 10)
+
+[node name="PF_QuestManager" parent="." instance=ExtResource("7_8q6tm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 1)
+
+[node name="PF_Quest_AFreshBeginning" parent="PF_QuestManager" instance=ExtResource("8_j5k2l")]
+rse_quest_started = ExtResource("8_xi7o6")
+rse_quest_completed = ExtResource("9_4prmy")
+
+[node name="PF_QuestConditionEntityKilled" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="0" node_paths=PackedStringArray("entities")]
+entities = [NodePath("../../../../Entities/PF_BaseEntity"), NodePath("../../../../Entities/PF_BaseEntity2")]
+
+[node name="PF_QuestConditionDialogueEnded" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="1"]
+dialogue_config = ExtResource("9_xyeut")
+
+[node name="PF_EventDestroyNode" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="2" node_paths=PackedStringArray("nodes_to_destroy") instance=ExtResource("10_fjlui")]
+nodes_to_destroy = [NodePath("../../../../LevelDesign/PF_SphereMesh")]
+
+[node name="PF_EventSpawnNode" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Success" index="3" node_paths=PackedStringArray("spawn_parent")]
+node_prefab = ExtResource("9_8rtsa")
+spawn_parent = NodePath("../../../../Entities")
+world_position = Vector3(0, 5, 0)
+
+[node name="PF_QuestConditionTimeElapsed" parent="PF_QuestManager/PF_Quest_AFreshBeginning/Failure" index="0" instance=ExtResource("13_psa3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 1)
+timer_duration = 120.0
+
+[editable path="PF_QuestManager"]
+[editable path="PF_QuestManager/PF_Quest_AFreshBeginning"]

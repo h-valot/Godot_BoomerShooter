@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsafwjmrbexat"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Interactable/Objects/GD_Door.gd" id="1_ffoaq"]
-[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/PF_Interactable.tscn" id="2_dukvf"]
+[ext_resource type="PackedScene" uid="uid://ciqgtgvj5xw5o" path="res://Assets/Prefabs/Interactables/PF_Interactable.tscn" id="2_dukvf"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_Inventory.gd" id="3_n5k2y"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_em3wh"]
