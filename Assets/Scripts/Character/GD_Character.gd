@@ -205,7 +205,7 @@ func _set_weapon(index: int):
 
 	var weapon_at_index: WeaponConfig = _weapon_inventory.get_item_by_index((index))
 
-	if (weapon_at_index == null):
+	if (weapon_at_index == null || !_weapon_inventory.have_item(weapon_at_index)):
 		return;
 
 	_weapon.set_weapon(weapon_at_index)

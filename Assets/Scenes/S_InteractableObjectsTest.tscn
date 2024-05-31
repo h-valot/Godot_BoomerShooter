@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx7ii0hjkccxf"]
+[gd_scene load_steps=12 format=3 uid="uid://dx7ii0hjkccxf"]
 
 [ext_resource type="Material" uid="uid://rhhcmqw3swmi" path="res://Assets/Graphics/Materials/M_GridDark.tres" id="1_3cbno"]
-[ext_resource type="PackedScene" uid="uid://dsafwjmrbexat" path="res://Assets/Prefabs/PF_Door.tscn" id="3_5y824"]
+[ext_resource type="PackedScene" uid="uid://dsafwjmrbexat" path="res://Assets/Prefabs/Interactable/PF_Door.tscn" id="3_5y824"]
 [ext_resource type="Resource" uid="uid://dijidskeacfr2" path="res://Assets/Resources/Interactable/InteractionDebugCondition.tres" id="4_5mpwu"]
 [ext_resource type="PackedScene" uid="uid://ccwpdfq6nw0g0" path="res://Assets/Prefabs/Pickups/PF_PickUp.tscn" id="4_jrsqp"]
 [ext_resource type="Resource" uid="uid://csm8daewsph4c" path="res://Assets/Resources/Items/Consumables/RE_ConsumableTemplate.tres" id="6_mxee1"]
 [ext_resource type="PackedScene" uid="uid://i6tjyky8orfu" path="res://Assets/Prefabs/Entity/PF_BaseEntity.tscn" id="7_ncg3e"]
 [ext_resource type="PackedScene" uid="uid://ijy3c8s153yu" path="res://Assets/Prefabs/Character/PF_Character.tscn" id="7_ua5mw"]
+[ext_resource type="Script" path="res://Assets/Scripts/Sound/GD_AudioSource.gd" id="8_cr4k3"]
+[ext_resource type="Resource" uid="uid://bim6nrg1xphy5" path="res://Assets/Resources/Sound/RE_AudioMap.tres" id="9_ht5r3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ha34v"]
 
@@ -91,8 +93,9 @@ interact_on_overlap = false
 [node name="Pickups" type="Node3D" parent="."]
 
 [node name="PfPickUp" parent="Pickups" instance=ExtResource("4_jrsqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 2)
+transform = Transform3D(1.96271, 0, 0, 0, 1.96271, 0, 0, 0, 1.96271, -7, 1, 2)
 item = ExtResource("6_mxee1")
+require_input = true
 
 [node name="PfPickUp2" parent="Pickups" instance=ExtResource("4_jrsqp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.92841, 7.62348, -0.335409)
@@ -113,7 +116,15 @@ shadow_blur = 4.6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -7)
 
 [node name="PF_Character" parent="." instance=ExtResource("7_ua5mw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.66161, 1)
+
+[node name="AudioSource" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.38444, 0)
+attenuation_model = 3
+autoplay = true
+max_distance = 100.0
+script = ExtResource("8_cr4k3")
+audio_map = ExtResource("9_ht5r3")
 
 [editable path="PfDoor"]
 [editable path="PfDoor/Interactable"]

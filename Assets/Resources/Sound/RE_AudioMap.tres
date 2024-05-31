@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AudioMap" load_steps=4 format=3 uid="uid://bim6nrg1xphy5"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Sound/GD_AudioMap.gd" id="1_alo1g"]
+[ext_resource type="Resource" uid="uid://doe4m2lc521w8" path="res://Assets/Resources/Sound/RE_AK_Sample.tres" id="1_l3wqo"]
+[ext_resource type="AudioStream" uid="uid://bgv6l8po47joh" path="res://Assets/Resources/Sound/RE_DebugAudioStream.tres" id="2_5uoxf"]
+
+[resource]
+script = ExtResource("1_alo1g")
+_audio_map = {
+ExtResource("1_l3wqo"): ExtResource("2_5uoxf")
+}

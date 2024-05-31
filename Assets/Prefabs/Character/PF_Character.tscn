@@ -21,10 +21,14 @@
 [ext_resource type="PackedScene" uid="uid://nuh37785kb8n" path="res://Assets/Prefabs/Components/PF_Health.tscn" id="15_5gvro"]
 [ext_resource type="Script" path="res://Assets/Scripts/Weapon/GD_Weapon.gd" id="16_ph8i4"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_UseConsumable.gd" id="17_gn0ew"]
+[ext_resource type="Script" path="res://Assets/Scripts/Inventory/GD_WeaponInventory.gd" id="17_xcsw2"]
+[ext_resource type="Script" path="res://Assets/Scripts/PickUps/GD_PickupCollider.gd" id="19_3hmef"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxpnw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uafqk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7tq5y"]
 
 [node name="PF_Character" type="CharacterBody3D"]
 script = ExtResource("1_hxdtb")
@@ -54,6 +58,9 @@ one_interaction_per_frame = true
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 fov = 90.0
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Head/Camera3D"]
+current = true
 
 [node name="PF_PlayerHud" parent="." instance=ExtResource("6_7etot")]
 
@@ -120,8 +127,9 @@ shape = SubResource("CapsuleShape3D_uafqk")
 [node name="PF_Health" parent="." instance=ExtResource("15_5gvro")]
 receiver_type = 1
 
-[node name="WeaponInventory" type="Node3D" parent="."]
-script = ExtResource("8_w42fp")
+[node name="WeaponInventory" type="Node3D" parent="." node_paths=PackedStringArray("main_inventory")]
+script = ExtResource("17_xcsw2")
+main_inventory = NodePath("../PF_PlayerHud/InventoryUI/Inventory")
 
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("16_ph8i4")
@@ -131,6 +139,16 @@ health_component = NodePath("../PF_Health")
 script = ExtResource("17_gn0ew")
 local_player = NodePath("..")
 head = NodePath("../Head")
+
+[node name="PickUpCollider" type="Area3D" parent="." node_paths=PackedStringArray("inventory")]
+transform = Transform3D(1.45042, 0, 0, 0, 1.45042, 0, 0, 0, 1.45042, 0, 0.312352, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("19_3hmef")
+inventory = NodePath("../PF_PlayerHud/InventoryUI/Inventory")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpCollider"]
+shape = SubResource("SphereShape3D_7tq5y")
 
 [editable path="Head/Interactable"]
 [editable path="PF_PlayerHud"]
