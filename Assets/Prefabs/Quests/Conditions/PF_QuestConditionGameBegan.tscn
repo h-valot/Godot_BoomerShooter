@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cexywhcyp6o6x"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/Conditions/GD_QuestConditionGameBegan.gd" id="1_ukibq"]
+
+[node name="PF_QuestConditionGameBegan" type="Node3D"]
+script = ExtResource("1_ukibq")
+type = 6

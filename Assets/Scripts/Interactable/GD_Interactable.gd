@@ -19,6 +19,9 @@ signal on_get_interactable_overlap(other: Node)
 
 @export var trigger_box: InteractableTriggerBox
 
+@export_group("Forbidden")
+@export var rse_interactable_interacted: RuntimeScriptableEventT1
+
 var current_other_interactable: Interactable = null
 
 
@@ -44,6 +47,7 @@ func _on_get_interaction(other: Interactable):
 				return
 
 	on_interact.emit(other)
+	rse_interactable_interacted.trigger(self)
 
 
 func reset():

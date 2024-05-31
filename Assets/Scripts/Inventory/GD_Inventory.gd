@@ -55,7 +55,8 @@ func get_item_quantity(item: ItemConfig):
 	var _item = find_item(item)
 	if not _item:
 		return 0
-	return _item.quantity
+	else:
+		return _item.quantity
 
 ## Return the item instance in the content.
 func find_item(item: ItemConfig):
@@ -80,7 +81,14 @@ func get_item_by_index(index: int) -> ItemConfig:
 	if (index >= get_length()):
 		return null
 
-	return content[index]
+	var key_index: int = 0
+	
+	for key in content:
+		if (key_index == index):
+			return content[key_index].config
+		key_index += 1
+
+	return null
 
 ## Return the length on the inventory
 func get_length() -> int:

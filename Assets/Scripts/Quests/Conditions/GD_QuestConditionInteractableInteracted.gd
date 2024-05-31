@@ -1,0 +1,4 @@
+extends QuestCondition
+class_name QuestConditionInteractableInteracted
+
+@export var interactable: Interactable

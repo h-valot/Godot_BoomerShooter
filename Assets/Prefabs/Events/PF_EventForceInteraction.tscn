@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://5n8cwtblxw00"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Events/GD_EventForceInteraction.gd" id="1_20tlj"]
+[ext_resource type="Resource" uid="uid://jow6qfnpwtsd" path="res://Assets/Resources/RSO/RSO_PlayerInteractable.tres" id="2_nho5d"]
+
+[node name="PF_EventForceInteraction" type="Node3D"]
+script = ExtResource("1_20tlj")
+rso_player_interactable = ExtResource("2_nho5d")

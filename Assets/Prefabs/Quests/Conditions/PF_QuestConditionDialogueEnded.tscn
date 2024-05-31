@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://didfp63lkqs1n"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Quests/Conditions/GD_QuestConditionDialogueEnded.gd" id="1_fu80o"]
+
+[node name="PF_QuestConditionDialogueEnded" type="Node3D"]
+script = ExtResource("1_fu80o")
+type = 5

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpt7escruvshe"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Events/GD_EventStartQuest.gd" id="1_tima1"]
+
+[node name="PF_EventStartQuest" type="Node3D"]
+script = ExtResource("1_tima1")

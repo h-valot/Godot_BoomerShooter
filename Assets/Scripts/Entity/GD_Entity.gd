@@ -4,8 +4,14 @@ class_name Entity
 #region VARIABLES
 @export_category("References")
 @export var entity_config : EntityConfig
+
+@export_group("Forbidden")
+@export_subgroup("External references")
 @export var rso_player_position : RuntimeScriptableObject
 @export var rse_display_dialogue: RuntimeScriptableEventT1
+@export var rse_entity_killed: RuntimeScriptableEventT0
+@export_subgroup("Internal references")
+@export var player_position_head_offset: float = 1.8
 
 var _direction = Vector3.ZERO
 var _idle_position : Vector3
@@ -73,17 +79,21 @@ func _process(delta):
 func _die():
 
 	_is_alive = false
+	rse_entity_killed.trigger()
 	on_entity_dies.emit()
+
 	self.queue_free()
+
 
 #region DIALOGUE
 
 func _on_next_dialogue(_other: Node):
 
-	if (!entity_config.dialogue):
+	if !(_other as Character):
 		return
 
-	rse_display_dialogue.trigger(entity_config.dialogue.sentences)
+	if (entity_config.dialogue != null):
+		rse_display_dialogue.trigger(entity_config.dialogue)
 
 #endregion
 
@@ -357,10 +367,16 @@ func _charge_and_aim():
 	await _wait_for(entity_config.first_charge_time, true)
 
 
+var _target_location: Vector3
 func _lock_target():
 
 	# Lock rotation
 	_look_funtion_enabled = false
+	_target_location = Vector3(
+		rso_player_position.value.x,
+		rso_player_position.value.y + player_position_head_offset,
+		rso_player_position.value.z
+	)
 	
 	# Wait for first charge time with interruption enabled
 	await _wait_for(entity_config.final_charge_time, true)
@@ -385,7 +401,7 @@ func _fire_bullet():
 	new_bullet.initialize(entity_config.weapon_used, _health_component.receiver_type)
 
 	var from = _attack_point.global_position
-	var to = -_attack_point.global_transform.basis.z.normalized() * 100
+	var to = -(transform.origin - _target_location).normalized() * 100
 	new_bullet.launch(from, to)
 
 #endregion
