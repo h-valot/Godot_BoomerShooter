@@ -185,7 +185,7 @@ func _fire_bullet():
 	owner.get_parent().add_child(new_bullet)
 	
 	var from = _muzzle.global_position
-	var to = -_muzzle.global_transform.basis.z.normalized() * 100
+	var to = (-_camera_3d.global_transform.basis.z) * 100
 
 	if (weapon_config.bullet_amount_per_shot > 1):
 		
