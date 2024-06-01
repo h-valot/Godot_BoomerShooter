@@ -54,6 +54,7 @@ func _process(delta):
 	_camera_shake(delta)
 	_auto_fire(delta)
 	_lock_fire(delta)
+	_handle_recoil(delta)
 
 
 #region FIRE
@@ -79,12 +80,6 @@ func _get_inputs():
 			_can_fire = false
 			_fire_rate_delay = 0
 			_firing = true
-			
-			# prevent head dislocation
-			if (_head.global_transform.basis.z.y <= -0.975):
-				return
-
-			_head.rotate_x(deg_to_rad(weapon_config.recoil_scalar))
 	
 	if (Input.is_action_just_released("Fire")):
 	
@@ -270,19 +265,29 @@ func _use_bullet():
 
 
 #region RECOIL
-var _shake_strength : float = 0.0
+var _shake_strength: float = 0.0
+var _recoil_buffer: float = 0.0
 var _rnd = RandomNumberGenerator.new()
 
 
 func _recoil():
 
+	_recoil_buffer += weapon_config.recoil_scalar
 	_shake_strength = weapon_config.camera_shake_strength
+
+
+func _handle_recoil(delta):
+
+	if (_recoil_buffer <= 0):
+		return
 
 	# prevent head dislocation
 	if (_head.global_transform.basis.z.y <= -0.975):
+		_recoil_buffer = 0
 		return
-	
-	_head.rotate_x(deg_to_rad(weapon_config.recoil_scalar))
+
+	_recoil_buffer = lerpf(_recoil_buffer, 0, weapon_config.recoil_duration)
+	_head.rotate_x(deg_to_rad(_recoil_buffer))
 
 
 func _camera_shake(delta):

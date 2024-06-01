@@ -12,7 +12,8 @@ var stored_bullet_amount: int = 0
 var current_bullet_amount: int = 0
 
 @export_subgroup("Shot")
-@export var recoil_scalar : float = 10
+@export var recoil_scalar : float = 5
+@export var recoil_duration : float = 0.3
 @export var camera_shake_strength : float = 0.1
 @export var camera_shake_fade : float = 10
 @export var bullet_amount_per_shot : int = 1
